@@ -1,0 +1,119 @@
+<div class="content">
+
+  <div class="heading" fxLayout="row" fxFlexFill>
+    <div fxFlex="20" fxLayoutAlign="start start" class="navbar-brand">{{globals.role}}</div>
+  </div>
+
+  <form class="form-group" [formGroup]="coloaderRateForm">
+    
+  <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+    <div fxFlex="33" fxFlex.sm="33" fxFlex.xs="33">
+      <label class="label">Coloader *</label>
+      <div class="input-container">
+        <i class="fa fa-map-marker icon"></i>
+        <ng-select [searchFn]="coloaderSearch" [items]="listOfColoaders" bindLabel="cityCode" bindValue="id" class="ng-select" dropdownPosition="bottom" formControlName="coloaderID"
+          [ngClass]="{ 'is-invalid': f.coloaderID.touched && f.coloaderID.errors }">
+          <ng-template ng-label-tmp let-item="item">
+            <small> {{item.coloaderCode}} |  {{item.coloaderName}}</small>
+          </ng-template>
+          <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+            <small> {{item.coloaderCode}} |  {{item.coloaderName}}</small>
+          </ng-template>
+        </ng-select>
+      </div>
+      <div *ngIf="f.coloaderID.touched && f.coloaderID.errors" class="text-danger">
+        <div *ngIf="f.coloaderID.errors.required">Coloader is required</div>
+        <div *ngIf="f.coloaderID.invalid && !f.coloaderID.errors.required">Enter valid Coloader</div>
+      </div>
+    </div>
+
+    <div fxFlex="33" fxFlex.sm="33" fxFlex.xs="33">
+      <label class="label">Mode *</label>
+      <div class="input-container">
+        <i class="fa fa-map-marker icon"></i>
+        <ng-select [searchFn]="modeSearch" [items]="listOfModes" bindLabel="cityCode" bindValue="id" class="ng-select" dropdownPosition="bottom" formControlName="modeID"
+        [ngClass]="{ 'is-invalid': f.modeID.touched && f.modeID.errors }">
+          <ng-template ng-label-tmp let-item="item">
+            <small> {{item.modeCode}} |  {{item.modeName}}</small>
+          </ng-template>
+          <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+            <small> {{item.modeCode}} |  {{item.modeName}}</small>
+          </ng-template>
+        </ng-select>
+      </div>
+      <div *ngIf="f.modeID.touched && f.modeID.errors" class="text-danger">
+        <div *ngIf="f.modeID.errors.required">Mode is required</div>
+        <div *ngIf="f.modeID.invalid && !f.modeID.errors.required">Enter valid Mode</div>
+      </div>
+    </div>
+
+    <div fxFlex="33" fxFlex.sm="33" fxFlex.xs="33">
+      <label class="label">Origin *</label>
+      <div class="input-container">
+        <i class="fa fa-map-marker icon"></i>
+        <ng-select [searchFn]="citySearch" [items]="listOfStates" bindLabel="cityName" bindValue="id" class="ng-select" dropdownPosition="bottom" formControlName="originID"
+        (change)="obtained()" [ngClass]="{ 'is-invalid': f.originID.touched && f.originID.errors }">
+          <ng-template ng-label-tmp let-item="item">
+            <small> {{item.cityCode}} |  {{item.cityName}}</small>
+          </ng-template>
+          <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+            <small> {{item.cityCode}} |  {{item.cityName}}</small>
+          </ng-template>
+        </ng-select>
+      </div>
+      <div *ngIf="f.originID.touched && f.originID.errors" class="text-danger">
+        <div *ngIf="f.originID.errors.required">Mode is required</div>
+        <div *ngIf="f.originID.invalid && !f.originID.errors.required">Enter valid Mode</div>
+      </div>
+    </div>
+  </div>
+
+  <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+    <div fxFlex="33" fxFlex.sm="33" fxFlex.xs="33">
+      <label class="label">Destination *</label>
+      <div class="input-container">
+        <i class="fa fa-map-marker icon"></i>
+        <ng-select [searchFn]="citySearch" [items]="listOfStates" bindLabel="cityName" bindValue="id" class="ng-select" dropdownPosition="bottom" formControlName="destinationID"
+        (change)="obtained()" [ngClass]="{ 'is-invalid': f.destinationID.touched && f.destinationID.errors }">
+          <ng-template ng-label-tmp let-item="item">
+            <small> {{item.cityCode}} |  {{item.cityName}}</small>
+          </ng-template>
+          <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+            <small> {{item.cityCode}} |  {{item.cityName}}</small>
+          </ng-template>
+        </ng-select>
+      </div>
+      <div *ngIf="f.destinationID.touched && f.destinationID.errors" class="text-danger">
+        <div *ngIf="f.destinationID.errors.required">Coloader is required</div>
+        <div *ngIf="f.destinationID.invalid && !f.destinationID.errors.required">Enter valid Coloader</div>
+      </div>
+    </div>
+
+    <div fxFlex="33" fxFlex.sm="33" fxFlex.xs="33">
+      <label class="label">Rate *</label>
+      <div class="input-container">
+        <i class="fa fa-file-code-o icon"></i>
+        <input class="form-control" type="text" appOnlyNum="true" formControlName="ratePerKG" [ngClass]="{ 'is-invalid': f.ratePerKG.touched && f.ratePerKG.errors }">
+      </div>
+      <div *ngIf="f.ratePerKG.touched && f.ratePerKG.errors" class="text-danger">
+        <div *ngIf="f.ratePerKG.errors.required">Rate is required</div>
+        <div *ngIf="f.ratePerKG.invalid && !f.rate.errors.required">Enter valid Rate</div>
+      </div>
+    </div>
+
+  </div>
+    
+    <h6 style="color:red;">(*) Mandatory Fields</h6>
+    <div class="content">
+      <button class="save-button" mat-raised-button (click)="save();" [disabled]="!coloaderRateForm.valid ">Save
+        <mat-icon>save</mat-icon>
+      </button>
+      <button (click)="reset()" type="reset" mat-raised-button class="reset-button">Reset
+        <mat-icon>refresh</mat-icon>
+      </button>
+      <button (click)="back()" mat-raised-button class="cancel-button">Cancel
+        <mat-icon>clear</mat-icon>
+      </button>
+    </div>
+  </form>
+</div>

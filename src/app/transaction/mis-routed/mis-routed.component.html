@@ -1,0 +1,255 @@
+<div class="content">
+
+    <div class="heading" fxLayout="row" fxFlexFill>
+      <div fxFlex="20" fxLayoutAlign="start start" class="navbar-brand">{{globals.role}}</div>
+    </div>
+  
+    <form [formGroup]="misRouteForm">
+  
+        <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+  
+            <div fxFlex="30" fxFlex.sm="30" fxFlex.xs="100">
+            <label class="label">Consignee Name *</label>
+            <div class="input-container">
+                <i class="fa fa-pencil-square-o icon"></i>
+                <input class="form-control" formControlName="customerName"  type="text"
+                    [ngClass]="{ 'is-invalid': f.customerName.touched && f.customerName.errors }">
+            </div>
+            <div *ngIf="f.customerName.touched && f.customerName.errors" class="text-danger">
+                <div *ngIf="f.customerName.errors.required">Consignee Name is required</div>
+                <div *ngIf="f.customerName.invalid && !f.customerName.errors.required">Enter valid Consignee Name</div>
+            </div>
+        </div>
+
+        <div fxFlex="30" fxFlex.sm="30" fxFlex.xs="100">
+            <label class="label">Consignee Address *</label>
+            <div class="input-container">
+                <i class="fa fa-pencil-square-o icon"></i>
+                <input class="form-control" formControlName="custAddress"  type="text"
+                    [ngClass]="{ 'is-invalid': f.custAddress.touched && f.custAddress.errors }">
+            </div>
+            <div *ngIf="f.custAddress.touched && f.custAddress.errors" class="text-danger">
+                <div *ngIf="f.custAddress.errors.required">Consignee Address is required</div>
+                <div *ngIf="f.custAddress.invalid && !f.custAddress.errors.required">Enter valid Consignee Address</div>
+            </div>
+        </div>
+
+        <div fxFlex="30" fxFlex.sm="30" fxFlex.xs="100">
+            <label class="label">Consignee City *</label>
+            <div class="input-container">
+                <i class="fa fa-pencil-square-o icon"></i>
+                <input class="form-control" formControlName="custCity"  type="text"
+                    [ngClass]="{ 'is-invalid': f.custCity.touched && f.custCity.errors }">
+            </div>
+            <div *ngIf="f.custCity.touched && f.custCity.errors" class="text-danger">
+                <div *ngIf="f.custCity.errors.required">Consignee City is required</div>
+                <div *ngIf="f.custCity.invalid && !f.custCity.errors.required">Enter valid Consignee City</div>
+            </div>
+        </div>
+
+        <div fxFlex="30" fxFlex.sm="30" fxFlex.xs="100">
+            <label class="label">Consignee State *</label>
+            <div class="input-container">
+                <i class="fa fa-pencil-square-o icon"></i>
+                <input class="form-control" formControlName="custState" type="text"
+                    [ngClass]="{ 'is-invalid': f.custState.touched && f.custState.errors }">
+            </div>
+            <div *ngIf="f.custState.touched && f.custState.errors" class="text-danger">
+                <div *ngIf="f.custState.errors.required">Consignee State is required</div>
+                <div *ngIf="f.custState.invalid && !f.custState.errors.required">Enter valid Consignee State</div>
+            </div>
+        </div> 
+        
+      </div>
+
+      <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+
+          <div fxFlex="30" fxFlex.sm="30" fxFlex.xs="100">
+              <label class="label">Consignee Country *</label>
+              <div class="input-container">
+                    <i class="fa fa-pencil-square-o icon"></i>
+                    <input class="form-control" formControlName="custCountry"  type="text"
+                      [ngClass]="{ 'is-invalid': f.custCountry.touched && f.custCountry.errors }">
+              </div>
+              <div *ngIf="f.custCountry.touched && f.custCountry.errors" class="text-danger">
+                  <div *ngIf="f.custCountry.errors.required">Consignee Country is required</div>
+                  <div *ngIf="f.custCountry.invalid && !f.custCountry.errors.required">Enter valid Consignee Country</div>
+              </div>
+          </div>
+
+          <div fxFlex="30" fxFlex.sm="30" fxFlex.xs="100">
+              <label class="label">Zipcode *</label>
+              <div class="input-container">
+                    <i class="fa fa-pencil-square-o icon"></i>
+                    <input class="form-control" formControlName="zipcode" appNumNotDot="true" type="text"
+                      [ngClass]="{ 'is-invalid': f.zipcode.touched && f.zipcode.errors }">
+              </div>
+              <div *ngIf="f.zipcode.touched && f.zipcode.errors" class="text-danger">
+                  <div *ngIf="f.zipcode.errors.required">Zipcode is required</div>
+                  <div *ngIf="f.zipcode.invalid && !f.zipcode.errors.required">Enter valid Zipcode</div>
+              </div>
+          </div>
+
+          <div fxFlex="30" fxFlex.sm="30" fxFlex.xs="100">
+              <label class="label">Piece Weight(Kgs) *</label>
+              <div class="input-container">
+                    <i class="fa fa-pencil-square-o icon"></i>
+                    <input class="form-control" formControlName="pcsWtKgs" appNumNotDot="true" type="text"
+                      [ngClass]="{ 'is-invalid': f.pcsWtKgs.touched && f.pcsWtKgs.errors }">
+              </div>
+              <div *ngIf="f.pcsWtKgs.touched && f.pcsWtKgs.errors" class="text-danger">
+                  <div *ngIf="f.pcsWtKgs.errors.required">Piece Weight is required</div>
+                  <div *ngIf="f.pcsWtKgs.invalid && !f.pcsWtKgs.errors.required">Enter valid Piece Weight</div>
+              </div>
+          </div>
+
+          <div fxFlex="30" fxFlex.sm="30" fxFlex.xs="100">
+              <label class="label">Document Type *</label>
+              <div class="input-container">
+                  <ng-select [searchFn]="documentTypeSearch" [items]="docTypeList" bindLabel="id" bindValue="id"
+                      dropdownPosition="bottom" formControlName="docType" (change)="docLoad()"
+                      [ngClass]="{ 'is-invalid': f.docType.touched && f.docType.errors }">
+                      <ng-template ng-label-tmp let-item="item">
+                          <small> {{item.code}} | {{item.description}}</small>
+                      </ng-template>
+                      <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                          <small> {{item.code}} | {{item.description}}</small>
+                      </ng-template>
+                  </ng-select>
+              </div>
+              <div *ngIf="f.docType.touched && f.docType.errors" class="text-danger">
+                  <div *ngIf="f.docType.errors.required">Document Type is required</div>
+                  <div *ngIf="f.docType.invalid && !f.docType.errors.required">Enter valid Document Type</div>
+              </div>
+          </div>
+
+      </div>
+
+      <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+
+          <div fxFlex="30" fxFlex.sm="30" fxFlex.xs="100">
+              <label class="label">Magazine Name </label>
+              <div class="input-container">
+                  <ng-select [searchFn]="magazineTypeSearch" [items]="magazineList" bindLable="magazineName"
+                      bindValue="id" dropdownPosition="bottom" formControlName="magazineName"
+                      (change)="getIssueByMagazine()" (change)="getConsignDetails()"
+                      [ngClass]="{ 'is-invalid': f.magazineName.touched && f.magazineName.errors }">
+                      <ng-template ng-label-tmp let-item="item">
+                          <small>{{item.magazineCode}} | {{item.magazineName}}</small>
+                      </ng-template>
+                      <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                          <small>{{item.magazineCode}} | {{item.magazineName}}</small>
+                      </ng-template>
+                  </ng-select>
+              </div>
+              <div *ngIf="f.magazineName.touched && f.magazineName.errors" class="text-danger">
+                  <div *ngIf="f.magazineName.invalid && !f.magazineName.errors.required">Enter valid Magazine</div>
+              </div>
+          </div>
+
+          <div fxFlex="30" fxFlex.sm="30" fxFlex.xs="100">
+              <label class="label">Issue No</label>
+              <div class="input-container">
+                  <ng-select [searchFn]="issuSearch" [items]="issueList" bindLabel="issCode" bindValue="id"
+                      dropdownPosition="bottom" formControlName="issueNo" (change)="formStatus()"
+                      [ngClass]="{ 'is-invalid': f.issueNo.touched && f.issueNo.errors }">
+                      <ng-template ng-label-tmp let-item="item">
+                          <small> {{item.id}} | {{item.issCode}} </small>
+                      </ng-template>
+                      <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                          <small> {{item.id}} | {{item.issCode}} </small>
+                      </ng-template>
+                  </ng-select>
+              </div>
+              <div *ngIf="f.issueNo.touched && f.issueNo.errors" class="text-danger">
+                  <div *ngIf="f.issueNo.errors.required">Issue No is required</div>
+                  <div *ngIf="f.issueNo.invalid && !f.issueNo.errors.required">Enter valid Issue No</div>
+              </div>
+          </div>
+
+          <div fxFlex="30" fxFlex.sm="30" fxFlex.xs="30" >
+              <label class="label">Shipper *</label>
+              <div class="input-container">
+                  <ng-select [items]="shipperList" [searchFn]="customSearchShipper" bindLabel="shipperCode"
+                      bindValue="id" formControlName="shipperID" dropdownPosition="bottom">
+                      <ng-template ng-label-tmp let-item="item">
+                          <small> {{item.shipperCode}} | {{item.shipperName}}</small>
+                      </ng-template>
+                      <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                          <small> {{item.shipperCode}} | {{item.shipperName}}</small>
+                      </ng-template>
+                  </ng-select>
+              </div>
+          </div>
+
+          <div fxFlex="30" fxFlex.sm="30" fxFlex.xs="100">
+              <label class="label">No.Of.Pieces </label>
+              <div class="input-container">
+                    <i class="fa fa-pencil-square-o icon"></i>
+                    <input class="form-control" formControlName="noOfPcs" appNumNotDot="true" type="text"
+                      [ngClass]="{ 'is-invalid': f.noOfPcs.touched && f.noOfPcs.errors }">
+              </div>
+              <div *ngIf="f.noOfPcs.touched && f.noOfPcs.errors" class="text-danger">
+                  <div *ngIf="f.noOfPcs.errors.required">No.Of.Pieces is required</div>
+                  <div *ngIf="f.noOfPcs.invalid && !f.noOfPcs.errors.required">Enter valid No.Of.Pieces</div>
+              </div>
+          </div>
+
+      </div>
+  
+      <h6 style="color:red;">(*) Mandatory Fields</h6>
+      <div class="content">
+        <div >
+            <button mat-raised-button class="save-button" [disabled]="!misRouteForm.valid" (click)="save()">Save
+                <mat-icon>save</mat-icon>
+            </button>
+            <button (click)="back()" mat-raised-button class="cancel-button">Cancel
+                <mat-icon>clear</mat-icon>
+            </button>
+            <input type='text' class="filter" placeholder='Filter' (keyup)='updateFilter($event)' style="float:right; height:40px; width:347px; border-radius:3px;" />
+        </div>
+      </div>
+
+    <!-- <div style="float: right;">
+        <input type='text' class="filter" placeholder='Filter' (keyup)='updateFilter($event)' />
+    </div> -->
+    <div >
+        <!-- <button type="button" (click)="btnClick()" mat-raised-button class="heading-buttons">
+          <mat-icon>add</mat-icon>Add
+        </button>
+        <button type="button" (click)="exportXlsx()" mat-raised-button class="heading-buttons">
+          <mat-icon>grid_on</mat-icon>Export XLSX
+        </button> -->
+       
+      </div>
+  
+      <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+        <ngx-datatable [rows]="shipments" style="height:500px" class='material striped' [headerHeight]="50"
+          [footerHeight]="50" [rowHeight]="40" [scrollbarV]="true">         
+
+          <ngx-datatable-column name="Action" [frozenLeft]="true" width="100">
+            <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
+              <button class="btnIn" (click)="edit(row['id'])" title="Edit">
+                  <i class="fa fa-pencil" style="color: white"></i>
+              </button>&nbsp;
+              <button class="btnIn" (click)="delete(row['id'])" title="Delete">
+                  <i class="fa fa-trash" style="color: white"></i>
+              </button>
+            </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column name="Consignee Name" prop="customerName"></ngx-datatable-column>
+          <ngx-datatable-column name="Address" prop="custAddress"></ngx-datatable-column>
+          <ngx-datatable-column name="City" prop="custCity"></ngx-datatable-column>
+          <ngx-datatable-column name="State" prop="custState"></ngx-datatable-column>
+          <ngx-datatable-column name="Country" prop="custCountry"></ngx-datatable-column>
+          <ngx-datatable-column name="Zipcode" prop="zipcode"></ngx-datatable-column> 
+          <ngx-datatable-column name="Magazine" prop="magazineName"></ngx-datatable-column> 
+          <ngx-datatable-column name="Document" prop="document"></ngx-datatable-column> 
+          <ngx-datatable-column name="Shipper" prop="shipperName"></ngx-datatable-column> 
+
+         
+        </ngx-datatable>
+      </div>
+    </form>
+  </div>

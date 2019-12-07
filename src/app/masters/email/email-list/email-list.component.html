@@ -1,0 +1,50 @@
+<div class="content">
+
+  <div class="heading" fxLayout="row" fxFlexFill>
+    <div fxFlex="20" fxLayoutAlign="start start" class="navbar-brand">{{globals.role}}</div>
+    <div fxFlex="80">
+
+      <button type="button" (click)="btnClick()" mat-raised-button class="heading-buttons">
+        <mat-icon>add</mat-icon>Add
+      </button>
+
+      
+
+      <button type="button" (click)="exportXlsx()" mat-raised-button class="heading-buttons">
+        <mat-icon>grid_on</mat-icon>Export XLSX
+      </button>
+
+      <input type='text' class="filter" placeholder='Filter' (keyup)='updateFilter($event)' />
+
+    </div>
+  </div>
+
+  <ngx-datatable [rows]="emailInfo" style="height:500px" class='material striped' [headerHeight]="50" [footerHeight]="50"
+    [rowHeight]="40" [scrollbarV]="true">
+
+    <ngx-datatable-column [frozenLeft]="true" name="Edit" width="50">
+
+      <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+        <a style="color:blue!important; cursor:pointer;" (click)="edit(row['id'])">
+          <mat-icon style="height: 10px !important">create</mat-icon>
+        </a>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column [frozenLeft]="true" name="Delete" width="60">
+      <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+        <a style="color:red!important ; cursor:pointer;">
+          <mat-icon (click)="delete(row['id'])">delete_sweep</mat-icon>
+        </a>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Branch Code" prop="branchCode"></ngx-datatable-column>
+    <ngx-datatable-column name="Branch Name" prop="branchName"></ngx-datatable-column>
+    <ngx-datatable-column name="Email Id" prop="branchEmail"></ngx-datatable-column>
+    <ngx-datatable-column name="Email Cc" prop="branchEmailCC"></ngx-datatable-column>
+    <ngx-datatable-column name="Email Bcc" prop="branchEmailBCC"></ngx-datatable-column>
+
+
+  </ngx-datatable>
+</div>

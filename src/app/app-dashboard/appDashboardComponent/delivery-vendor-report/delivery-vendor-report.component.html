@@ -1,0 +1,78 @@
+<div class="box">
+  <form class="form-group" [formGroup]="outDeliveryForm">
+  <div class="heading" fxLayout="row" fxFlexFill>
+      <div class="content">
+        <div class="col-xs-12 col-12 col-sm-6 col-md-4 form-group">
+          <input type="text" class="form-control mb-3" placeholder="Select Date" (onFocusChange)="getIt()" (click)="applyTheme(dp); getDate();"
+            bsDaterangepicker formControlName="range" style="width: 215px !important;"
+            [bsConfig]="{ containerClass: this.colorTheme , dateInputFormat : 'YYYY-MM-DD' }" />
+        </div>
+        <div fxFlex="20" fxFlex.sm="50" fxFlex.xs="100">
+          <button (click)="getData()" class="get-data" mat-raised-button>Get Data
+            <mat-icon>refresh</mat-icon>
+          </button>
+        </div>
+      </div>
+  </div>
+  
+  <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100" *ngIf="userInfo.isHO">
+          <label class="label">Destination Branch </label> 
+          <div class="input-container">
+              <ng-select [items]="branches" bindValue="id" formControlName="branchId"  
+              dropdownPosition="bottom" (change)="getReport()">
+                <ng-template ng-label-tmp let-item="item">
+                    <small> {{item.code}} | {{item.name}}</small>
+                </ng-template>
+                <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                    <small> {{item.code}} | {{item.name}}</small>
+                </ng-template>    
+              </ng-select>
+          </div>
+        </div>
+    <div fxFlex="20" style="margin-top: auto;">
+      <button type="button" (click)="exportReport()" mat-raised-button class="dashboard-buttons">
+          <mat-icon>grid_on</mat-icon>Export XLSX
+      </button>
+    </div>
+  </div>
+
+
+<br>
+<div class="scrolls">
+
+  <table id="report">
+
+    <tr>
+      <th>S.No</th>
+      <th>Delivery Vendor</th>
+      <th>Total Consignments</th>
+      <th>Total Pieces</th>
+      <th>Total Weight(Kgs)</th>
+      <th>Vendor Picked</th>
+      <th>Vendor Delivered</th>
+      <th>Vendor Delivery Failed</th>
+      <th>POD Not Updated</th>
+      <th>Report</th>
+    </tr>
+
+    <tr *ngFor="let temps of outPackedList">
+      <td>{{temps.i}}</td>
+      <td>{{temps.postalCode}}</td>
+      <td>{{temps.totCNNO}}</td>
+      <td>{{temps.totNOPcs}}</td>
+      <td>{{temps.totWtKgs}}</td>
+      <td>{{temps.totDeliveryPicked}}</td>
+      <td>{{temps.totDelivered}}</td>
+      <td>{{temps.totDeliveryFailed}}</td>
+      <td>{{temps.totNonUpdated}}</td>
+      <td>
+        <button class="btnIn" (click)="getDetailed(temps)">
+          <i class="fa fa-print" style="color: white"></i>
+        </button>
+      </td>
+    </tr>
+  </table>
+</div>
+</form>
+</div>

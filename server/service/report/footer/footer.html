@@ -1,0 +1,33 @@
+<style>
+    #container {
+        display: table;
+        margin-left: 20px;
+        font-size: 10pt;
+        width: 95%;
+        border-top: 2px solid black;
+    }
+
+    #row {
+        display: table-row;
+    }
+
+    #left,
+    #right,
+    #middle {
+        display: table-cell;
+        width: 33%;
+    }
+</style>
+
+
+<!-- <hr style="border-color:blue"> -->
+<div id="container">
+    <div id="row">
+        <div id="left">
+            <%=printedOn %>
+        </div>
+        <div id="right" style="vertical-align: right; text-align: right; ">
+            <b> Page</b> {{page}} <b>of</b> {{pages}}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,139 @@
+<div class="content">
+
+  <div class="heading" fxLayout="row" fxFlexFill>
+    <div fxFlex="50" fxLayoutAlign="start start" class="navbar-brand">{{globals.role}}</div>
+  </div>
+  
+  <form class="form-group" [formGroup]="trackForm">
+
+      <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+        <div class="col-xs-12 col-12 col-sm-6 col-md-4 form-group">
+            <input type="text" class="form-control mb-3" placeholder="Select Date" (click)="applyTheme(dp);"
+            bsDaterangepicker formControlName="range" (bsValueChange)="getRange()"
+            [bsConfig]="{ containerClass: this.colorTheme , dateInputFormat : 'YYYY-MM-DD' }" />
+        </div>
+        <div fxFlex="20" fxFlex.sm="50" fxFlex.xs="100">
+            <button (click)="getDate()" class="get-data" mat-raised-button>Load Data
+              <mat-icon>refresh</mat-icon>
+            </button>
+        </div>
+      </div>
+
+      <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+          <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+              <label class="label">Master Airway Bill Number </label>
+              <div class="input-container">
+                  <i class="fa fa-file-code-o icon"></i>
+                  <ng-select [searchFn]="customSearchDelCateg" [items]="masterAwb" bindValue="manifestairwayBillNo" 
+                      formControlName="mawbNo" dropdownPosition="bottom" (change)="getByMAWB()">
+                        <ng-template ng-label-tmp let-item="item">
+                            <small> {{item.manifestairwayBillNo}}</small>
+                        </ng-template>
+                        <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                            <small> {{item.manifestairwayBillNo}}</small>
+                        </ng-template>
+                  </ng-select>
+              </div>
+          </div>
+
+          <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+              <label class="label">Shipper </label>
+              <div class="input-container">
+                  <i class="fa fa-file-code-o icon"></i>
+                  <ng-select [searchFn]="customSearchDelCateg" [items]="shipperList" bindValue="manifestshipper" 
+                  formControlName="shipper" dropdownPosition="bottom" (change)="getByShipper()">
+                        <ng-template ng-label-tmp let-item="item">
+                            <small> {{item.manifestshipper}}</small>
+                        </ng-template>
+                        <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                            <small> {{item.manifestshipper}}</small>
+                        </ng-template>
+                  </ng-select>
+              </div>
+          </div>
+
+          <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+              <label class="label">Magazines </label>
+              <div class="input-container">
+                  <i class="fa fa-file-code-o icon"></i>
+                  <ng-select [searchFn]="customSearchDelCateg" [items]="magazineList" bindValue="magazineName" 
+                      formControlName="magazine" dropdownPosition="bottom" (change)="getByMagz()">
+                        <ng-template ng-label-tmp let-item="item">
+                            <small> {{item.magazineName}}</small>
+                        </ng-template>
+                        <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                            <small> {{item.magazineName}}</small>
+                        </ng-template>
+                  </ng-select>
+              </div>
+          </div>
+      </div>
+
+      <br><br>
+      
+      <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+
+          <div fxFlex="100" fxFlex.sm="100" fxFlex.xs="100">
+              <div class="heading">
+                  <input type='text' class="filter" placeholder='Filter Name Column' (keyup)='updateFilter($event)' style="width: 403px; border-radius: 5px;" />
+                  <button type="button" (click)="exportXlsx()" mat-raised-button class="heading-buttons" title="Excel Report">
+                      <mat-icon>grid_on</mat-icon>Export XLSX
+                  </button>
+              </div>
+              <div>
+                <ngx-datatable [rows]="trackedList" style="height:500px" class='material striped' 
+                [headerHeight]="50" [footerHeight]="40" [rowHeight]="40" [scrollbarV]="true" limit="10">
+          
+                <ngx-datatable-column name="Delivered" prop="delStatus" width="100" [frozenLeft]="true">
+                    <ng-template ngx-datatable-cell-template let-value="value">
+                        <i *ngIf="value==1" class="fa fa-check fa-lg" aria-hidden="true" style="color:green"></i>
+                        <i *ngIf="value==0" class="fa fa-times fa-lg" aria-hidden="true" style="color:red"></i>
+                        <i *ngIf="value==null" class="fa fa-times fa-lg" aria-hidden="true" style="color:red"></i>
+                    </ng-template>
+                </ngx-datatable-column>
+          
+                <ngx-datatable-column name="RUN" prop="manifestrunNo"></ngx-datatable-column>
+                <ngx-datatable-column name="MAWB" prop="manifestairwayBillNo" width="100"></ngx-datatable-column>
+                <ngx-datatable-column name="HAWB" prop="manifestHawb" width="150"></ngx-datatable-column>                
+                <ngx-datatable-column name="Shipper" prop="manifestshipper"></ngx-datatable-column>
+                <ngx-datatable-column name="Consignment No" prop="cnNO"></ngx-datatable-column>
+                <ngx-datatable-column name="Consignee" prop="consigneeName" width="150"></ngx-datatable-column>
+                <ngx-datatable-column name="Consignee Address" prop="consigneeAddress"></ngx-datatable-column>
+                <ngx-datatable-column name="Origin" prop="branch"></ngx-datatable-column>
+                <ngx-datatable-column name="Destination" prop="destBranch" width="100"></ngx-datatable-column>
+                <ngx-datatable-column name="Pincode" prop="pincode" width="100"></ngx-datatable-column>
+                <ngx-datatable-column name="Estimated Amount" prop="codAmount" width="150"></ngx-datatable-column>
+                
+                <ngx-datatable-column name="Consignment Weight (kgs)" prop="weight"></ngx-datatable-column>
+                <ngx-datatable-column name="Invoice No" prop="invoiceNo"></ngx-datatable-column>
+                <ngx-datatable-column name="Issue No" prop="issueCode" width="100"></ngx-datatable-column>
+                <ngx-datatable-column name="Delivery Status" prop="delStatus" width="150"></ngx-datatable-column>
+                <ngx-datatable-column name="Dellivery Date" prop="delDate"></ngx-datatable-column>
+                <ngx-datatable-column name="Delivery Time" prop="delTime"></ngx-datatable-column>
+                
+                <!-- <ngx-datatable-column name="Departure Date" prop="secDepartureDate">
+                  <ng-template let-value="value" ngx-datatable-cell-template>
+                    {{value | date:'dd/MM/yyyy'}}
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Arrival Date" prop="secManifestArrDt">
+                  <ng-template let-value="value" ngx-datatable-cell-template>
+                    {{value | date:'dd/MM/yyyy'}}
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Manifest Date" prop="secManifestDate">
+                  <ng-template let-value="value" ngx-datatable-cell-template>
+                    {{value | date:'dd/MM/yyyy'}}
+                  </ng-template>
+                </ngx-datatable-column> -->
+          
+              </ngx-datatable>
+            </div>
+      </div>
+      
+      </div>
+
+  </form>
+  
+
+</div>

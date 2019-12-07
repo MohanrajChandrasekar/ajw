@@ -1,0 +1,49 @@
+
+<div class="example-container" >
+  <mat-toolbar>
+  <!-- <span style="position: absolute;left:75px;">Menu</span> &nbsp;&nbsp;&nbsp; 
+  <img style="position: absolute;left:0px;width:70px;height:35px" src="../../assets/images/icons/cutech_logo.png" />&nbsp;&nbsp;&nbsp; -->
+  <!-- <img src="../../assets/images/icons/cutech_logo.gif" style="height:40px;margin-left:1%;" /> -->
+
+  <!-- <h1 *ngIf="menuVis && isLoggedIn" class="example-app-name">Menu</h1> -->
+
+  <img src="assets/images/logo.png" style="height:35px;margin-left:1%;background-color: whitesmoke" />
+  
+  <button type="button" *ngIf="isLoggedIn" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle();menuDriven()">
+  <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+  </button>
+
+  
+  <button class="topright" *ngIf="isLoggedIn" mat-button [matMenuTriggerFor]="menu">
+  <mat-icon>account_circle</mat-icon>
+  {{userName}}
+  <mat-icon>arrow_drop_down</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="openDialog()">
+  <mat-icon color="primary"> vpn_key</mat-icon>Change password
+  </button>
+  <button mat-menu-item (click)="logout()">
+  <mat-icon color="primary">exit_to_app</mat-icon>Logout
+  </button>
+  </mat-menu>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="example-sidenav-container">
+    <mat-sidenav #drawer id="drawer" [mode]="mobileQuery.matches ? 'over' : 'side'" [opened]="isLoggedIn"
+                 [fixedInViewport]="mobileQuery.matches" fixedTopGap="86">
+      <mat-nav-list>
+        <!-- <a mat-list-item routerLink="." *ngFor="let nav of fillerNav">{{nav}}</a> -->
+        <app-menu-list-item *ngFor="let item of navInfoList" [item]="item"></app-menu-list-item>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <div class="grid-container">
+            <router-outlet></router-outlet>
+        </div>
+      <!-- <p *ngFor="let content of fillerContent">{{content}}</p> -->
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  </div>
+  

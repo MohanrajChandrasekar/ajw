@@ -1,0 +1,79 @@
+<div class="heading">
+<mat-card-title class="navbar-brand">
+  Office Details</mat-card-title>
+<mat-card-content>
+  <table class="table table-bordered ">
+    <tr>
+      <td class="tdKey">Code</td>
+      <td>{{office.code}}</td>
+    </tr>
+    <tr>
+      <td class="tdKey">Name</td>
+      <td>{{office.name}}</td>
+    </tr>
+    <tr>
+      <td class="tdKey">Type</td>
+      <td>{{office.type}}</td>
+    </tr>
+    <tr>
+      <td class="tdKey">ENT</td>
+      <td>{{office.ent}}</td>
+    </tr>
+    <tr>
+      <td class="tdKey">Address1</td>
+      <td>{{office.address1}}</td>
+    </tr>
+    <tr>
+      <td class="tdKey">Address2</td>
+      <td>{{office.address2}}</td>
+    </tr>
+    <tr>
+      <td class="tdKey">City</td>
+      <td>{{office.city}}</td>
+    </tr>
+    <tr>
+      <td class="tdKey">Pincode</td>
+      <td>{{office.pin}}</td>
+    </tr>
+    <tr>
+      <td class="tdKey">Phone</td>
+      <td>{{office.phone}}</td>
+    </tr>
+    <tr>
+      <td class="tdKey">Fax</td>
+      <td>{{office.fax}}</td>
+    </tr>
+    <tr>
+      <td class="tdKey">Email</td>
+      <td>{{office.email}}</td>
+    </tr>
+    <tr>
+      <td class="tdKey">Contact</td>
+      <td>{{office.contact}}</td>
+    </tr>
+    <tr>
+      <td class="tdKey">Contract Number</td>
+      <td>{{office.contractNo}}</td>
+    </tr>
+    <tr>
+      <td class="tdKey">Contract Date</td>
+      <td>{{office.contractDate | date:'dd/MM/yyyy' }}</td>
+    </tr>
+    <tr>
+      <td class="tdKey">Renewal Date</td>
+      <td>{{office.renewalDate | date:'dd/MM/yyyy' }}</td>
+    </tr>
+    <tr>
+      <td class="tdKey">Expiry Date</td>
+      <td>{{office.expDate | date:'dd/MM/yyyy' }}</td>
+    </tr>
+  </table>
+</mat-card-content>
+<mat-card-actions>
+  <button mat-raised-button class="background-red" [mat-dialog-close]="true" style="margin-left: 4.75px;">
+    <mat-icon>
+      close
+    </mat-icon> Close </button>
+</mat-card-actions>
+<!-- <mat-card-footer>Welcome to Office Card Details</mat-card-footer> -->
+</div>

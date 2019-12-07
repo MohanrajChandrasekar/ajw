@@ -1,0 +1,73 @@
+<div class="border">
+  <form [formGroup]="boxForm" id="boxForm">
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+      <div fxFlex="30" fxFlex.sm="30" fxFlex.xs="100">
+        <label class="label">Total Pieces</label>
+        <div class="input-container">
+          <i class="fa fa-file-code-o icon"></i>
+          <input class="form-control" type="text" appNumNotDot="true" formControlName="boxPieces"
+            [ngClass]="{ 'is-invalid': f.boxPieces.touched && f.boxPieces.errors}">
+        </div>
+        <div *ngIf="f.boxPieces.touched && f.boxPieces.errors" class="text-danger">
+          <div *ngIf="f.boxPieces.errors.required">Pieces required</div>
+          <div *ngIf="f.boxPieces.invalid && !f.boxPieces.errors.required">Enter valid No.of Pieces</div>
+        </div>
+      </div>
+      <div fxFlex="30" fxFlex.sm="30" fxFlex.xs="100">
+        <label class="label">Total Weight in LBs</label>
+        <div class="input-container">
+          <i class="fa fa-file-code-o icon"></i>
+          <input class="form-control" type="text" appOnlyNum="true" formControlName="pcsWT"
+            [ngClass]="{ 'is-invalid': f.pcsWT.touched && f.pcsWT.errors}">
+        </div>
+        <div *ngIf="f.pcsWT.touched && f.pcsWT.errors" class="text-danger">
+          <div *ngIf="f.pcsWT.errors.required">Pieces weight required</div>
+          <div *ngIf="f.pcsWT.invalid && !f.pcsWT.errors.required">Enter valid Weight</div>
+        </div>
+      </div>
+      <div fxFlex="30" fxFlex.sm="30" fxFlex.xs="100">
+        <div class="input-container">
+          <button (click)="saveBoxInfo()" [disabled]="!boxForm.valid" id="btn"> SAVE</button>
+        </div>
+      </div>
+    </div>
+  </form>
+  <br>
+  <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+    <div fxFlex="100" fxFlex.sm="100" fxFlex.xs="100">
+      <div class="row">
+        <div>
+          <ngx-datatable #boxTable id="boxTable" class="material striped" [sortType]="'multi'" [limit]="10"
+            [headerHeight]="50" [trackByProp]="'id'" [scrollbarH]="true" [footerHeight]="50" [rowHeight]="60"
+            [rows]="boxDetailList">
+
+            <ngx-datatable-column name="Action" prop="">
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>&nbsp;&nbsp;
+                <button (click)="deleteBox(row.id)"><i class="fa fa-trash" aria-hidden="true"
+                    style="color:red"></i></button>&nbsp;
+                <button (click)="editBox(row.id)"><i class="fa fa-pencil" aria-hidden="true"
+                    style="color:grey"></i></button>
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Box ID" prop="id">
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Manifest ID" prop="mfstID">
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Pieces" prop="boxPieces">
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Weight (Lbs)" prop="pcsWT">
+            </ngx-datatable-column>
+
+          </ngx-datatable>
+        </div>
+        <!-- table Ends -->
+        <div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <br>
+</div>

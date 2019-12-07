@@ -1,0 +1,112 @@
+<div class="content">
+
+  <div class="heading" fxLayout="row" fxFlexFill>
+    <div fxFlex="20" fxLayoutAlign="start start" class="navbar-brand">{{globals.role}}</div>
+  </div>
+
+  <form class="form-group" [formGroup]="codeGenForm">
+
+    <!-- First Row Starts-->
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+        <label class="label">Branch Name *</label>
+        <div class="input-container">
+          <i class="fa fa-building icon"></i>
+          <ng-select [searchFn]="officeSearch" [items]="branchList" bindLabel="code" dropdownPosition="bottom" bindValue="id" class="ng-select"
+            formControlName="branchId" [ngClass]="{ 'is-invalid': f.branchId.touched && f.branchId.errors }"
+            (change)="getLastNumber();">
+            <ng-template ng-label-tmp let-item="item">
+              <small>{{item.code}} | {{item.name}}</small>
+            </ng-template>
+            <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+              <small>{{item.code}} | {{item.name}}</small>
+            </ng-template>
+          </ng-select>
+        </div>
+        <div *ngIf="f.branchId.touched && f.branchId.errors" class="text-danger">
+          <div *ngIf="f.branchId.errors.required">Branch Name is required</div>
+        </div>
+      </div>
+
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+        <label class="label">Mode *</label>
+        <div class="input-container">
+          <i class="fa fa-train icon"></i>
+          <ng-select [searchFn]="modeSearch" [items]="modeList" bindLabel="modeCode" bindValue="id" class="ng-select" dropdownPosition="bottom"
+            formControlName="modeId" [ngClass]="{ 'is-invalid': f.modeId.touched && f.modeId.errors }"
+            (change)="getLastNumber();">
+            <ng-template ng-label-tmp let-item="item">
+              <small>{{item.modeCode}} | {{item.modeName}}</small>
+            </ng-template>
+            <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+              <small>{{item.modeCode}} | {{item.modeName}}</small>
+            </ng-template>
+          </ng-select>
+        </div>
+        <div *ngIf="f.modeId.touched && f.modeId.errors" class="text-danger">
+          <div *ngIf="f.modeId.errors.required">Mode is required</div>
+        </div>
+      </div>
+    </div>
+    <!-- First Row Ends -->
+
+    <!-- Second Row Starts-->
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+        <label class="label">Code Type *</label>
+        <div class="input-container">
+          <i class="fa fa-keyboard-o icon"></i>
+          <input class="form-control" type="text" formControlName="codeType"
+            [ngClass]="{ 'is-invalid': f.codeType.touched && f.codeType.errors }">
+        </div>
+        <div *ngIf="f.codeType.touched && f.codeType.errors" class="text-danger">
+          <div *ngIf="f.codeType.errors.required">Code Type is required</div>
+        </div>
+      </div>
+      
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+        <label class="label">Starting Number *</label>
+        <div class="input-container">
+          <i class="fa fa-list-ol icon"></i>
+          <input class="form-control" type="text" formControlName="startNo" appNumNotDot="true"
+            [ngClass]="{ 'is-invalid': f.startNo.touched && f.startNo.errors }" >
+        </div>
+        <div *ngIf="f.startNo.touched && f.startNo.errors" class="text-danger">
+          <div *ngIf="f.startNo.errors.required">Starting Number is required</div>
+        </div>
+      </div>
+    </div>
+    <!-- Second Row Ends -->
+
+    <!-- Third Row Starts-->
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+        <label class="label">Ending Number *</label>
+        <div class="input-container">
+          <i class="fa fa-list-ol icon"></i>
+          <input class="form-control" type="text" formControlName="endNo" appNumNotDot="true"
+            [ngClass]="{ 'is-invalid': f.endNo.touched && f.endNo.errors }" (change)="checkEndingNumber();">
+        </div>
+        <div *ngIf="f.endNo.touched && f.endNo.errors" class="text-danger">
+          <div *ngIf="f.endNo.errors.required">Ending Number is required</div>
+        </div>
+      </div>
+
+    </div>
+    <!-- Third Row Ends -->
+
+    <h6 style="color:red;">(*) Mandatory Fields</h6>
+    <div class="content">
+      <button mat-raised-button [disabled]="!codeGenForm.valid" (click)="onFormSubmit()" class="save-button">Save
+        <mat-icon>save</mat-icon>
+      </button>
+      <button (click)="reset()" type="reset" class="reset-button" mat-raised-button>Reset
+        <mat-icon>refresh</mat-icon>
+      </button>
+      <button (click)="back()" class="cancel-button" mat-raised-button>Cancel
+        <mat-icon>clear</mat-icon>
+      </button>
+    </div>
+
+  </form>
+</div>

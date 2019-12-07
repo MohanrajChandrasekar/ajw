@@ -1,0 +1,102 @@
+<div class="content">
+
+  <div class="heading" fxLayout="row" fxFlexFill>
+    <div fxFlex="20" fxLayoutAlign="start start" class="navbar-brand">{{globals.role}}</div>
+  </div>
+
+  <form class="form-group" [formGroup]="userForm">
+
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+      <div fxFlex="33" class="formControlGroup">
+        <label class="label">Login Id *</label>
+        <div class="input-container">
+          <i class="fa fa-user icon"></i>
+          <input class="form-control" type="text" formControlName="loginId" [ngClass]="{ 'is-invalid': f.loginId.touched && f.loginId.errors }">
+        </div>
+        <div *ngIf="f.loginId.touched && f.loginId.errors" class="warning">
+          <div *ngIf="f.loginId.errors.required">Login Id is required</div>
+          <div *ngIf="f.loginId.invalid && !f.loginId.errors.required">Enter valid Login Id</div>
+        </div>
+      </div>
+
+      <div fxFlex="33" class="formControlGroup">
+        <label class="label">Username *</label>
+        <div class="input-container">
+          <i class="fa fa-user icon"></i>
+          <input class="form-control" type="text" formControlName="userName" [ngClass]="{ 'is-invalid': f.userName.touched && f.userName.errors }">
+        </div>
+        <div *ngIf="f.userName.touched && f.userName.errors" class="warning">
+          <div *ngIf="f.userName.errors.required">User name is required</div>
+          <div *ngIf="f.userName.invalid && !f.userName.errors.required">Enter valid User Name</div>
+        </div>
+      </div>
+
+      <div fxFlex="34" class="formControlGroup">
+        <label class="label">Email Id *</label>
+        <div class="input-container">
+          <i class="fa fa-envelope icon"></i>
+          <input type="text" class="form-control" formControlName="userEmail" [ngClass]="{ 'is-invalid': f.userEmail.touched && f.userEmail.errors }">
+        </div>
+        <div *ngIf="f.userEmail.touched && f.userEmail.errors" class="warning">
+          <div *ngIf="f.userEmail.errors.required">Email Id is required</div>
+          <div *ngIf="f.userEmail.invalid && !f.userEmail.errors.required">Enter valid Email Id</div>
+        </div>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+      <div fxFlex="50" class="formControlGroup">
+        <label class="label">Role of the User *</label>
+        <div class="input-container">
+          <i class="fa fa-id-badge icon"></i>
+          <ng-select [items]="roles" bindLabel="roleName" bindValue="id" labelForId="roles" [multiple]="true"
+            clearAllText="Clear" formControlName="selectedRoles" dropdownPosition="bottom" [ngClass]="{ 'is-invalid': f.selectedRoles.touched && f.selectedRoles.errors }">
+            <ng-template ng-label-tmp let-item="item">
+              <small>{{item.roleName}}</small>
+            </ng-template>
+            <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+              <small>{{item.roleName}}</small>
+            </ng-template>
+          </ng-select>
+        </div>
+        <div *ngIf="f.selectedRoles.touched && f.selectedRoles.errors" class="warning">
+          <div *ngIf="f.selectedRoles.errors.required">Role of the User is required</div>
+        </div>
+      </div>
+
+      <div fxFlex="50">
+        <label class="label">Branch Name *</label>
+        <div class="input-container">
+          <i class="fa fa-map-marker icon"></i>
+          <ng-select [items]="office" bindLabel="name" bindValue="id" class="ng-select" formControlName="branchId" dropdownPosition="bottom"
+            [ngClass]="{ 'is-invalid': f.branchId.touched && f.branchId.errors }" (change)="getLastNumber();">
+            <ng-template ng-label-tmp let-item="item">
+              <small> {{item.code}} | {{item.name}}</small>
+            </ng-template>
+            <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+              <small>{{item.code}} | {{item.name}}</small>
+            </ng-template>
+          </ng-select>
+        </div>
+        <div *ngIf="f.branchId.touched && f.branchId.errors" class="text-danger">
+          <div *ngIf="f.branchId.errors.required">Branch Name is required</div>
+        </div>
+      </div>
+    </div>
+
+    <h6 class="warning">(*) Mandatory Fields</h6>
+    <div class="content">
+      <button mat-raised-button class="save-button" (click)="save();" [disabled]="!userForm.valid">Save
+        <mat-icon>save</mat-icon>
+      </button>
+      <button (click)="reset()" type="reset" class="reset-button" mat-raised-button>Reset
+        <mat-icon>refresh</mat-icon>
+      </button>
+      <button (click)="back()" class="cancel-button" mat-raised-button>Cancel
+        <mat-icon>clear</mat-icon>
+      </button>
+    </div>
+
+
+  </form>
+</div>

@@ -1,0 +1,49 @@
+<div class="content">
+
+  <div class="heading" fxLayout="row" fxFlexFill>
+    <div fxFlex="20" fxLayoutAlign="start start" class="navbar-brand">{{globals.role}}</div>
+    <div fxFlex="80">
+          <!-- <button type="button" (click)="singlePOD()" mat-raised-button class="heading-buttons">
+              <mat-icon>add</mat-icon>Single POD Update
+          </button> -->
+          <input type='text' class="filter" placeholder='Filter By CNNO' (keyup)='updateFilter($event)' />
+    </div>
+  </div><br>
+
+  <form class="form-group" (keydown.enter)="preventSubmit($event)">
+      
+        <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+                
+            <ngx-datatable [rows]="podDetails" style="height:500px" class='material striped' [headerHeight]="50" [footerHeight]="50"
+            [rowHeight]="40" [scrollbarV]="true">
+                
+                <ngx-datatable-column name="Consignment No" prop="cnNO" width="160" [frozenLeft]="true"></ngx-datatable-column>
+                <ngx-datatable-column name="Delivered" prop="delStatus" width="100" [frozenLeft]="true">
+                    <ng-template ngx-datatable-cell-template let-value="value">
+                        <i *ngIf="value==1" class="fa fa-check fa-lg" aria-hidden="true" style="color:green"></i>
+                        <i *ngIf="value==0" class="fa fa-times fa-lg" aria-hidden="true" style="color:red"></i>
+                    </ng-template>
+                </ngx-datatable-column>
+                
+                <ngx-datatable-column name="Reason" prop="reason"></ngx-datatable-column>
+                <ngx-datatable-column name="Sign" prop="delSign"></ngx-datatable-column>
+                <ngx-datatable-column name="Time" prop="delTime"></ngx-datatable-column>
+                <ngx-datatable-column name="Delivered Date" prop="delDate">
+                    <!-- <ng-template let-value="value" ngx-datatable-cell-template>
+                        {{value | date:'dd/MM/yyyy'}}
+                    </ng-template> -->
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Uploaded Date" prop="podUploadedDate">
+                    <ng-template let-value="value" ngx-datatable-cell-template>
+                      {{value | date:'dd/MM/yyyy'}}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Uploaded By" prop="podUploadedBy"></ngx-datatable-column>
+                
+            </ngx-datatable>
+
+        </div> 
+        
+  </form>
+
+</div>

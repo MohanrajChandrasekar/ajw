@@ -1,0 +1,57 @@
+<div class="content">
+
+      <div class="heading" fxLayout="row" fxFlexFill>
+        
+      </div><br>
+    
+      <form class="form-group" (keydown.enter)="preventSubmit($event)">
+        <!-- 1st Row -->
+        <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+            <div fxFlex="70" fxFlex.sm="70" fxFlex.xs="70">
+            </div>
+            
+            <div fxFlex="30" fxFlex.sm="30" fxFlex.xs="30">
+                  <button type="button" (click)="upload()" style="background: teal;" mat-raised-button class="heading-buttons">
+                        <mat-icon>cloud_upload</mat-icon>Upload Details
+                  </button> &nbsp;
+                  <button type="button" (click)="cancel()" style="background: teal;" mat-raised-button class="heading-buttons">
+                        <mat-icon>cancel</mat-icon>Cancel
+                  </button>
+            </div>
+        </div>
+           
+        <!-- 1st Row Ends -->
+        <br>
+        <p>Invalid Date Formatted Consignments: {{invalidCNNO.false}}</p>
+        <p>Consignments From XLSL file: {{uploadableData.length}}</p>
+        <p>Total Uploadable Consignments: {{invalidCNNO.true}}</p>
+        <!-- <br> -->
+        <p style="color: red">*** Important Note: Date format should be only 'YYYY-MM-DD' / Please verify the dates before upload.</p>
+        <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+                
+            <ngx-datatable [rows]="uploadableData" style="height:500px" class='material striped' [headerHeight]="50" [footerHeight]="50"
+            [rowHeight]="40" [scrollbarV]="true">
+                
+                <ngx-datatable-column name="Consignment No" prop="cnNo" width="160" [frozenLeft]="true"></ngx-datatable-column>
+                <ngx-datatable-column name="Is Date Valid" prop="isValid" width="100" [frozenLeft]="true">
+                    <ng-template ngx-datatable-cell-template let-value="value">
+                        <i *ngIf="value==1" class="fa fa-check fa-lg" aria-hidden="true" style="color:green"></i>
+                        <i *ngIf="value==0" class="fa fa-times fa-lg" aria-hidden="true" style="color:red"></i>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Delivered Date" prop="delDate"></ngx-datatable-column>
+                <ngx-datatable-column name="Delivered" prop="delStatus" width="160">
+                  <ng-template ngx-datatable-cell-template let-value="value">
+                        <span *ngIf="value==1"  style="color:green">Delivered</span>
+                        <span *ngIf="value==0"  style="color:red">Non-Delivered</span>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Reason" prop="reason"></ngx-datatable-column>
+                <ngx-datatable-column name="Sign" prop="delSign"></ngx-datatable-column>
+                <ngx-datatable-column name="Time" prop="delTime"></ngx-datatable-column>
+                
+            </ngx-datatable>
+
+        </div>
+      </form>
+</div>

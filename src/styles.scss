@@ -1,0 +1,805 @@
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "@swimlane/ngx-datatable/release/index.css";
+@import "@swimlane/ngx-datatable/release/themes/material.css";
+@import "@swimlane/ngx-datatable/release/assets/icons.css";
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+:root {
+  --dark-color: #0a618d;
+  --light-color: #518faf;
+  --table-color: #518faf;
+  --button-color: #0a618d;
+  --icon-color: #0a618d;
+  --font-font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+.mb-3 {
+   margin-bottom: 0 !important; 
+   margin-left: 300px !important;
+}
+
+.get-data{
+  background-color: var(--button-color);
+  color: white;
+  cursor: pointer;
+  margin: 5px;
+  font-weight: normal;
+  margin-left: 300px !important ;
+  font-family: var(--font-font-family);
+}
+
+.span {
+  font-family: var(--font-font-family);
+  font-weight: normal;
+}
+
+body {
+  font-family: var(--font-font-family);
+  font-weight: normal;
+}
+html {
+  font-family: var(--font-font-family);
+  font-weight: normal;
+  height: 100% !important;
+  overflow: hidden;
+}
+
+.topright {
+  position: absolute !important;
+  right: 16px;
+  font-size: 18px;
+  vertical-align: middle;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+.content {
+  padding: 8px !important;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+  .save-button {
+    background-color: green;
+    color: white;
+    cursor: pointer;
+    margin: 5px;
+    font-weight: normal;
+    font-family: var(--font-font-family);
+  }
+  .cancel-button {
+    background-color: red;
+    color: white;
+    cursor: pointer;
+    margin: 5px;
+    font-weight: normal;
+    font-family: var(--font-font-family);
+  }
+  .reset-button {
+    background-color: blue;
+    color: white;
+    cursor: pointer;
+    margin: 5px;
+    font-weight: normal;
+    font-family: var(--font-font-family);
+  }
+}
+
+.sidenav-container {
+  height: 100%;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+.mat-sidenav {
+  background-color: white;
+  color: var(--dark-color);
+  width: 20%;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+  height: 100% !important;
+  -moz-box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.6);
+  -webkit-box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.6);
+  box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.6);
+}
+
+.mat-list-item-content {
+  background-color: white;
+  color: var(--dark-color);
+  border-top: 0.25px solid #d6dbdf;
+  font-weight: normal;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+.mat-nav-list {
+  padding-top: 0% !important;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+.mat-list-item {
+  height: 30px !important;
+  font-size: 15px !important;
+  background-color: white;
+  color: var(--dark-color);
+  font-weight: normal;
+  font-family: var(--font-font-family);
+
+}
+
+.mat-list-item-content:hover {
+  background-color: var(--dark-color);
+  color: white;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+@media only screen and (max-width: 750px) {
+  .mat-sidenav {
+    width: auto;
+    font-weight: normal;
+    font-family: var(--font-font-family);
+  }
+}
+
+.fa {
+  color: white;
+}
+
+.input-container {
+  display: -ms-flexbox;
+  display: flex;
+  width: 95%;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+.ng-select {
+  width: 100%;
+  display: flex;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+.icon {
+  padding: 10px;
+  background-color: var(--icon-color);
+  color: white;
+}
+label {
+  font-weight: bold;
+  font-family: var(--font-font-family);
+}
+
+button.calendar,
+button.calendar:active {
+  width: 2.75rem;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAcCAYAAAAEN20fAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAEUSURBVEiJ7ZQxToVAEIY/YCHGxN6XGOIpnpaEsBSeQC9ArZbm9TZ6ADyBNzAhQGGl8Riv4BLAWAgmkpBYkH1b8FWT2WK/zJ8ZJ4qiI6XUI3ANnGKWBnht2/ZBDRK3hgVGNsCd7/ui+JkEIrKtqurLpEWaphd933+IyI3LEIdpCYCiKD6HcuOa/nwOa0ScJEnk0BJg0UTUWJRl6RxCYEzEmomsIlPU3IPW+grIAbquy+q6fluy/28RIBeRMwDXdXMgXLj/B2uimRXpui4D9sBeRLKl+1N+L+t6RwbWrZliTTTr1oxYtzVWiTQAcRxvTX+eJMnlUDaO1vpZRO5NS0x48sIwfPc87xg4B04MCzQi8hIEwe4bl1DnFMCN2zsAAAAASUVORK5CYII=") !important;
+  background-repeat: no-repeat;
+  background-size: 23px;
+  background-position: center;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+.mat-toolbar {
+  background-color: var(--dark-color);
+  color: white;
+  padding-top: 8px;
+  padding-left: 0px;
+  display: block;
+  -webkit-tap-highlight-color: transparent;
+  font-size: 18px;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+  padding-left: 16px;
+}
+
+.background-red {
+  background-color: red;
+  color: white;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+.background-green {
+  background-color: green;
+  color: white;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+.heading {
+  .filter {
+    float: right;
+    padding: 4px;
+    margin: 4px;
+    font-weight: normal;
+    font-family: var(--font-font-family);
+  }
+  .navbar-brand {
+    font-weight: normal;
+    font-family: var(--font-font-family) !important;
+    color: var(--dark-color);
+    margin-top: -2px;
+    vertical-align: bottom !important;
+    font-weight: normal;
+  }
+  .heading-buttons {
+    background-color: var(--button-color);
+    font-family: var(--font-font-family);
+    font-weight: normal;
+    color: white;
+    cursor: pointer;
+    float: right;
+    margin: 4px;
+  }
+}
+
+.dashboard-buttons {
+  background-color: var(--button-color);
+  color: white;
+  cursor: pointer;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+  margin: 2px;
+}
+
+.ngx-datatable.material {
+  width: -webkit-fill-available !important;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+  .datatable-header {
+    background-color: var(--table-color);
+    color: white;
+    font-weight: normal !important;
+    font-size: 16px;
+    font-weight: normal;
+    font-family: var(--font-font-family);
+    .datatable-header-cell {
+      background-color: var(--table-color);
+      color: white;
+      font-size: 16px;
+      font-weight: normal;
+      font-family: var(--font-font-family);
+      .datatable-body-cell {
+        overflow-x: visible !important;
+        width: 280px !important;
+        font-weight: normal;
+        font-family: var(--font-font-family);
+      }
+    }
+    .warning {
+      color: red;
+      font-weight: normal;
+      font-family: var(--font-font-family);
+    }
+  }
+
+  .datatable-footer {
+    background-color: var(--table-color);
+    color: white;
+    font-size: 16px;
+    font-weight: normal !important;
+    font-family: var(--font-font-family);
+    .page-count {
+      font-size: 16px;
+      color: white;
+      font-weight: normal !important;
+      font-family: var(--font-font-family);
+    }
+    .datatable-pager {
+      font-weight: normal !important;
+      font-family: var(--font-font-family);
+      ul {
+        li {
+          margin: 10px 0px;
+          &:not(.disabled) {
+            &.active,
+            &:hover {
+              a {
+                font-size: 16px;
+                color: white;
+                font-weight: normal;
+                font-family: var(--font-font-family);
+              }
+            }
+          }
+        }
+      }
+      a {
+        height: 22px;
+        min-width: 24px;
+        line-height: 22px;
+        padding: 0;
+        border-radius: 3px;
+        margin: 0 3px;
+        text-align: center;
+        vertical-align: top;
+        text-decoration: none;
+        vertical-align: bottom;
+        font-size: 16px;
+        color: white;
+        font-weight: normal;
+        font-family: var(--font-font-family);
+      }
+      .datatable-icon-left,
+      .datatable-icon-skip,
+      .datatable-icon-right,
+      .datatable-icon-prev {
+        font-size: 18px;
+        line-height: 27px;
+        padding: 0 3px;
+        font-size: 16px;
+        color: white;
+        font-weight: normal;
+        font-family: var(--font-font-family);
+      }
+    }
+  }
+}
+
+.warning {
+  color: red;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+.backgroundBanner {
+  background-image: url("assets/images/background.jpg");
+  background-repeat: repeat-y;
+  background-size: 100%;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+.cdk-overlay-container {
+  position: fixed;
+  z-index: 1000;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+button.mat-menu-item {
+  width: 100%;
+  outline: none;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+.grid-container {
+  margin: 0px !important;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+.example-is-mobile .example-toolbar {
+  position: fixed;
+  z-index: 2;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+// h1.example-app-name {
+//   margin-left: 8px;
+//   font-weight: normal;
+//   font-family: var(--font-font-family);
+// }
+
+.example-sidenav-container {
+  flex: 1;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+.example-is-mobile .example-sidenav-container {
+  flex: 1 0 auto;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+#refreshBtn {
+  background-color: var(--button-color);
+  color: white;
+  cursor: pointer;
+  float: right;
+  margin-top: 2px;
+  height: 36px;
+  margin-top: 4px;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+.tdKey {
+  background-color: var(--light-color);
+  color: white;
+  width: 50%;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+#tracking {
+  border-collapse: collapse;
+  width: 100%;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+  font-size: 14px;
+}
+
+#tracking td,
+#tracking th {
+  border: 2px solid #929592;
+  padding: 5px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  text-align: center;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+#tracking tr:nth-child(even) {
+  background-color: #f2f2f2;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+#tracking td:hover {
+  background-color: #ddd;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+#tracking th {
+  text-align: center;
+  font-weight: bold;
+  background-color: #eaeaea;
+  font-family: var(--font-font-family);
+}
+
+// .example-app-name {
+//   font-weight: normal;
+//   font-family: var(--font-font-family) !important;
+// }
+.card {
+  /* background: #2f80ed; 
+   */
+  background: #373b44;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to top, #4286f4, #373b44);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to top, #4286f4, #373b44);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  border-radius: 8px;
+  color: white;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+.dashboard-card {
+  z-index: 1000;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+  width: 1500px !important;
+}
+
+.more-button {
+  float: right !important;
+}
+
+.dashboard-card-content {
+  text-align: center;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+#login .container .login-box {
+  margin-top: 120px;
+  max-width: 600px;
+  height: 320px;
+  border: 1px solid black;
+  background-image: linear-gradient(to bottom, #abbaab, #ffffff, #f2fcfe, #f2fcfe, #abbaab);
+  box-sizing: border-box;
+  font-family: var(--font-font-family);
+  font-weight: normal;
+  font-family: var(--font-font-family);
+  // overflow-y: hidden;
+}
+#login .container #login-row #login-column .login-box #login-form {
+  padding: 20px;
+  overflow-y: hidden;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+#login .container #login-row #login-column .login-box #login-form #register-link {
+  margin-top: -85px;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+.radioSPL {
+  width: 15px;
+  height: 15px;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+.md-check {
+  padding: 19px;
+  padding-top: 40px;
+  padding-right: 8px;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+.addDet {
+  height: 36px;
+  background: #0a618d;
+  border-radius: 9%;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+.ng-select {
+  margin-right: 0px !important;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+.labelHidden {
+  margin-left: 18px;
+  margin-top: 7px;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+#boxDetail {
+  width: 70% !important;
+  margin-left: 15%;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+.i {
+  color: antiquewhite;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+.navBtn {
+  margin-top: 37px;
+  color: blue !important;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+#refresh {
+  color: blue;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+#boxTable {
+  width: 800px !important;
+  height: auto !important;
+  margin-left: 150px;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+#boxForm {
+  margin-left: 160px;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+#btn {
+  margin-top: 35px;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+//Dashboard
+.bar {
+  font-weight: normal;
+  font-family: var(--font-font-family);
+  fill: cornflowerblue;
+}
+
+.bar:hover {
+  font-weight: normal;
+  font-family: var(--font-font-family);
+  fill: black;
+}
+
+.axis--x path {
+  font-weight: normal;
+  font-family: var(--font-font-family);
+  display: none;
+}
+
+.d3LabelText {
+  font-size: 12px;
+  font-weight: bold;
+  font-family: var(--font-font-family);
+  background: rgba(0, 0, 0, 0.8);
+}
+
+div.tooltip {
+  position: absolute;
+  text-align: center;
+  width: 100px;
+  height: 30px;
+  vertical-align: middle;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+  font: 10px;
+  border: 2px;
+  border-radius: 3px;
+  pointer-events: none;
+  opacity: 90;
+}
+
+//2
+
+.line {
+  fill: none;
+  stroke-width: 3px;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+.overlay {
+  fill: none;
+  pointer-events: all;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+.hover-line {
+  stroke: #b74779;
+  stroke-width: 2px;
+  stroke-dasharray: 3, 3;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+//
+
+* {
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+.content h1 {
+  font-weight: normal;
+  font-family: var(--font-font-family);
+  text-align: center;
+}
+
+svg#donut-chart {
+  display: inline-block;
+  align-content: center;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+text.inner-circle {
+  font-size: 10px;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+.arc {
+  cursor: pointer;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+
+  &:hover {
+    opacity: 0.65;
+    font-weight: normal;
+    font-family: var(--font-font-family);
+  }
+
+  text {
+    font-weight: normal;
+    font-family: var(--font-font-family);
+    font-size: 10px;
+    color: #fff;
+  }
+}
+
+.btnIn {
+  background-color: #0a618d; 
+  border: none;
+  color: white;
+  cursor: pointer;
+  margin-top: -14px;
+  border-radius: 9%; 
+  height: 35 !important;
+  width: 32 !important;
+}
+
+/* Darker background on mouse-over */
+.btnIn:hover {
+  background-color: #4786ed;
+}
+
+.mycsssnackbartest {
+  background-color: blue;
+  text-align: center !important;
+}
+
+.btn-primary1 {
+    background: white;
+    border-left: none;
+    border-top-color: lightgrey;
+    border-right-color: lightgrey;
+    border-bottom-color: lightgray;
+}
+
+.btn-primary1:hover {
+  background-color: white;
+  border-top-color: lightgrey;
+  border-right-color: lightgrey;
+  border-bottom-color: lightgray;
+}
+
+.ng-fa-icon {
+  color: dodgerblue;
+}
+
+#report {
+  border-collapse: collapse;
+  width: 100%;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+  font-size: 14px;
+}
+
+#report td,
+#report th {
+  border: 2px solid #929592;
+  padding: 5px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  text-align: center;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+#report tr:nth-child(even) {
+  background-color: #f2f2f2;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+#report td:hover {
+  background-color: #ddd;
+  font-weight: normal;
+  font-family: var(--font-font-family);
+}
+
+#report th {
+  text-align: center;
+  font-weight: bold;
+  background-color: #eaeaea;
+  font-family: var(--font-font-family);
+}
+.scroll{
+  overflow-y: scroll;
+  height:200px;
+}
+
+.scrolls{
+  overflow-y: scroll;
+  height:200px;
+}

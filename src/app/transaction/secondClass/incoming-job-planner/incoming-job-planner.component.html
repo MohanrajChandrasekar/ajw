@@ -1,0 +1,153 @@
+<div class="content">
+
+    <div class="heading" fxLayout="row" fxFlexFill>
+        <div fxFlex="20" fxLayoutAlign="start start" class="navbar-brand">{{globals.role}}</div>
+    </div>
+
+    <form class="form-group" [formGroup]="jobPlanForm">
+        <!-- 1st Row starts -->
+        <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+
+            <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+                <label class="label">Run Number / Master Airway Bill Number *</label>
+                <div class="input-container">
+                    <i class="fa fa-file-code-o icon"></i>
+                    <ng-select [searchFn]="customSearchRunNo" [items]="runNoList" bindLable="secRunno" bindValue="secRunno" dropdownPosition="bottom" (change)="getRunNo()" formControlName="secRunno"
+                        placeholder="Run Number | Master Airway Bill No" (clear)="clearPlanner()">
+                        <ng-template ng-label-tmp let-item="item">
+                            <small> {{item.secRunno}} | {{item.secMawbno}}</small>
+                        </ng-template>
+                        <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                            <small> {{item.secRunno}} | {{item.secMawbno}}</small>
+                        </ng-template>
+                    </ng-select>
+                </div>
+            </div>
+
+            <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+                <label class="label">Manifest Airway Bill Number</label>
+                <div class="input-container">
+                    <i class="fa fa-file-code-o icon"></i>
+                    <input class="form-control" type="text" appNumNotDot="true" formControlName="secMawbno" [disableControl]="true" />
+                </div>
+            </div>
+
+            <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+                <label class="label">Manifest Arrival Date *</label>
+                <div class="input-container">
+                    <i class="fa  fa-calendar-check-o icon"></i>
+                    <input type="text" class="form-control" ngbDatepicker #secManifestArrDt="ngbDatepicker" formControlName="secManifestArrDt" [disableControl]="true" />
+                    <button class="btn btn-outline-secondary calendar" (click)="secManifestArrDt.toggle()" type="button"></button>
+                </div>
+            </div>
+ </div>
+
+ <div class="heading">
+        <button type="btnIn" id="refreshBtn" #refreshBtn (click)="refreshTable()" title="Rafresh">
+            <i class="fa fa-refresh" aria-hidden="true"  style="color:white"> Refresh</i>
+        </button>
+        <input type='text' class="filter" placeholder='Filter Name Column' (keyup)='updateFilter($event)' />
+    </div>
+        <!-- 1st Ends -->
+
+        <!-- 2nd Row Starts -->
+        <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+            <div fxFlex="100" fxFlex.sm="100" fxFlex.xs="100">
+                <!-- <div class="heading">
+                    <button type="btnIn" id="refreshBtn" #refreshBtn (click)="refreshTable()" title="Rafresh">
+                        <i class="fa fa-refresh" aria-hidden="true"  style="color:white"> Refresh</i>
+                    </button>
+                    <input type='text' class="filter" placeholder='Filter Name Column' (keyup)='updateFilter($event)' />
+                </div> -->
+                <div class="border">
+                    <ngx-datatable class='material striped' 
+                    [sortType]="'multi'" [limit]="10" [headerHeight]="50"
+                    [footerHeight]="40" style="height:500px" [rows]="incomingJobList" 
+                    [rowHeight]="40" [selected]="selectedRow" [selectionType]="'single'" 
+                    [scrollbarV]="true" [scrollbarH]="true" (select)='onSelect($event, target)'>
+
+                        <ngx-datatable-column name="Action" prop="" width="80" [frozenLeft]="true">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>&nbsp;&nbsp;
+                                <button class="btnIn" (click)="onSelect($event, target)" title="Edit">
+                                    <i class="fa fa-pencil" style="color:white"></i>
+                                </button>
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="HAWN.No" prop="secHAWB">
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Shipper" prop="shipperName">
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Boxes" prop="secPieces">
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Weight LBs" prop="secWeight">
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Weight KGs" prop="secWeightKG">
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Landed Boxes" prop="secLandedPcs">
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Landed Weight(KGs)" prop="secLandedWtKGs">
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Landed Weight(LBs)" prop="secLandedWtLBs">
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Pickup Date" prop="secPickup">
+                            <ng-template let-value="value" ngx-datatable-cell-template>
+                                {{value | date:'dd/MM/yyyy'}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                    </ngx-datatable>
+                </div>
+            </div>
+        </div>
+        <!-- 2nd Row Ends -->
+        <br>
+        <fieldset *ngIf="boxUpdate">
+            <legend fxFlex="20" fxLayoutAlign="start start" class="navbar-brand">Box Update:   
+                <p> Landed Weight(Kgs): {{selectedRow[0].secLandedWtKGs}}, Boxes Weight(Kgs): {{sumWTKGs}} </p></legend>
+            <!-- 3rd Row Starts -->
+                <div fxFlex="100" fxFlex.sm="100" fxFlex.xs="100">
+                       
+                    <div class="border" #boxDetail id="boxDetail">
+                        <ngx-datatable class="material striped" [sortType]="'multi'" 
+                        [limit]="10" [headerHeight]="50"
+                        [trackByProp]="'id'" [scrollbarH]="true" 
+                        [footerHeight]="50" [rowHeight]="45"
+                        [rows]="boxPieces" width="500">
+
+                        <ngx-datatable-column name="Box Name" prop="boxName" width="100"></ngx-datatable-column>
+                        <ngx-datatable-column name="Weight (Kgs)" prop="pcsWtKgs" width="150">
+                            <ng-template let-value="value" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                                <input type="text" [value]="value" style="width:120px" appOnlyNum="true" (blur)="updateValue($event, 'pcsWtKgs', rowIndex)">
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Weight (Lbs)" prop="pcsWtLBs" width="150">
+                            <ng-template let-value="value" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                                <input type="text" [value]="value" style="width:120px" appOnlyNum="true" (keyup)="updateValue($event, 'pcsWtLBs', rowIndex)">
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Action" prop="" width="150">
+                            <ng-template let-value="value" let-rowIndex="rowIndex" ngx-datatable-cell-template>&nbsp;&nbsp;
+                                <button class="btnIn" (click)="indBoxSave(rowIndex)" title="Save">
+                                    <i class="fa fa-floppy-o" style="color: white"></i>
+                                </button>&nbsp;&nbsp;
+                                <button class="btnIn" (click)="cancelClear(rowIndex)" title="Cancel">
+                                    <i class="fa fa-times" style="color: white"></i>
+                                </button>
+                            </ng-template>
+                        </ngx-datatable-column>
+                        </ngx-datatable>
+                    </div>
+                </div>
+            <!-- </div> -->
+            <div class="container-fluid">
+                <button mat-raised-button class="save-button" (click)="saveAllBox()">Save
+                    <mat-icon>save</mat-icon>
+                </button>
+                <button (click)="back()" mat-raised-button class="cancel-button">Cancel
+                    <mat-icon>clear</mat-icon>
+                </button>
+            </div>
+            <!-- 5th row ends -->
+        </fieldset>
+    </form>
+
+</div>

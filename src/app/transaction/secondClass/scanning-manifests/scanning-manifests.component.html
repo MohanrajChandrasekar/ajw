@@ -1,0 +1,116 @@
+<div class="content">
+
+  <form [formGroup]="inScaneForm" (keydown.enter)="$event.preventDefault()">
+  <div class="heading" fxLayout="row" fxFlexFill>
+  <div fxFlex="25" fxLayoutAlign="start start" class="navbar-brand">{{globals.role}}</div>
+  
+    <div fxFlex="25" fxFlex.sm="25" fxFlex.xs="100">
+          <!-- <div class="input-container">
+              <i class="fa fa-file-code-o icon"></i>
+              <input type="text" class="form-control" formControlName="frmDate" placeholder="From Date"
+              ngbDatepicker #frmDate="ngbDatepicker" (dateSelect)="dateRange(frmDate)" dateFormat="dd-MM-yyyy" >
+              <button class="btn btn-outline-secondary calendar" (click)="frmDate.toggle()" type="button"></button>
+          </div> -->
+    </div>
+    <div fxFlex="25" fxFlex.sm="25" fxFlex.xs="100">
+        <!-- <div class="input-container">
+            <i class="fa fa-file-code-o icon"></i>
+            <input type="text" class="form-control" formControlName="toDate" placeholder="TO Date"
+            ngbDatepicker #toDate="ngbDatepicker" (dateSelect)="dateRange(toDate)" dateFormat="dd-MM-yyyy" >
+            <button class="btn btn-outline-secondary calendar" (click)="toDate.toggle()" type="button"></button>
+        </div> -->
+    </div>
+    <!-- <div fxFlex="15" fxFlex.sm="15" fxFlex.xs="100"></div> -->
+    
+
+</div>
+
+<div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+    <div fxFlex="25">
+      <div class="input-container">
+        <input class="form-control" type="text" formControlName="cnno" (keyup)="scanning()" placeholder="Consignment Number"/>
+      </div>
+    </div>
+
+    <div fxFlex="70"></div>
+    <div fxFlex="25">
+        <button type="button" (click)="openTrackDialog()" mat-raised-button class="heading-buttons" style=" background-color: cadetblue;">
+            <mat-icon>360</mat-icon>Track Consignment
+        </button>
+    </div>
+
+    <div fxFlex="25">
+        <div class="input-container">
+            <input class="form-control" type='text' placeholder='Filter' (keyup)='updateFilter($event)' />
+        </div>
+    </div>
+</div>
+
+<!-- Data Table Starts -->
+<div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+    
+    <!-- Scannable Consginments -->
+    <ngx-datatable style="height:500px; width:30% !important;" class='material striped' 
+    [rows]="scannList"
+    [headerHeight]="50"
+    [footerHeight]="40" 
+    [rowHeight]="40" 
+    [scrollbarV]="true" >
+
+        <ngx-datatable-column name="Consignment Number" [frozenLeft]="true" prop="cnNO" width="170"></ngx-datatable-column>
+        <ngx-datatable-footer>
+            <ng-template ngx-datatable-footer-template let-rowCount="rowCount" let-pageSize="pageSize"
+                let-selectedCount="selectedCount" let-curPage="curPage" let-offset="offset">
+                <div style="padding: 5px 10px">
+                    <div>
+                        {{rowCount}} total
+                    </div>
+                </div>
+            </ng-template>
+        </ngx-datatable-footer>
+    </ngx-datatable>
+    <!-- Scannable Consginments End  -->
+
+    <!-- Data Table Starts -->
+    <ngx-datatable style="height:500px" class='material striped'
+    [rows]="inscanList" 
+    [headerHeight]="50" 
+    [footerHeight]="50"
+    [rowHeight]="40" 
+    [scrollbarV]="true">
+      
+      <ngx-datatable-column name="Action" [frozenLeft]="true" width="100">
+        <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
+          <button class="btnIn" (click)="edit(row['refOutMfID'], row['postalCode'], row['refAgntDelvMFID'])" title="Edit">
+              <i class="fa fa-pencil" style="color: white"></i>
+          </button>&nbsp;
+          <button class="btnIn" (click)="delete(row['refAgntDelvMFID'])" title="Delete">
+              <i class="fa fa-trash" aria-hidden="true" style="color: white"></i>
+          </button>
+        </ng-template>
+      </ngx-datatable-column>
+      
+      <ngx-datatable-column name="Out Manifest ID" prop="refOutMfID" width="140"></ngx-datatable-column>
+      <ngx-datatable-column name="Dispatched At" prop="name" width="100"></ngx-datatable-column>
+      <ngx-datatable-column name="Total" prop="totCNNO" width="70"></ngx-datatable-column>
+      <ngx-datatable-column name="InScanned" prop="scanned" width="90"></ngx-datatable-column>
+      <ngx-datatable-column name="Completion" prop="fullyScanned" width="80">
+          <ng-template ngx-datatable-cell-template let-value="value">
+            <i *ngIf="value==true" class="fa fa-check fa-lg" aria-hidden="true" style="color:green"></i>
+            <i *ngIf="value==false" class="fa fa-times fa-lg" aria-hidden="true" style="color:red"></i>
+          </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column  name="Out Manifest Date" prop="refOutMFdate" width="170">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+            {{value | date:'dd-MM-yyyy'}}
+        </ng-template>
+      </ngx-datatable-column>
+      
+    </ngx-datatable>
+    <!-- Data Table Ends -->
+
+</div>
+
+</form>
+
+</div>

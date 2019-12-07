@@ -1,0 +1,228 @@
+<div class="content">
+
+  <div class="heading" fxLayout="row" fxFlexFill>
+    <div fxFlex="50" fxLayoutAlign="start start" class="navbar-brand">{{globals.role}}</div>
+  </div>
+
+  <form class="form-group" [formGroup]="trackingHeadingForm">
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+
+      <!-- <div fxFlex="50" fxFlex.sm="50" fxFlex="50">
+        <label class="label">Complaint Number</label>
+        <div Class="input-container">
+          <i class="fa fa-file-code-o icon"></i>
+          <input type="text" class="form-control" formControlName="complaintNumber">
+        </div>
+      </div> -->
+
+      <div fxFlex="50" fxFlex.sm="50" fxFlex="50">
+        <label class="label">Consignment Number</label>
+        <div Class="input-container">
+          <i class="fa fa-file-code-o icon"></i>
+          <input type="text" class="form-control" (keyup)="updateValue($event)" appNumNotDot="true" formControlName="cnNO">
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="content" id="table">
+
+  <div class="heading" fxLayout="row" fxFlexFill>
+
+    <div *ngIf="isbookingDetails" fxFlex="100">
+      <button type="button" (click)="getReport()" mat-raised-button class="heading-buttons">
+        <mat-icon>grid_on</mat-icon>Export PDF
+      </button>
+    </div>
+  </div>
+
+  <!-- Booking Details Table -->
+
+  <div *ngIf="isbookingDetails">
+    <div class="heading" fxLayout="row" fxFlexFill>
+      <div fxFlex="20" fxLayoutAlign="start start" class="navbar-brand">Booking Details</div>
+    </div>
+
+    <table id="tracking">
+
+      <tr>
+        <th>Consignment Number </th>
+        <td>{{cnNO}}</td>
+
+        <th colspan="2">Booking Date </th>
+        <td>{{bookingDate}}</td>
+
+        <th colspan="2">Booking Time </th>
+        <td>{{bookingTime}}</td>
+
+        <th colspan="2">Consignee Name </th>
+        <td>{{consigneeName}}</td>
+
+      </tr>
+
+      <tr>
+
+        <th>Pincode</th>
+        <td>{{pincode}}</td>
+
+        <th colspan="2">Destination</th>
+        <td>{{destination}}</td>
+
+        <th colspan="2">Booking Branch </th>
+        <td>{{bookBranchCode}}-{{bookBranchName}}</td>
+
+        <th colspan="2">Reference Number</th>
+        <td>{{referenceNo}}</td>
+
+      </tr>
+
+      <tr>
+
+        <th>Weight </th>
+        <td>{{weight}}</td>
+
+        <th colspan="2">Pieces </th>
+        <td>{{pieces}}</td>
+
+        <th colspan="2">Invoice Amount </th>
+        <td>{{InvAmount}}</td>
+
+        <th colspan="2">Vendor </th>
+        <td>{{vendorName}}</td>
+
+      </tr>
+
+      <tr>
+
+        <th>Doc Type </th>
+        <td>{{docType}}</td>
+
+        <th colspan="2">Issue Number</th>
+        <td>{{magazineIssueNo}}</td>
+
+        <th colspan="2">Mode </th>
+        <td>{{mode}}</td>
+
+        <th colspan="2">Invoice Number </th>
+        <td>{{magazineInvoiceNo}}</td>
+
+      </tr>
+
+      <tr>
+
+        <th colspan="3">Magazine Name</th>
+        <td colspan="4">{{magazineName}}</td>
+        
+        <th colspan="3">outpackaged</th>
+        <td colspan="4">{{outgoingMFStatus}}</td>
+
+      </tr>
+
+      <tr> 
+
+        <th colspan="3">Consignee Address</th>
+        <td colspan="10" *ngIf="consigneeCity != null">{{consigneeAddress}}, {{consigneeCity}}, {{pincode}} </td>
+        <td colspan="10" *ngIf="consigneeCity == null || consigneeCity == undefined">{{consigneeAddress}}, {{pincode}} </td>
+
+      </tr>
+
+    </table>
+  </div>
+
+  <!-- Out Package Details -->
+  <div *ngIf="isOutPackaged">
+    <div class="heading" fxLayout="row" fxFlexFill>
+      <div fxFlex="20" fxLayoutAlign="start start" class="navbar-brand">Out Packaged Details</div>
+    </div>
+
+    <table id="tracking">
+      <tr>
+
+        <th >outpackaged Manifest ID</th>
+        <td>{{outMFID}}</td>
+
+        <th colspan="2">Out Scanned Date </th>
+        <td>{{outMFDate | date:'dd-MM-yyyy'}}</td>
+
+        <th colspan="2">Out Scanned Time </th>
+        <td>{{outMFTime | date:'hh:mm:ss'}}</td>
+
+        <th colspan="2">Out Scanned By</th>
+        <td>{{outScannedBy}}</td>
+
+      </tr>
+
+    </table>
+
+  </div>
+
+  <!-- Branch Delivery Details -->
+  <div *ngIf="isInscanned && isVendorOrElse">
+    <div class="heading" fxLayout="row" fxFlexFill>
+      <div fxFlex="20" fxLayoutAlign="start start" class="navbar-brand">Delivery Details</div>
+    </div>
+
+    <table id="tracking">
+      <tr>
+
+        <th colspan="2">Inscanned Date </th>  
+        <td>{{inScannedAt | date:'dd-MM-yyyy'}}</td>
+
+        <th>Is Picked By Delivery Vendor</th>
+        <td *ngIf="outForDelivery">Picked</td>
+        <td *ngIf="!outForDelivery">Not Yet Picked</td>
+
+      </tr>
+
+      <tr *ngIf="outForDelivery">
+
+        <th>Delivery Manifest</th>
+        <td>{{deliveryMFID}}</td>
+
+        <th>Vendor Picked Date</th>
+        <td>{{deliveryMFDate | date:'dd-MM-yyyy'}}</td>
+
+        <th>Vendor Picked Time</th>
+        <td>{{deliveryMFTime | date:'hh:mm:ss'}}</td>
+
+        <th>Delivery Scanned By</th>
+        <td>{{deliveryScannedBy}}</td>
+
+      </tr>
+
+    </table>
+
+  </div>
+
+  <!-- Delivery Status (POD) -->
+  <div *ngIf="outForDelivery">
+    <div class="heading" fxLayout="row" fxFlexFill>
+      <div fxFlex="20" fxLayoutAlign="start start" class="navbar-brand">POD Details</div>
+    </div>
+
+    <table id="tracking">
+
+      <tr>
+
+        <th>Delivery Status</th>
+        <td *ngIf="isDelivered"> Delivered Successfully</td>
+        <td *ngIf="isDelivered=='null'"> Not Yet Updated</td>
+        <td *ngIf="!isDelivered"> Non - Delivered</td>
+
+        <th>POD Date</th>
+        <td>{{podDate | date:'dd-MM-yyyy'}}</td>
+
+        <th>POD Time</th>
+        <td>{{podTime | date:'hh:mm:ss'}}</td>
+
+        <th>Reason</th>
+        <td>{{podReason}}</td>
+
+      </tr>
+
+    </table>
+
+  </div>
+
+</div>

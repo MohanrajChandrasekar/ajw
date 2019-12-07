@@ -1,0 +1,263 @@
+<div class="content">
+
+  <div class="heading" fxLayout="row" fxFlexFill>
+    <div fxFlex="20" fxLayoutAlign="start start" class="navbar-brand">{{globals.role}}</div>
+  </div>
+
+  <form class="form-group" [formGroup]="outgoingForm">
+
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+        <div fxFlex="30" fxFlex.sm="30" fxFlex.xs="100">
+            <label class="label">Run Number / Master Airway Bill Number *</label>
+            <div class="input-container">
+                <ng-select [searchFn]="runNOSearchBranch" [items]="runNoList" bindLable="secRunno" bindValue="secRunno" dropdownPosition="bottom" (change)="getClear()"
+                (clear)="statusValid()" formControlName="secRunno" placeholder="Run No| MAWB No">
+                    <ng-template ng-label-tmp let-item="item">
+                        <small> {{item.secRunno}} | {{item.secMawbno}}</small>
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                        <small> {{item.secRunno}} | {{item.secMawbno}}</small>
+                    </ng-template>
+                </ng-select>
+            </div>
+        </div>
+        <div fxFlex="30" fxFlex.sm="30" fxFlex.xs="100">
+        <label class="label">Scann By (Destination Branch / Vendor)</label>
+          <div class="input-container" *ngIf="ifEdit==false">
+            <ng-select formControlName="scannedMethod" [items]="scanMethod" bindValue="id" bindLabel="name" (change)="getScannMethod()" dropdownPosition="bottom" placeholder="Destination Branch">
+            </ng-select>
+          </div>
+      </div>
+      <div fxFlex="40" fxFlex.sm="20" fxFlex.xs="100">
+        <button type="button" (click)="openTrackDialog()" mat-raised-button class="heading-buttons" style="margin-top: 32px; background-color: cadetblue;">
+          <mat-icon>360</mat-icon>Track Consignment
+        </button>
+      </div>
+    </div>
+    <br>
+
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100" *ngIf="!isVendorScan==true">
+        <label class="label">Dest Office *</label>
+        <div class="input-container" *ngIf="ifEdit==false">
+          <ng-select [searchFn]="officeSearch" formControlName="refOutDestOffcId" [items]="officeBranchList" bindValue="id" bindLabel="name" 
+          (change)="getBranchPackages()" dropdownPosition="bottom" placeholder="Destination Branch">
+            <ng-template ng-label-tmp let-item="item">
+              <small> {{item.code}} | {{item.name}} </small>
+            </ng-template>
+            <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+              <small> {{item.code}} | {{item.name}}</small>
+            </ng-template>
+          </ng-select>
+        </div>
+        <div class="input-container" *ngIf="ifEdit==true">
+          <ng-select [searchFn]="officeSearch" formControlName="refOutDestOffcId1" [items]="officeBranchList" bindValue="id" bindLabel="name" 
+          (change)="getBranchPackages()" [disableControl]="true" dropdownPosition="bottom" placeholder="Destination Branch">
+            <ng-template ng-label-tmp let-item="item">
+              <small> {{item.code}} | {{item.name}} </small>
+            </ng-template>
+            <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+              <small> {{item.code}} | {{item.name}}</small>
+            </ng-template>
+          </ng-select>
+        </div>
+      </div>
+
+      <!-- <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100" *ngIf="isVendorScan==true">
+        <label class="label">Delivery Vendors *</label>
+          <div class="input-container">
+            <ng-select [searchFn]="officeSearch" formControlName="refOutDestOffcId" [items]="officeBranchList" bindValue="id" bindLabel="name" 
+            (change)="getScannables()" dropdownPosition="bottom" placeholder="Destination Branch">
+            </ng-select>
+        </div>
+      </div> -->
+
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+          <label class="label">Outgoing MF#</label>
+          <div class="input-container">
+            <i class="fa fa-user icon"></i>
+            <!-- <input type="text" class="form-control" appNumNotDot="true" (blur)="isOutMFID()" #refOutMfID formControlName="refOutMfID" *ngIf="ifEdit==false" placeholder="Manifest Number"/> -->
+            <input type="text" class="form-control" appNumNotDot="true" formControlName="refOutMfID1" disabled/>
+          </div>
+          <div *ngIf="f.refOutMfID.touched && f.refOutMfID.errors" class="text-danger">
+            <div *ngIf="f.refOutMfID.errors.required">Manifest is required</div>
+            <div *ngIf="f.refOutMfID.invalid && !f.refOutMfID.errors.required">Enter valid Manifest</div>
+        </div>
+        </div>
+  
+        <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+          <label class="label">MF Date</label>
+          <div class="input-container">
+            <i class="fa fa-calendar icon"></i>
+            <input type="text" class="form-control" formControlName="refOutMFdate1" [disableControl]="true">
+          </div>
+        </div>
+  
+        <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+          <label class="label">MF Time</label>
+          <div class="input-container">
+            <i class="fa fa-calendar icon"></i>
+            <input type="text" class="form-control" formControlName="refOutMFTime1" [disableControl]="true">
+          </div>
+        </div>
+
+    </div>
+
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+        <label class="label">Coloader </label>
+        <div class="input-container">
+          <ng-select [searchFn]="coloaderSearch" formControlName="refOutColoaderID" [items]="coloaders" bindValue="id" bindLabel="coloaderName"
+            dropdownPosition="bottom" (change)="getColoaderRate()" placeholder="Coloader">
+              <ng-template ng-label-tmp let-item="item">
+                <small> {{item.code}} | {{item.name}} | {{item.destination}} </small>
+              </ng-template>
+              <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                <small> {{item.code}} | {{item.name}} | {{item.destination}}</small>
+              </ng-template>
+          </ng-select>
+        </div>
+      </div>
+
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+        <label class="label">Coloder Charges </label>
+        <div class="input-container">
+          <i class="fa fa-money icon"></i>
+          <input type="text" class="form-control" appOnlyNum="true" formControlName="refOutColoaderRate1" (keyup)="updateValue($event)" placeholder="Coloader Charges" disabled/>
+        </div>
+      </div>
+
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+        <label class="label">Remarks</label>
+          <div class="input-container">
+            <i class="fa fa-calendar icon"></i>
+            <input type="text" class="form-control" formControlName="refOutRemarks" placeholder="Remarks">
+          </div>
+      </div>
+  
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100" *ngIf="!ifEdit">
+          <label class="label">Consignment Number</label>
+          <div class="input-container">
+            <i class="fa fa-list-ol icon"></i>
+            <input type="text" class="form-control" appNumNotDot="true" formControlName="cnNO" placeholder="Consignment Number" (keyup)="updateValue($event)">
+          </div>
+      </div>
+
+    </div>
+
+    <h6 style="color:red;">(*) Mandatory Fields</h6>
+  </form>
+</div>
+
+<div class="content">
+  <div class="heading" fxLayout="row" fxFlexFill>
+    <div fxFlex="20" fxLayoutAlign="start start" class="navbar-brand">List of Out Packages</div>
+    <div fxFlex="80">
+      <button type="button" (click)="getReport()" mat-raised-button class="heading-buttons">
+        <mat-icon>grid_on</mat-icon>Export PDF
+      </button>
+      <button type="button" (click)="exportXlsx()" mat-raised-button class="heading-buttons">
+        <mat-icon>grid_on</mat-icon>Export XLSL
+      </button>
+    </div>
+  </div>
+
+  <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill *ngIf="!ifEdit">
+    <!-- Before Table -->
+    <div fxFlex="15" fxFlex.sm="15" fxFlex.xs="100">
+      <ngx-datatable style="height:500px" class='material striped' 
+      [rows]="bookedList" [headerHeight]="50"
+      [footerHeight]="50" [rowHeight]="35" 
+      [scrollbarV]="true">
+
+        <ngx-datatable-column name="CNNO" prop="cnNO" [frozenLeft]="true" width="180"></ngx-datatable-column>
+        
+        <ngx-datatable-footer>
+          <ng-template ngx-datatable-footer-template let-rowCount="rowCount" let-pageSize="pageSize" let-selectedCount="selectedCount"
+            let-curPage="curPage" let-offset="offset">
+            <div style="padding: 5px 10px">
+              <div>
+                {{rowCount}} total
+              </div>
+            </div>
+          </ng-template>
+        </ngx-datatable-footer>
+      </ngx-datatable>
+    </div>
+
+    <!-- Added Table -->
+    <div fxFlex="85" fxFlex.sm="85" fxFlex.xs="100">
+      <ngx-datatable style="height:500px" class='material striped' 
+      [rows]="outPackedList" [headerHeight]="50"
+      [footerHeight]="50" [rowHeight]="40" 
+      [scrollbarV]="true">
+
+        <ngx-datatable-column [frozenLeft]="true" width="50">
+          <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
+            <button class="btnIn" (click)="delete(row)" title="Delete">
+                <i class="fa fa-trash" style="color: white"></i>
+            </button>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="CNNO" prop="cnNO" [frozenLeft]="true" width="150"></ngx-datatable-column>
+        <ngx-datatable-column name="Pieces" prop="noOfPcs" width="80"></ngx-datatable-column>
+        <ngx-datatable-column name="Weight(Kgs)" prop="pcsWtKgs" width="110"></ngx-datatable-column>
+        <ngx-datatable-column name="Pincode" prop="pincodeId" width="100"></ngx-datatable-column>
+        <ngx-datatable-column name="Consignee Name" prop="consigneeName" width="180"></ngx-datatable-column>
+        <ngx-datatable-column name="Consignee Address" prop="consigneeAddress" data-popover-template="consigneeAddress" width="300"></ngx-datatable-column> 
+        <ngx-datatable-footer>
+          <ng-template ngx-datatable-footer-template let-rowCount="rowCount" let-pageSize="pageSize" let-selectedCount="selectedCount"
+            let-curPage="curPage" let-offset="offset">
+            <div style="padding: 5px 10px">
+              <div>
+                {{rowCount}} total
+              </div>
+            </div>
+          </ng-template>
+        </ngx-datatable-footer>
+      </ngx-datatable>
+    </div>
+
+  </div>
+
+  <!-- View Table only -->
+  <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill *ngIf="ifEdit">
+      <!-- Before Table -->
+      <div fxFlex="100" fxFlex.sm="100" fxFlex.xs="100">
+        <ngx-datatable style="height:500px" class='material striped' 
+        [rows]="bookedList" [headerHeight]="50"
+        [footerHeight]="50" [rowHeight]="35" 
+        [scrollbarV]="true">
+  
+          <ngx-datatable-column name="Consignment Number" prop="cnNO" [frozenLeft]="true" width="180"></ngx-datatable-column>
+          <ngx-datatable-column name="Pieces" prop="noOfPcs" width="80"></ngx-datatable-column>
+          <ngx-datatable-column name="Weight(Kgs)" prop="pcsWtKgs" width="110"></ngx-datatable-column>
+          <ngx-datatable-column name="Pincode" prop="pincodeId" width="100"></ngx-datatable-column>
+          <ngx-datatable-column name="Amount" prop="estimatedAmount" width="100"></ngx-datatable-column>
+          <ngx-datatable-column name="Consignee Name" prop="consigneeName" width="180"></ngx-datatable-column>
+          <ngx-datatable-column name="Consignee Address" prop="consigneeAddress" data-popover-template="consigneeAddress" width="300"></ngx-datatable-column>
+          <ngx-datatable-footer>
+            <ng-template ngx-datatable-footer-template let-rowCount="rowCount" let-pageSize="pageSize" let-selectedCount="selectedCount"
+              let-curPage="curPage" let-offset="offset">
+              <div style="padding: 5px 10px">
+                <div>
+                  {{rowCount}} total
+                </div>
+              </div>
+            </ng-template>
+          </ngx-datatable-footer>
+        </ngx-datatable>
+      </div>
+    </div>
+      <!-- View Table only END-->
+
+  <div class="content" *ngIf="!ifEdit">
+    <button mat-raised-button class="save-button" [disabled]="!outgoingForm.valid" (click)="save()">Save
+      <mat-icon>save</mat-icon>
+    </button>
+    <button (click)="back()" mat-raised-button class="cancel-button">Cancel
+      <mat-icon>clear</mat-icon>
+    </button>
+  </div>

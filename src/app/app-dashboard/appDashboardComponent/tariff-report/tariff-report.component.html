@@ -1,0 +1,28 @@
+<div class="input-container">
+  <button type="button" (click)="exportXlsx()" mat-raised-button class="dashboard-buttons">
+    <mat-icon>grid_on</mat-icon>Export XLSX
+  </button>
+</div>
+<br>
+<div class="scroll">
+  <table id="report">
+
+    <tr>
+      <th>S.No</th>
+      <th>Tariff</th>
+      <th>Postage</th>
+      <th>Number Of Pieces</th>
+      <th>Value</th>
+      <th>Service Charges</th>
+    </tr>
+
+    <tr *ngFor="let temps of Temp">
+      <td>{{temps.i}}</td>
+      <td>{{temps.tariff}}</td>
+      <td>{{temps.postage}}</td>
+      <td>{{temps.nos}}</td>
+      <td>{{temps.value}}</td>
+      <td>{{temps.sc}}</td>
+    </tr>
+  </table>
+</div>

@@ -1,0 +1,62 @@
+<div class="box">
+  <form class="form-group" [formGroup]="outPackedForm">
+  <div class="heading" fxLayout="row" fxFlexFill>
+      <div class="content">
+        <div class="col-xs-12 col-12 col-sm-6 col-md-4 form-group">
+          <input type="text" class="form-control mb-3" placeholder="Select Date" (onFocusChange)="getIt()" (click)="applyTheme(dp); getDate();"
+            bsDaterangepicker formControlName="range" style="width: 215px !important;"
+            [bsConfig]="{ containerClass: this.colorTheme , dateInputFormat : 'YYYY-MM-DD' }" />
+        </div>
+      </div>
+      
+  </div>
+
+  <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+    <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+      <label class="label">City / Vendor</label>
+        <div class="input-container">
+          <ng-select formControlName="choosenType" [items]="options" bindValue="id" bindLabel="type" 
+            (change)="getData()" dropdownPosition="bottom" placeholder="Vendor wise / City wise">
+          </ng-select>
+        </div>
+    </div>
+    <div fxFlex="20" style="margin-top: auto;">
+      <button type="button" (click)="exportXlsx()" mat-raised-button class="dashboard-buttons">
+          <mat-icon>grid_on</mat-icon>Export XLSX
+      </button>
+    </div>
+  </div>
+
+
+<br>
+<div class="scrolls">
+
+  <table id="report">
+
+    <tr>
+      <th>S.No</th>
+      <th *ngIf="isVendor==1">Delivery Vendor</th>
+      <th *ngIf="isVendor==2">Delivery Branch</th>
+      <th>Total Consignments</th>
+      <th>Total Pieces</th>
+      <th>Total Weight(Kgs)</th>
+      <th>Report</th>
+    </tr>
+
+    <tr *ngFor="let temps of outPackedList">
+      <td>{{temps.i}}</td>
+      <td *ngIf="isVendor==1">{{temps.postalCode}}</td>
+      <td *ngIf="isVendor==2">{{temps.name}}</td>
+      <td>{{temps.totCNNO}}</td>
+      <td>{{temps.totpcs}}</td>
+      <td>{{temps.totWT}}</td>
+      <td>
+        <button class="btnIn" (click)="getDetailed(temps)">
+          <i class="fa fa-print" style="color: white"></i>
+        </button>
+      </td>
+    </tr>
+  </table>
+</div>
+</form>
+</div>

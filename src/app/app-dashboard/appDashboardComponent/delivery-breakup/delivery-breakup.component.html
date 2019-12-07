@@ -1,0 +1,73 @@
+<form class="form-group" [formGroup]="form1">
+<div class="heading" fxLayout="row" fxFlexFill>
+    <div class="content">
+      <div class="col-xs-12 col-12 col-sm-6 col-md-4 form-group">
+        <input type="text" class="form-control mb-3" placeholder="Select Date" (onFocusChange)="getIt()" (click)="applyTheme(dp); getDate();"
+          bsDaterangepicker formControlName="range" style="width: 215px !important;"
+          [bsConfig]="{ containerClass: this.colorTheme , dateInputFormat : 'YYYY-MM-DD' }" />
+      </div>
+      <div fxFlex="20" fxFlex.sm="50" fxFlex.xs="100">
+        <button (click)="getData()" class="get-data" mat-raised-button>Get Data
+          <mat-icon>refresh</mat-icon>
+        </button>
+      </div>
+    </div>
+</div>
+
+<div class="input-container">
+  <button type="button" (click)="exportXlsx()" mat-raised-button class="dashboard-buttons">
+    <mat-icon>grid_on</mat-icon>Export XLSX
+  </button>
+</div>
+<br>
+<div class="scroll">
+  <table id="report">
+
+    <tr>
+      
+      <th>S.No</th>
+      <th>City Name</th>
+      <th>Total CNNO</th>
+      <th>Total Delivered</th>
+      <th>Total Delivered %</th>
+      <th>Day1</th>
+      <th>Day2</th>
+      <th>Day3</th>
+      <th>Day4</th>
+      <th>Delivered in TAT</th>
+      <th>Day->5</th>
+      <th>Delivered in TAT %</th>
+      <th>Total Non-Delivered</th>
+      <th>Total Non-Delivered %</th>
+      <th>Total RTO</th>
+      <th>Total RTO %</th>
+      <th>Total Pending</th>
+      <th>Total Pending %</th>
+
+    </tr>
+
+    <tr *ngFor="let temps of Temp">
+
+      <td>{{temps.i}}</td>
+      <td>{{temps.cityName}}</td>
+      <td>{{temps.totCNNO}}</td>
+      <td>{{temps.totDeld}}</td>
+      <td>{{temps.deldPrcnt}}</td>
+      <td>{{temps.Day1}}</td>
+      <td>{{temps.Day2}}</td>
+      <td>{{temps.Day3}}</td>
+      <td>{{temps.Day4}}</td>
+      <td>{{temps.fourDaysInTAT}}</td>
+      <td>{{temps.afterfrDys}}</td>
+      <td>{{temps.frDysPrcntInTAT}}</td>
+      <td>{{temps.totNDeld}}</td>
+      <td>{{temps.NdeldPrcnt}}</td>
+      <td>{{temps.RTO}}</td>
+      <td>{{temps.RTOPrcnt}}</td>
+      <td>{{temps.totPending}}</td>
+      <td>{{temps.totPendingPercent}}</td>
+
+    </tr>
+  </table>
+</div>
+</form>

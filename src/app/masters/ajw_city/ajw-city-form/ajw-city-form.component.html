@@ -1,0 +1,117 @@
+<div class="content">
+
+  <div class="heading" fxLayout="row" fxFlexFill>
+    <div fxFlex="20" fxLayoutAlign="start start" class="navbar-brand">{{globals.role}}</div>
+  </div>
+  <form class="form-group" [formGroup]="cityForm">
+
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+      <div fxFlex="33" fxFlex.sm="33" fxFlex.xs="33">
+        <label class="label">City Code *</label>
+        <div class="input-container">
+          <i class="fa fa-file-code-o icon"></i>
+          <input class="form-control" type="text" formControlName="cityCode" [ngClass]="{ 'is-invalid': f.cityCode.touched && f.cityCode.errors }">
+        </div>
+        <div *ngIf="f.cityCode.touched && f.cityCode.errors" class="text-danger">
+          <div *ngIf="f.cityCode.errors.required">City Code is required</div>
+          <div *ngIf="f.cityCode.invalid && !f.cityCode.errors.required">Enter valid City Code</div>
+        </div>
+      </div>
+      <div fxFlex="33" fxFlex.sm="33" fxFlex.xs="33">
+        <label class="label">City Name *</label>
+        <div class="input-container">
+          <i class="fa fa-map-marker icon"></i>
+          <input class="form-control" type="text" formControlName="cityName"
+            [ngClass]="{ 'is-invalid': f.cityName.touched && f.cityName.errors }">
+        </div>
+        <div *ngIf="f.cityName.touched && f.cityName.errors" class="text-danger">
+          <div *ngIf="f.cityName.errors.required">City Name is required</div>
+          <div *ngIf="f.cityName.invalid && !f.cityName.errors.required">Enter valid City Name</div>
+        </div>
+      </div>
+
+      <div fxFlex="34" fxFlex.sm="34" fxFlex.xs="34">
+        <label class="label">State *</label>
+        <div class="input-container">
+          <i class="fa fa-map-marker icon"></i>
+          <ng-select [searchFn]="stateSearch" [items]="state" bindLabel="stateCode" bindValue="stateCode" class="ng-select" dropdownPosition="bottom" formControlName="stateName"
+            [ngClass]="{ 'is-invalid': f.stateName.touched && f.stateName.errors }">
+            <ng-template ng-label-tmp let-item="item">
+              <small> {{item.stateCode}} | {{item.stateName}}</small>
+            </ng-template>
+            <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+              <small> {{item.stateCode}} | {{item.stateName}}</small>
+            </ng-template>
+          </ng-select>
+        </div>
+        <div *ngIf="f.stateName.touched && f.stateName.errors" class="text-danger">
+          <div *ngIf="f.stateName.errors.required">State is required</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+      <div fxFlex="33" fxFlex.sm="33" fxFlex.xs="33">
+        <label class="label">Via Office Type *</label>
+        <div class="input-container">
+          <i class="fa fa-keyboard-o icon"></i>
+          <ng-select [items]="officeType" bindLabel="type" bindValue="type" class="ng-select" dropdownPosition="bottom" formControlName="officeType" (change)="getOfficeByType();">
+            <ng-template ng-label-tmp let-item="item">
+              <small> {{item.type}}</small>
+            </ng-template>
+            <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+              <small>{{item.type}}</small>
+            </ng-template>
+          </ng-select>
+        </div>
+        <div *ngIf="f.officeType.touched && f.officeType.errors" class="text-danger">
+          <div *ngIf="f.officeType.errors.required"> Via Office Type is required</div>
+        </div>
+      </div>
+
+      <div fxFlex="33" fxFlex.sm="33" fxFlex.xs="33">
+        <label class="label">Via Office Name *</label>
+        <div class="input-container">
+          <i class="fa fa-building-o icon"></i>
+          <ng-select [searchFn]="officeSearch" [items]="officeByType" bindLabel="code" bindValue="code" class="ng-select" dropdownPosition="bottom" formControlName="officeCode">
+            <ng-template ng-label-tmp let-item="item">
+              <small> {{item.code}} | {{item.name}}</small>
+            </ng-template>
+            <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+              <small> {{item.code}} | {{item.name}}</small>
+            </ng-template>
+          </ng-select>
+        </div>
+        <div *ngIf="f.officeCode.touched && f.officeCode.errors" class="text-danger">
+          <div *ngIf="f.officeCode.errors.required">Via Office Name is required</div>
+        </div>
+      </div>
+
+      <div fxFlex="34" fxFlex.sm="34" fxFlex.xs="34">
+        <label class="label">Transaction Type *</label>
+        <div class="input-container">
+          <i class="fa fa-money icon"></i>
+          <input class="form-control" type="text" formControlName="transType" [ngClass]="{ 'is-invalid': f.transType.touched && f.transType.errors }">
+        </div>
+        <div *ngIf="f.transType.touched && f.transType.errors" class="text-danger">
+          <div *ngIf="f.transType.errors.required">Transaction Type is required</div>
+        </div>
+      </div>
+
+    </div>
+
+    <h6 style="color:red;">(*) Mandatory Fields</h6>
+    <div class="content">
+      <button mat-raised-button class="save-button" (click)="save()" [disabled]="!cityForm.valid">Save
+        <mat-icon>save</mat-icon>
+      </button>
+      <button type="reset" (click)="reset()" class="reset-button" mat-raised-button>Reset
+        <mat-icon>refresh</mat-icon>
+      </button>
+      <button (click)="back()" class="cancel-button" mat-raised-button>Cancel
+        <mat-icon>clear</mat-icon>
+      </button>
+    </div>
+  </form>
+</div>

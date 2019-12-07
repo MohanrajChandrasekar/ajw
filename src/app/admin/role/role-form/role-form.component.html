@@ -1,0 +1,47 @@
+<div class="content">
+
+  <div class="heading" fxLayout="row" fxFlexFill>
+    <div fxFlex="20" fxLayoutAlign="start start" class="navbar-brand">{{globals.role}}</div>
+  </div>
+
+  <form class="form-group" [formGroup]="roleForm" >
+
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+      <div fxFlex="50" class="formControlGroup">
+        <label class="label">Role Name *</label>
+        <div class="input-container">
+          <i class="fa fa-user icon"></i>
+          <input class="form-control" type="text" formControlName="roleName" [ngClass]="{ 'is-invalid': f.roleName.touched && f.roleName.errors }">
+        </div>
+        <div *ngIf="f.roleName.touched && f.roleName.errors" class="warning">
+          <div *ngIf="f.roleName.errors.required">Role Name is required</div>
+          <div *ngIf="f.roleName.invalid && !f.roleName.errors.required">Enter valid Role Name</div>
+        </div>
+      </div>
+
+      <div fxFlex="50" class="formControlGroup">
+        <label class="label">Role Description</label>
+        <div class="input-container">
+          <i class="fa fa-user icon"></i>
+          <input class="form-control" type="text" formControlName="roleDescription" [ngClass]="{ 'is-invalid': f.roleDescription.touched && f.roleDescription.errors }">
+        </div>
+        <div *ngIf="f.roleDescription.touched && f.roleDescription.errors" class="warning">
+          <div *ngIf="f.roleDescription.invalid && !f.roleDescription.errors.required">Enter valid Role Description</div>
+        </div>
+      </div>
+    </div>
+    <h6 class="warning">(*) Mandatory Fields</h6>
+    <div class="content">
+      <button mat-raised-button class="save-button" (click)="save()" [disabled]="!roleForm.valid">Save
+        <mat-icon>save</mat-icon>
+      </button>
+      <button (click)="reset()" type="reset" class="reset-button" mat-raised-button>Reset
+        <mat-icon>refresh</mat-icon>
+      </button>
+      <button (click)="back()" class="cancel-button" mat-raised-button>Cancel
+        <mat-icon>clear</mat-icon>
+      </button>
+    </div>
+
+  </form>
+</div>

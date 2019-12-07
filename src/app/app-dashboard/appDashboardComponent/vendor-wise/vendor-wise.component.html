@@ -1,0 +1,68 @@
+<div class="box">
+    <form class="form-group" [formGroup]="vendorForm">
+    <div class="heading" fxLayout="row" fxFlexFill>
+        <div fxFlex.xs="40">
+            <label class="label">Run From </label> 
+            <div class="input-container">
+                <ng-select [items]="fromList" bindValue="id" formControlName="fromRunno"  
+                dropdownPosition="bottom" (change)="toListLoad()">
+                  <ng-template ng-label-tmp let-item="item">
+                      <small> {{item.secRunno}} | {{item.secMawbno}}</small>
+                  </ng-template>
+                  <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                      <small> {{item.secRunno}} | {{item.secMawbno}}</small>
+                  </ng-template>    
+                </ng-select>
+            </div>
+        </div>
+        <div fxFlex.xs="40">
+            <label class="label">Run To </label> 
+            <div class="input-container">
+                <ng-select [items]="toList" bindValue="id" formControlName="toRunno" dropdownPosition="bottom"
+                (change)="getReport()">
+                      <ng-template ng-label-tmp let-item="item">
+                          <small> {{item.secRunno}} | {{item.secMawbno}}</small>
+                      </ng-template>
+                      <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                          <small> {{item.secRunno}} | {{item.secMawbno}}</small>
+                      </ng-template> 
+                </ng-select>
+            </div>
+        </div>
+        <div fxFlex="20" style="margin-top: auto;">
+            <button type="button" (click)="exportXlsx()" mat-raised-button class="dashboard-buttons">
+                <mat-icon>grid_on</mat-icon>Export XLSX
+            </button>
+        </div>
+    </div>
+  
+  <br>
+  <div class="scrolls">
+
+    <table id="report">
+
+      <tr>
+        <th>S.No</th>
+        <th>Vendor Name</th>
+        <th>Total Consignments</th>
+        <th>Total Weight(Kgs)</th>
+        <th>Rates</th>
+        <th>Outscanned</th>
+        <th>Delivered</th>
+        <th>Non-delivered</th>
+      </tr>
+
+      <tr *ngFor="let temps of Temp">
+        <td>{{temps.i}}</td>
+        <td>{{temps.postalCode}}</td>
+        <td>{{temps.noOfPcs}}</td>
+        <td>{{temps.weights}}</td>
+        <td>{{temps.postalRate}}</td>
+        <td>{{temps.outpacked}}</td>
+        <td>{{temps.delivered}}</td>
+        <td>{{temps.nonDeliered}}</td>
+      </tr>
+    </table>
+  </div>
+  </form>
+</div>

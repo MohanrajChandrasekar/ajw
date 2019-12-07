@@ -1,0 +1,66 @@
+<div class="content">
+
+    <div class="heading" fxLayout="row" fxFlexFill>
+      <div fxFlex="40" fxLayoutAlign="start start" class="navbar-brand">{{globals.role}}</div>
+      <div fxFlex="60">
+            <input type="file" style="display: inline-block; margin-top: 5px;" (change)="incomingfile($event)" placeholder="Upload file" accept=".xlsx">
+            
+            <button type="button" (click)="singlePOD()" mat-raised-button class="heading-buttons">
+                <mat-icon>add</mat-icon>Single POD Update
+            </button>
+
+            <button type="button" (click)="Upload()" mat-raised-button class="heading-buttons">
+                <mat-icon>cloud_upload</mat-icon>&nbsp;Upload
+            </button>
+      </div>
+    </div>
+    <br>
+  
+    <form class="form-group" (keydown.enter)="preventSubmit($event)">
+        
+      <!-- 1st Row -->
+      <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+        <div fxFlex="70">
+              
+        </div>
+        <div fxFlex="30">
+                <input type='text' style='width: 250px; float: rightx;' class="filter" placeholder='Search By Date & Uploaded User' (keyup)='updateFilter($event)' />
+        </div>
+      </div>
+      <!-- 1st Row Ends -->
+        <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+                
+            <ngx-datatable [rows]="listOfPODs" style="height:500px" class='material striped' [headerHeight]="50" [footerHeight]="50"
+            [rowHeight]="40" [scrollbarV]="true">
+            
+            <ngx-datatable-column name="Action" [frozenLeft]="true" width="100">
+                <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
+                  <button class="btnIn" (click)="view(row['podUploadRefID'])" title="Edit">
+                      <i class="fa fa-list-alt" style="color: white"></i>
+                  </button>
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Uploaded Status"  width="100">
+                <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
+                  <button class="btnIn" (click)="getHistory(row['podUploadRefID'])" title="Download Uploaded History">
+                      <i class="fa fa-file-excel-o" style="color: white"></i>
+                  </button>
+                </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Uploaded Reference ID" prop="podUploadRefID" [frozenLeft]="true"></ngx-datatable-column>          
+            <ngx-datatable-column name="Consignments" prop="totCNNO"></ngx-datatable-column>
+            <ngx-datatable-column name="Delivered" prop="totDelvrd"></ngx-datatable-column>
+            <ngx-datatable-column name="Failed" prop="totFailed"></ngx-datatable-column>
+            <ngx-datatable-column name="Uploaded By" prop="podUploadedBy"></ngx-datatable-column>
+            <ngx-datatable-column name="Uploaded Date" prop="podUploadedDate">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                    {{value | date:'dd/MM/yyyy'}}
+                </ng-template>
+            </ngx-datatable-column>
+
+            </ngx-datatable>
+        </div>
+        
+    </form>
+  </div>

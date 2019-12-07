@@ -1,0 +1,60 @@
+<div class="content">
+
+  <form [formGroup]="outgoingListForm">
+    <div class="heading" fxLayout="row" fxFlexFill>
+      <div fxFlex="15" fxLayoutAlign="start start" class="navbar-brand">{{globals.role}}</div>
+
+      <div fxFlex="20">
+        <div class="input-container">
+          <!-- <label class="label">From</label> -->
+          <i class="fa fa-file-code-o icon"></i>
+          <input type="text" class="form-control" formControlName="frmDate" placeholder="From Date" ngbDatepicker
+            #frmDate="ngbDatepicker" (dateSelect)="dateRange(frmDate)" dateFormat="dd-MM-yyyy">
+          <button class="btn btn-outline-secondary calendar" (click)="frmDate.toggle()" type="button"></button>
+        </div>
+      </div>
+      <div fxFlex="20">
+        <div class="input-container">
+          <!-- <label class="label">From</label> -->
+          <i class="fa fa-file-code-o icon"></i>
+          <input type="text" class="form-control" formControlName="toDate" placeholder="TO Date" ngbDatepicker #toDate="ngbDatepicker"
+            (dateSelect)="dateRange(toDate)" dateFormat="dd-MM-yyyy">
+          <button class="btn btn-outline-secondary calendar" (click)="toDate.toggle()" type="button"></button>
+        </div>
+      </div>
+
+      <div fxFlex="60">
+        <button type="button" (click)="addNew()" mat-raised-button class="heading-buttons">
+          <mat-icon>add</mat-icon>Add
+        </button>
+        <button type="button" (click)="exportXlsx()" mat-raised-button class="heading-buttons">
+          <mat-icon>grid_on</mat-icon>Export XLSX
+        </button>
+        <input type='text' class="filter" placeholder='Filter By MF#' (keyup)='updateFilter($event)' />
+      </div>
+    </div>
+  </form>
+
+  <ngx-datatable [rows]="outgoingList" style="height:500px" class='material striped' [headerHeight]="50" [footerHeight]="50"
+    [rowHeight]="40" [scrollbarV]="true">
+
+    <ngx-datatable-column name="Action" [frozenLeft]="true" width="100">
+      <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
+        <button class="btnIn" (click)="edit(row['refOutMfID'])" title="Edit">
+            <i class="fa fa-pencil" style="color: white"></i>
+        </button>&nbsp;
+        <button class="btnIn" (click)="delete(row['refOutMfID'])" title="Delete">
+            <i class="fa fa-trash" style="color: white"></i>
+        </button>
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Outgoing Packet MF" prop="refOutMfID" width="160"></ngx-datatable-column>
+    <ngx-datatable-column name="Packed To" prop="name"></ngx-datatable-column>
+    <ngx-datatable-column name="MF Date" prop="refOutMFdate" width="120">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{value | date:'yyyy-MM-dd'}}
+      </ng-template>
+    </ngx-datatable-column>
+
+  </ngx-datatable>
+</div>

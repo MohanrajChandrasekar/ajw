@@ -1,0 +1,263 @@
+/* You can add global styles to this file, and also import other style files */
+
+/*@import "~@angular/material/prebuilt-themes/pink-bluegrey.css";*/
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import '~@swimlane/ngx-datatable/release/index.css';
+@import '~@swimlane/ngx-datatable/release/themes/material.css';
+@import '~@swimlane/ngx-datatable/release/assets/icons.css';
+@import "~@ng-select/ng-select/themes/default.theme.css";
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+.sidenav {
+    background: #4568DC;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #396afc, #0082c8, #4568DC);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #396afc, #0082c8, #4568DC);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ #B06AB3*/
+}
+
+.routeIcon {
+    color: white;
+}
+
+.ngx-datatable.material .datatable-header .datatable-header-cell {
+    font-weight: 400 !important;
+    font-size: 14px;
+    color: white;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    cursor: pointer;
+}
+
+
+.ngx-datatable.material .datatable-header .datatable-header-cell {
+    background: #667db6;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #667db6, #0082c8, #0082c8, #667db6);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #667db6, #0082c8, #0082c8, #667db6);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.ngx-datatable.material .datatable-header-inner {
+    background: #667db6;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #667db6, #0082c8, #0082c8, #667db6);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #667db6, #0082c8, #0082c8, #667db6);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+
+
+.ngx-datatable .datatable-footer {
+    background: #667db6;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #667db6, #0082c8, #0082c8, #667db6);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #667db6, #0082c8, #0082c8, #667db6);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.ngx-datatable.material .datatable-footer {
+    font-weight: 400 !important;
+    font-size: 14px;
+    color: white;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.ngx-datatable.material .datatable-footer .datatable-pager a {
+    font-weight: 400 !important;
+    font-size: 14px;
+    color: white !important;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+// .ngx-datatable.material .datatable-body .datatable-body-row .datatable-body-cell, .ngx-datatable.material .datatable-body .datatable-body-row .datatable-body-group-cell{
+//     color: white !important;
+// }
+
+/*
+.ngx-datatable.material .datatable-body .datatable-row-detail {
+    background:#cce1ea !important
+ }
+
+ 
+.ngx-datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: normal !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+  }
+
+.ngx-datatable.fixed-header .datatable-header .datatable-header-inner {
+    background: #667db6;   
+    background: -webkit-linear-gradient(to bottom, #667db6, #0082c8, #0082c8, #667db6);  
+    background: linear-gradient(to bottom, #667db6, #0082c8, #0082c8, #667db6); 
+     
+}*/
+
+.sidenav-container {
+    height: 100%;
+}
+
+.fa {
+    color: white
+}
+
+.header {
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-bottom: 50px;
+    border-radius: 10px;
+    font-weight: bold;
+    padding: 15px;
+    text-align: center;
+}
+
+.input-container {
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+}
+
+.formControlGroup {
+    margin-bottom: 10px;
+}
+
+.icon {
+    padding: 10px;
+    background: -webkit-linear-gradient(to right, #00b4db, #4286f4);
+    background: linear-gradient(to right, #00b4db, #4286f4);
+    color: white;
+    min-width: 50px;
+    text-align: center;
+}
+
+select {
+    font-family: 'Times New Roman', Times, serif;
+}
+
+text {
+    font-family: 'Times New Roman', Times, serif;
+}
+
+label {
+    font-weight: bold;
+}
+
+button.calendar,
+button.calendar:active {
+    width: 2.75rem;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAcCAYAAAAEN20fAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAEUSURBVEiJ7ZQxToVAEIY/YCHGxN6XGOIpnpaEsBSeQC9ArZbm9TZ6ADyBNzAhQGGl8Riv4BLAWAgmkpBYkH1b8FWT2WK/zJ8ZJ4qiI6XUI3ANnGKWBnht2/ZBDRK3hgVGNsCd7/ui+JkEIrKtqurLpEWaphd933+IyI3LEIdpCYCiKD6HcuOa/nwOa0ScJEnk0BJg0UTUWJRl6RxCYEzEmomsIlPU3IPW+grIAbquy+q6fluy/28RIBeRMwDXdXMgXLj/B2uimRXpui4D9sBeRLKl+1N+L+t6RwbWrZliTTTr1oxYtzVWiTQAcRxvTX+eJMnlUDaO1vpZRO5NS0x48sIwfPc87xg4B04MCzQi8hIEwe4bl1DnFMCN2zsAAAAASUVORK5CYII=') !important;
+    background-repeat: no-repeat;
+    background-size: 23px;
+    background-position: center;
+}
+
+.background-red {
+    background-color: red;
+    color: white;
+}
+
+.background-green {
+    background-color: green;
+    color: white;
+}
+
+input {
+    width: 250px;
+    margin-right:2px;
+}
+
+.warning {
+    color: red;
+    font-size: smaller
+}
+
+.label {
+    font-size: small !important;
+}
+
+.mat-secondary {
+    background-color: #2e7b32;
+    color: white;
+    border-color: #4caf50;
+}
+
+.subheader {
+    //background: #1c92d2;
+    /* fallback for old browsers */
+    //background: -webkit-linear-gradient(to right, #1c92d2, #1c92d2);
+    /* Chrome 10-25, Safari 5.1-6 */
+    //background: linear-gradient(to right, #1c92d2, #1c92d2);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: white;
+    padding: 5px !important;
+    border-radius: 5px !important;
+    padding-top: 10px !important;
+}
+
+.grid-container {
+    margin: 0px !important;
+}
+
+.mat-h2 {
+    vertical-align: bottom !important;
+    padding-left: 10px !important;
+    color:blue
+}
+
+.topright {
+    position: absolute !important;
+    right: 16px;
+    font-size: 18px;
+    vertical-align: middle;
+}
+
+
+.backgroundBanner{
+    background-image: url('assets/images/background.jpg');
+    background-repeat: repeat-y;
+    background-size: 100%;
+}
+ 
+.green{
+    background-color:green;
+    font-weight:bold;
+    padding:10px;
+}
+.amber{
+    background-color:#FFBF00;
+    font-weight:bold;
+    padding:10px;
+}
+.red{
+    background-color:orangered;
+    font-weight:bold;
+    padding:10px;
+}
+
+
+//
+.bar {
+    fill: cornflowerblue;
+}
+
+.bar:hover {
+    fill: pink;
+}
+
+.axis--x path {
+    display: none;
+}

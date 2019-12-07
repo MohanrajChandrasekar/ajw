@@ -1,0 +1,66 @@
+<div class="content">
+
+  <div class="heading" fxLayout="row" fxFlexFill>
+    <div fxFlex="20" fxLayoutAlign="start start" class="navbar-brand">{{globals.role}}</div>
+    <div fxFlex="80">
+      <button type="button" (click)="add()" mat-raised-button class="heading-buttons" title="New Manifest">
+        <mat-icon>add</mat-icon>Add
+      </button>
+      <button type="button" (click)="exportXlsx()" mat-raised-button class="heading-buttons" title="Excel Report">
+        <mat-icon>grid_on</mat-icon>Export XLSX
+      </button>
+      <input type='text' class="filter" placeholder='Filter' (keyup)='updateFilter($event)' />
+    </div>
+  </div>
+  <div class="border">
+    <ngx-datatable #mfstViewList 
+      id="mfstViewList" 
+      [rows]="incomeInfo" 
+      style="height:500px"
+      class='material striped' 
+      [headerHeight]="50"
+      [footerHeight]="40"
+      [rowHeight]="40" 
+      [scrollbarV]="true" 
+      limit="10">
+
+      <ngx-datatable-column name="Action" [frozenLeft]="true" width="170">
+        <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
+          <button class="btnIn" (click)="edit(row['id'])" title="Edit">
+              <i class="fa fa-pencil" style="color:white"></i>
+          </button>&nbsp;
+          <button class="btnIn" (click)="delete(row['id'])" title="Delete">
+              <i class="fa fa-trash" aria-hidden="true" style="color:white"></i>
+          </button>&nbsp;
+          <button class="btnIn" (click)="getReport(row['secMawbno'],row['secRunno'])" title="Consignment Report">
+              <i class="fa fa-file-text" aria-hidden="true" style="color:white!important; cursor:pointer; "></i>
+          </button>&nbsp;
+          <button class="btnIn" (click)="getWeightReport(row['secMawbno'],row['secRunno'])" title="Weight Breakup Report">
+              <i class="fa fa-balance-scale" aria-hidden="true" style="color:white!important; cursor:pointer; "></i>
+          </button>&nbsp;
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="RunNo" prop="secRunno" width="100"></ngx-datatable-column>
+      <ngx-datatable-column name="Master AWBNo" prop="secMawbno" width="150"></ngx-datatable-column>
+      <ngx-datatable-column name="Origin Branch" prop="officeName"></ngx-datatable-column>
+      <ngx-datatable-column name="Delivery Category" prop="cateDesc"></ngx-datatable-column>
+      <ngx-datatable-column name="Departure Date" prop="secDepartureDate">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+          {{value | date: 'dd-MM-yyyy'}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Arrival Date" prop="secManifestArrDt">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+          {{value | date:'dd-MM-yyyy'}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Manifest Date" prop="secManifestDate">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+          {{value | date:'dd-MM-yyyy'}}
+        </ng-template>
+      </ngx-datatable-column>
+
+    </ngx-datatable>
+  </div>
+</div>

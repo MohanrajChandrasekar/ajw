@@ -1,0 +1,63 @@
+<div class="content">
+
+        <div class="heading" fxLayout="row" fxFlexFill>
+            <div fxFlex="20" fxLayoutAlign="start start" class="navbar-brand">Add Book Issue</div>
+        </div>
+      
+      <form class="form-group" [formGroup]="issueForm">
+      <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+    
+          <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+              <label class="label">Issue Type *</label>
+              <div class="input-container">
+                  <input class="form-control" formControlName="issType" type="text" >
+              </div>
+          </div>
+    
+          <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+              <label class="label">Issue Code *</label>
+              <div class="input-container">
+                  <input class="form-control" formControlName="issCode" type="text" >
+              </div>
+          </div>
+    
+      </div>
+     
+      <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+        
+            <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+                <label class="label">Issue Date *</label>
+                <div class="input-container">
+                    <i class="fa fa-user icon"></i>
+                    <input class="form-control" type="text" formControlName="issDate" 
+                    ngbDatepicker #issDate="ngbDatepicker">
+                    <button class="btn btn-outline-secondary calendar" (click)="issDate.toggle()" type="button"></button>
+                </div>
+            </div>
+
+            <!-- <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+                <label class="label">Book Type *</label>
+                <div class="input-container">
+                    <input class="form-control" formControlName="bookType" type="text" >
+                </div>
+            </div> -->
+    
+      </div>
+           
+      <h6 style="color:red;">(*) Mandatory Fields</h6>
+        <!-- Action View -->
+      <div class="container-fluid">
+        <button mat-raised-button class="save-button" [disabled]="!issueForm.valid" (click)="saveDetails()">Save
+          <mat-icon>save</mat-icon>
+        </button>
+        <button (click)="back()" mat-raised-button class="cancel-button">Cancel
+          <mat-icon>clear</mat-icon>
+        </button>
+      </div>
+    </form>
+    </div>
+    <!-- <div mat-dialog-actions>
+      <button mat-button (click)="onNoClick()">No Thanks</button>
+      <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>
+    </div> -->
+    

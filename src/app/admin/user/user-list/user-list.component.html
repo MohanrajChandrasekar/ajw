@@ -1,0 +1,68 @@
+<div class="content">
+
+  <div class="heading" fxLayout="row" fxFlexFill>
+    <div fxFlex="20" fxLayoutAlign="start start" class="navbar-brand">{{globals.role}}</div>
+    <div fxFlex="80">
+
+      <button type="button" (click)="btnClick()" mat-raised-button class="heading-buttons">
+        <mat-icon>add</mat-icon>Add
+      </button>
+
+      <button type="button" (click)="exportXlsx()" mat-raised-button class="heading-buttons">
+        <mat-icon>grid_on</mat-icon>Export XLSX
+      </button>
+
+      <input type='text' class="filter" placeholder='Filter' (keyup)='updateFilter($event)' />
+
+    </div>
+  </div>
+
+  <ngx-datatable [rows]="userInfo" style="height:500px" class='material striped' [headerHeight]="50" [footerHeight]="50"
+    [rowHeight]="40" [scrollbarV]="true">
+
+    <ngx-datatable-column name="Action" [frozenLeft]="true" width="100">
+      <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
+        <button class="btnIn" (click)="edit(row['id'])">
+          <i class="fa fa-pencil" style="color:white"></i>
+        </button>&nbsp;
+      </ng-template>
+    </ngx-datatable-column>
+  
+    <ngx-datatable-column name="Login Id" prop="loginId" [frozenLeft]="true" ></ngx-datatable-column>
+    <ngx-datatable-column name="User Name" prop="userName"></ngx-datatable-column>
+    <ngx-datatable-column name="Email Address" prop="userEmail"></ngx-datatable-column>
+    <ngx-datatable-column name="Role" prop="roles"></ngx-datatable-column>
+    <ngx-datatable-column name="Branch Name" prop="branchName"></ngx-datatable-column>
+    <ngx-datatable-column name="Last Login" prop="latestLoginTime"></ngx-datatable-column>
+   
+    <ngx-datatable-column name="Reset Password" [resizeable]="false" [sortable]="false" [canAutoResize]="false" [width]="127">
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>         
+          <button class="btnIn" (click)="resetPassword(row['id'])">
+            <i class="fa fa-key" style="color:white"></i>
+          </button>&nbsp;
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Active" [resizeable]="false" [sortable]="false" [canAutoResize]="false" [width]="70" >
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        <button class="btnIn" (click)="delete(row['id'])">
+          <i class="fa fa-power-off" style="color:white"></i>
+        </button>&nbsp;
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Locked" [resizeable]="false" [sortable]="false" [canAutoResize]="false" [width]="75" >
+      <ng-template let-row="row" let-value="value" style="width:20px !important" ngx-datatable-cell-template>
+          <button class="btnIn" (click)="updateLock(row['id'])">
+          <i *ngIf="row.isLocked" class="fa fa-lock" style="color:white"></i>
+          <i *ngIf="!row.isLocked" class="fa fa-unlock" style="color:white"></i>
+          </button>&nbsp;
+      </ng-template>
+    </ngx-datatable-column>
+
+  </ngx-datatable>
+
+</div>
+
+
+

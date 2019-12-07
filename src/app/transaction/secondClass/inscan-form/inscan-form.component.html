@@ -1,0 +1,74 @@
+<!-- 3rd Row ends -->
+<div class="content">
+
+<form [formGroup]="inScannForm">
+  <div class="heading" fxLayout="row" fxFlexFill>
+      <div fxFlex="20" fxLayoutAlign="start start" class="navbar-brand">{{globals.role}}</div>
+      <div fxFlex="30">
+            <div class="input-container">
+                <input type="text" class="form-control" formControlName="cnno" placeholder="Consignment Number" (keyup)="scanning()">
+            </div>
+      </div>
+      <div fxFlex="50">
+            <button type="button" (click)="goBack()" mat-raised-button class="heading-buttons">
+                    <mat-icon>flip_to_back</mat-icon>Get Back
+            </button>
+            <button type="button" (click)="exportXlsx()" mat-raised-button class="heading-buttons">
+                <mat-icon>grid_on</mat-icon>Export XLSX
+            </button>
+      </div>
+  </div>
+</form>
+  
+  <!-- Data Table Starts -->
+  <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+      
+
+      <!-- Scanned Consignments -->
+      <ngx-datatable style="height:500px" class='material striped' 
+      [rows]="scannedList"
+      [headerHeight]="50"
+      [footerHeight]="40" 
+      [rowHeight]="40" 
+      [scrollbarV]="true">
+
+          <ngx-datatable-column name="Consignment Number" [frozenLeft]="true" prop="cnNO" width="170"></ngx-datatable-column>
+          <ngx-datatable-column name="InScanned" prop="isInScanned" width="90" [frozenLeft]="true">
+              <ng-template ngx-datatable-cell-template let-value="value">
+                <i *ngIf="value==true" class="fa fa-check fa-lg" aria-hidden="true" style="color:green"></i>
+                <i *ngIf="value==false" class="fa fa-times fa-lg" aria-hidden="true" style="color:red"></i>
+              </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column name="Out Manifest ID" prop="refOutMfID" width="140"></ngx-datatable-column>
+          <ngx-datatable-column  name="In Scanned Date" prop="inScannedAT" width="170">
+            <ng-template let-value="value" ngx-datatable-cell-template>
+                {{value | date:'dd/MM/yyyy'}}
+            </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column  name="In Scanned Time" prop="inScannedAT" width="170">
+            <ng-template let-value="value" ngx-datatable-cell-template>
+                {{value | date:'hh:mm:ss'}}
+            </ng-template>
+          </ngx-datatable-column>
+          
+          <ngx-datatable-column name="Consignee Name" prop="consigneeName" width="150"></ngx-datatable-column>
+          <ngx-datatable-column name="Consignee Address" prop="consigneeAddress" width="180"></ngx-datatable-column>
+          <ngx-datatable-column name="Vendor" prop="postalCode" width="100"></ngx-datatable-column>
+          <ngx-datatable-column name="Pincode" prop="pincodeId" width="100"></ngx-datatable-column>
+
+          <ngx-datatable-footer>
+              <ng-template ngx-datatable-footer-template let-rowCount="rowCount" let-pageSize="pageSize"
+                  let-selectedCount="selectedCount" let-curPage="curPage" let-offset="offset">
+                  <div style="padding: 5px 10px">
+                      <div>
+                          {{rowCount}} total
+                      </div>
+                  </div>
+              </ng-template>
+          </ngx-datatable-footer>
+      </ngx-datatable>
+  </div>
+
+</div>

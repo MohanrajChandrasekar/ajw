@@ -1,0 +1,50 @@
+<div class="content">
+
+  <div class="heading" fxLayout="row" fxFlexFill>
+    <div fxFlex="20" fxLayoutAlign="start start" class="navbar-brand">{{globals.role}}</div>
+    <div fxFlex="80">
+      <button type="button" (click)="btnClick()" mat-raised-button class="heading-buttons">
+        <mat-icon>add</mat-icon>Add
+      </button>
+      <button type="button" (click)="exportXlsx()" mat-raised-button class="heading-buttons">
+        <mat-icon>grid_on</mat-icon>Export XLSX
+      </button>
+      <input type='text' class="filter" placeholder='Filter By Name' (keyup)='updateFilter($event)' />
+    </div>
+  </div>
+
+  <ngx-datatable [rows]="officeInfo" style="height:500px" class='material striped' [headerHeight]="50"
+    [footerHeight]="50" [rowHeight]="40" [scrollbarV]="true">
+
+    <ngx-datatable-column name="Action" [frozenLeft]="true" width="130">
+      <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
+        <button class="btnIn" (click)="edit(row['id'])">
+            <i class="fa fa-pencil" style="color:white"></i>
+          </button>&nbsp;
+          <button class="btnIn" (click)="delete(row['id'])">
+            <i class="fa fa-trash" aria-hidden="true" style="color:white"></i>
+          </button>&nbsp;
+          <button class="btnIn" (click)="openCardDetails(row['id'])">
+            <i class="fa fa-address-book" aria-hidden="true" style="color:white"></i>
+          </button>&nbsp;
+      </ng-template>
+    </ngx-datatable-column>
+    
+    <ngx-datatable-column name="Office Name" prop="name"></ngx-datatable-column>
+    <ngx-datatable-column name="Office Type" prop="type"></ngx-datatable-column>
+    <ngx-datatable-column name="Office Code" prop="code"></ngx-datatable-column>
+    <ngx-datatable-column name="Enterprise Name" prop="ent"></ngx-datatable-column>
+    <ngx-datatable-column name="Address 1" prop="address1"></ngx-datatable-column>
+    <ngx-datatable-column name="Address 2" prop="address2"></ngx-datatable-column>
+    <ngx-datatable-column name="City" prop="city"></ngx-datatable-column>
+    <ngx-datatable-column name="Pincode" prop="pin"></ngx-datatable-column>
+    <ngx-datatable-column name="Phone Number" prop="phone"></ngx-datatable-column>
+    <ngx-datatable-column name="Fax Number" prop="fax"></ngx-datatable-column>
+    <ngx-datatable-column name="Email Id" prop="email"></ngx-datatable-column>
+    <ngx-datatable-column name="Contact Person" prop="contact"></ngx-datatable-column>
+    <ngx-datatable-column name="Contract Number" prop="contractNo"></ngx-datatable-column>
+    <ngx-datatable-column name="Contract Date" prop="contractDate"> </ngx-datatable-column>
+    <ngx-datatable-column name="Last Renewal Date" prop="renewalDate"> </ngx-datatable-column>
+    <ngx-datatable-column name="Expiry Date" prop="expDate"> </ngx-datatable-column>
+
+  </ngx-datatable>

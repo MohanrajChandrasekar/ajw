@@ -1,0 +1,61 @@
+<div class="box">
+
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+        <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+          <form [formGroup]="misroutedReportForm">
+          <div class="input-container">
+            <button type="button" (click)="exportXlsx()" mat-raised-button class="dashboard-buttons">
+              <mat-icon>grid_on</mat-icon>Export XLSX
+            </button>
+          </div>
+
+          <div>
+              <label class="label">Run Number / Master Airway Bill Number *</label>
+              <div class="input-container">
+                  <!-- <i class="fa fa-file-code-o icon"></i> -->
+                  <ng-select [searchFn]="customSearchRunNo" [items]="listOfMAWB" bindLable="secRunno" bindValue="secMawbno" dropdownPosition="bottom" (change)="refreshData()" formControlName="secRunno"
+                      placeholder="Run Number | Master Airway Bill No" (clear)="clearPlanner()">
+                      <ng-template ng-label-tmp let-item="item">
+                          <small> {{item.secRunno}} | {{item.secMawbno}}</small>
+                      </ng-template>
+                      <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                          <small> {{item.secRunno}} | {{item.secMawbno}}</small>
+                      </ng-template>
+                  </ng-select>
+              </div>
+          </div>
+        </form>
+        </div>
+      </div>
+
+  <br>
+  <div class="scrolls">
+
+    <table id="report">
+
+      <tr>
+        <th>S.No</th>
+        <th>Consignee Name</th>
+        <th>Consignee Address</th>
+        <th>Consignee City</th>
+        <th>Consignee State</th>
+        <th>Consignee Country</th>
+        <th>Shipper</th>
+        <th>Magazine</th>
+        <th>Weight(Kgs)</th>
+      </tr>
+
+      <tr *ngFor="let temps of resultData">
+        <td>{{temps.i}}</td>
+        <td>{{temps.customerName}}</td>
+        <td>{{temps.custAddress}}</td>
+        <td>{{temps.custCity}}</td>
+        <td>{{temps.custState}}</td>
+        <td>{{temps.custCountry}}</td>
+        <td>{{temps.shipperName}}</td>
+        <td>{{temps.magazineName}}</td>
+        <td>{{temps.pcsWtKgs}}</td>
+      </tr>
+    </table>
+  </div>
+</div>

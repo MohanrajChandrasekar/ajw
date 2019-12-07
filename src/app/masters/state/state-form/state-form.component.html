@@ -1,0 +1,49 @@
+<div class="content">
+
+  <div class="heading" fxLayout="row" fxFlexFill>
+    <div fxFlex="20" fxLayoutAlign="start start" class="navbar-brand">{{globals.role}}</div>
+  </div>
+
+  <form class="form-group" [formGroup]="stateForm">
+   
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+      <div fxFlex="50" fxFlex.sm="100" fxFlex.xs="100">
+        <label class="label">State Code *</label>
+        <div class="input-container">
+          <i class="fa fa-file-code-o icon"></i>
+          <input class="form-control" type="text"  formControlName="stateCode" [ngClass]="{ 'is-invalid': f.stateCode.touched && f.stateCode.errors }">
+        </div>
+        <div *ngIf="f.stateCode.touched && f.stateCode.errors" class="text-danger">
+          <div *ngIf="f.stateCode.errors.required">State Code is required </div>
+          <div *ngIf="f.stateCode.invalid && !f.stateCode.errors.required">Enter valid State Code</div>
+        </div>
+      </div>
+      <div fxFlex="50" fxFlex.sm="100" fxFlex.xs="100">
+        <label class="label">State Name *</label>
+        <div class="input-container">
+          <i class="fa fa-map-marker icon"></i>
+          <input class="form-control" type="text"  formControlName="stateName" [ngClass]="{ 'is-invalid': f.stateName.touched && f.stateName.errors }">
+        </div>
+        <div *ngIf="f.stateName.touched && f.stateName.errors" class="text-danger">
+          <div *ngIf="f.stateName.errors.required">State Name is required</div>
+          <div *ngIf="f.stateName.invalid && !f.stateName.errors.required">Enter valid State Name</div>
+        </div>
+      </div>
+
+
+    </div>
+    <h6 style="color:red;">(*) Mandatory Fields</h6>
+
+    <div class="content">
+      <button class="save-button" mat-raised-button (click)="save()" [disabled]="!stateForm.valid ">Save
+        <mat-icon>save</mat-icon>
+      </button>
+      <button (click)="reset()" type="reset" mat-raised-button class="reset-button">Reset
+        <mat-icon>refresh</mat-icon>
+      </button>
+      <button (click)="back()" mat-raised-button class="cancel-button">Cancel
+        <mat-icon>clear</mat-icon>
+      </button>
+    </div>
+  </form>
+</div>

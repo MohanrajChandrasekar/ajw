@@ -1,0 +1,44 @@
+table {
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    border-collapse: collapse;
+    // width: 100%;
+    border: blue;
+    border: 2px;
+    width: 96%;
+    // height: 20px;
+    margin-left: 14px;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+// tr:nth-child(even) {
+//     background-color: #dddddd;
+// }
+
+.mat-header-cell{
+    size: 20px;
+    color: white;
+    text-align: center;
+    background: -webkit-linear-gradient(to bottom, #4A00E0, #8E2DE2); 
+    background: linear-gradient(to bottom, #4A00E0, #8E2DE2); 
+}
+
+.mat-cell{
+    text-align: center;
+}
+
+.fa-pencil{
+    color: blue;
+}
+
+.fa-trash{
+    color: red;
+}
+
+#saveBtn{
+    margin-top: 35px;
+}

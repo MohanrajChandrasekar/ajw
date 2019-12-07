@@ -1,0 +1,62 @@
+<div class="box">
+  <form class="form-group" [formGroup]="stationForm">
+  <div class="heading" fxLayout="row" fxFlexFill>
+      <div fxFlex.xs="40">
+          <label class="label">Run Number / Master Airway Bill Number </label> 
+          <div class="input-container">
+              <ng-select [items]="mainList" bindValue="id" formControlName="runNo"  
+              dropdownPosition="bottom" (change)="getReport()">
+                <ng-template ng-label-tmp let-item="item">
+                    <small> {{item.secRunno}} | {{item.secMawbno}}</small>
+                </ng-template>
+                <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                    <small> {{item.secRunno}} | {{item.secMawbno}}</small>
+                </ng-template>    
+              </ng-select>
+          </div>
+      </div>
+
+      <div fxFlex.xs="30"></div>
+    
+      <div fxFlex="30" style="margin-top: auto;" >
+          <button type="button" (click)="printAsPDF()" mat-raised-button class="dashboard-buttons">
+              <mat-icon>send</mat-icon>Send Email
+          </button>&nbsp;
+          <button type="button" (click)="exportXlsx()" mat-raised-button class="dashboard-buttons">
+              <mat-icon>grid_on</mat-icon>Export XLSX
+          </button>&nbsp; 
+      </div>
+  </div>
+
+<br>
+<div class="scrolls">
+
+  <table id="report">
+
+    <tr>
+      <th>S.No</th>
+      <th>HAWB NO</th>
+      <th>Pcs As Per Manifest</th>
+      <th>No of Pcs Received</th>
+      <th>Manifest Wt(In LBS)</th>
+      <th>Manifest Wt(In KGS)</th>
+      <th>Landed Wt(In KGS)</th>
+      <th>Difference</th>
+      <th>Category</th>
+    </tr>
+
+    <tr *ngFor="let temps of temp">
+      <td>{{temps.i}}</td>
+      <td>{{temps.secHAWB}}</td>
+      <td>{{temps.mfPcs}}</td>
+      <td>{{temps.lndPcs}}</td>
+      <td>{{temps.mfLBS}}</td>
+      <td>{{temps.mfKGS}}</td>
+      <td>{{temps.lndKGS}}</td>
+      <td>{{temps.diff}}</td>
+      <td>{{temps.code}}</td>
+    </tr>
+  </table>
+</div>
+</form>
+</div>

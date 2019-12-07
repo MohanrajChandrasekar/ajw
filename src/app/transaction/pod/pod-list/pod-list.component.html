@@ -1,0 +1,135 @@
+<div class="content">
+   
+        <div class="heading" fxLayout="row" fxFlexFill>
+        <div fxFlex="20" fxLayoutAlign="start start" class="navbar-brand">{{globals.role}}</div>  
+    </div>
+
+<form class="form-group" [formGroup]="podFormSingle">
+
+ <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+        <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+                <label class="label"> delCode </label>
+                <div class="input-container">
+                <i class="fa fa-file-code-o icon"></i>
+                <input class="form-control" type="text" formControlName="delCode">
+                </div>
+        </div> 
+        <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+                <label class="label"> delDate *</label>
+                <div class="input-container">
+                <i class="fa fa-calendar icon"></i>
+                <input type="text" class="form-control"  formControlName="delDate"  value="{{ newVar | date:'yyyy-MM-dd' }}" ngbDatepicker 
+                #d2="ngbDatepicker">
+                <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button"></button>
+                </div>
+        </div>
+</div>
+<div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+         
+        <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+                 <label class="label"> delTime(HHMM) *</label>
+                 <div class="input-container">
+                 <i class="fa fa-clock-o icon"></i>
+                 <input class="form-control" appNumNotDot="true" type="text" formControlName="delTime">
+                 </div>
+                 
+        </div>
+        <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+                <label class="label"> delStatus *</label>
+                <div class="input-container">
+                <i class="fa fa-keyboard-o icon"></i>
+                <select formControlName="delStatus" class="form-control" >
+                        <option value="1">Delivered</option>
+                        <option value="0">Non-Delivered</option>    
+                </select>
+        </div>
+
+        </div>
+</div>
+<div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+        
+        <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+                 <label class="label">Reason </label>
+                 <div class="input-container">
+                 <i class="fa fa-keyboard-o icon"></i>
+                 <input class="form-control" type="text" formControlName="reason">
+                 </div>
+        </div> 
+        <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+                 <label class="label">delSign *</label>
+                 <div class="input-container">
+                 <i class="fa fa-keyboard-o icon"></i>
+                 <input class="form-control" type="text" formControlName="delSign">
+                 </div>
+                
+        </div>
+</div>
+<h6 style="color:red;">(*) Mandatory Fields</h6>
+        <!-- Action View -->
+        <div class="content">
+            <button mat-raised-button class="save-button" (click)="save();" [disabled]="!podFormSingle.valid" >Save
+                <mat-icon>save</mat-icon>
+            </button>
+            <button (click)="back()" mat-raised-button class="cancel-button">Cancel
+                <mat-icon>clear</mat-icon>
+            </button>
+        </div>
+
+<div class="heading" fxLayout="row" fxFlexFill>
+        <div fxFlex="20" fxLayoutAlign="start start" class="navbar-brand"></div>
+        <div fxFlex="80">
+                <input type='text' class="filter" placeholder='Filter' (keyup)='updateFilter($event)' />
+                
+        </div>
+</div>        
+
+
+       
+<div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+        
+<ngx-datatable style="height:500px" class='material striped' [rows]="singlePODList" [headerHeight]="50" [footerHeight]="50"[rowHeight]="40" [scrollbarV]="true">
+
+        <ngx-datatable-column name="Action" [frozenLeft]="true" width="100">
+                <ng-template ngx-datatable-cell-template let-value="value" let-isSelected="isSelected" formatter = "rowSelection" 
+                        let-onCheckboxChangeFn="onCheckboxChangeFn" let-row="row" >
+                        <mat-checkbox (change)="onSelect($event, row)"
+                                        [value]="row">
+                        </mat-checkbox>
+                </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="Consignment No" prop="cnNO"></ngx-datatable-column>
+        <ngx-datatable-column name="Vendor Name" prop="postalCode" width="170"></ngx-datatable-column>
+        <ngx-datatable-column name="Booked Date" prop="bookedDate"></ngx-datatable-column>
+        <ngx-datatable-column name="VendorPicked Date" prop="vendorPickedDate"></ngx-datatable-column>
+        <ng-template let-value="value" ngx-datatable-cell-template>
+                {{value | date:'dd/MM/yyyy'}}
+              </ng-template>
+</ngx-datatable>
+ 
+</div>
+</form>     
+
+
+</div> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,244 @@
+<div class="content">
+
+    <div class="heading" fxLayout="row" fxFlexFill>
+        <div fxFlex="20" fxLayoutAlign="start start" class="navbar-brand">{{globals.role}}</div>
+    </div>
+
+    <form class="form-group" [formGroup]="specialCustForm">
+        <!-- 1st Row starts -->
+        <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+
+            <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+                <label class="label">Customer Type *</label>
+                <div class="input-container">
+                        <i class="fa fa-user icon"></i>
+                    <ng-select [searchFn]="CustomerTypeSearch" [items]="customerType" bindLable="Type" bindValue="Type"
+                        dropdownPosition="bottom" formControlName="custType" (change)="getCustomersByType()"
+                        placeholder="Customer Type">
+                        <ng-template ng-label-tmp let-item="item">
+                            <small> {{item.Type}} </small>
+                        </ng-template>
+                        <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                            <small> {{item.Type}} </small>
+                        </ng-template>
+                    </ng-select>
+                </div>
+                <div *ngIf="f.custType.touched && f.custType.errors" class="text-danger">
+                    <div *ngIf="f.custType.errors.required">Customer Type is required</div>
+                    <div *ngIf="f.custType.invalid && !f.custType.errors.required">Enter valid Customer Type</div>
+                </div>
+            </div>
+
+            <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+                <label class="label">Customer *</label>
+                <div class="input-container">
+                        <i class="fa fa-user icon"></i>
+                    <ng-select [searchFn]="CustomSearchCustomer" [items]="customerList" bindLable="name" bindValue="id"
+                        dropdownPosition="bottom" formControlName="customerId" placeholder="Customer">
+                        <ng-template ng-label-tmp let-item="item">
+                            <small> {{item.code}} | {{item.name}}</small>
+                        </ng-template>
+                        <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                            <small> {{item.code}} | {{item.name}}</small>
+                        </ng-template>
+                    </ng-select>
+                </div>
+                <div *ngIf="f.customerId.touched && f.customerId.errors" class="text-danger">
+                    <div *ngIf="f.customerId.errors.required">Customer is required</div>
+                    <div *ngIf="f.customerId.invalid && !f.customerId.errors.required">Enter valid Customer</div>
+                </div>
+            </div>
+
+            <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+                <div class="input-container">
+                    <label class="md-check">
+                        <input type="radio" class="radioSPL" formControlName="bookingType" value="Domestic"
+                            (change)="bookingTypeChange()">
+                        Domestic
+                    </label>
+                    <label class="md-check">
+                        <input type="radio" class="radioSPL" formControlName="bookingType" value="Secondary"
+                            (change)="bookingTypeChange()">
+                        Secondary
+                    </label>
+                </div>
+                <div *ngIf="f.bookingType.touched && f.bookingType.errors" class="text-danger">
+                    <div *ngIf="f.bookingType.errors.required">Booking Type is required</div>
+                    <div *ngIf="f.bookingType.invalid && !f.bookingType.errors.required">Enter valid Booking Type</div>
+                </div>
+            </div>
+
+            <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100" *ngIf="dispSec">
+                <label class="label">Ref MF#</label>
+                <div class="input-container">
+                    <i class="fa fa-file-code-o icon"></i>
+                     <input class="form-control" type="text" formControlName="refMF" placeholder="Reference"
+                        [ngClass]="{ 'is-invalid': f.refMF.touched && f.refMF.errors }">
+                </div>
+                <div *ngIf="f.refMF.touched && f.refMF.errors" class="text-danger">
+                    <div *ngIf="f.refMF.errors.required">Reference MF is required</div>
+                    <div *ngIf="f.refMF.invalid && !f.refMF.errors.required">Enter valid Reference MF</div>
+                </div>
+            </div>
+
+        </div>
+        <!-- 1st Row Ends -->
+        <!-- 3rd Row Starts -->
+        <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill *ngIf="dispSec">
+
+            <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+                <label class="label">Run No / MAWB No *</label>
+                <div class="input-container">
+                        <i class="fa fa-file-code-o icon"></i>
+                    <ng-select [searchFn]="runNOSearchBranch" [items]="runNoList" bindLable="secRunno"
+                        bindValue="secRunno" dropdownPosition="bottom" (change)="getRunNo()" (clear)="statusValid()" formControlName="secRunno"
+                        placeholder="Run No| MAWB No">
+                        <ng-template ng-label-tmp let-item="item">
+                            <small> {{item.secRunno}} | {{item.secMawbno}}</small>
+                        </ng-template>
+                        <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                            <small> {{item.secRunno}} | {{item.secMawbno}}</small>
+                        </ng-template>
+                    </ng-select>
+                </div>
+                <div *ngIf="f.secRunno.touched && f.secRunno.errors" class="text-danger">
+                    <div *ngIf="f.secRunno.errors.required">RunNo is required</div>
+                    <div *ngIf="f.secRunno.invalid && !f.secRunno.errors.required">Enter valid RunNo</div>
+                </div>
+            </div>
+
+
+            <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+                <label class="label">HAWN No *</label>
+                <div class="input-container">
+                        <i class="fa fa-file-code-o icon"></i>
+                    <ng-select [searchFn]="hawnNoSearch" [items]="hawnNoList" bindLabel="secHAWB" bindValue="secHAWB"
+                        dropdownPosition="bottom" (change)="getHawnNo()" (clear)="statusValid()" formControlName="secHAWB"
+                        placeholder="House Airway Bill Number">
+                        <ng-template ng-label-tmp let-item="item">
+                            <small> {{item.secHAWB}} | {{item.secLandedWtKGs}}</small>
+                        </ng-template>
+                        <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                            <small> {{item.secHAWB}} | {{item.secLandedWtKGs}}</small>
+                        </ng-template>
+                    </ng-select>
+                </div>
+                <div *ngIf="f.secHAWB.touched && f.secHAWB.errors" class="text-danger">
+                    <div *ngIf="f.secHAWB.errors.required">HAWN No is required</div>
+                    <div *ngIf="f.secHAWB.invalid && !f.secHAWB.errors.required">Enter valid HAWN No</div>
+                </div>
+            </div>
+
+            <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+                <label class="label">Delivery Category*</label>
+                <div class="input-container">
+                        <i class="fa fa-truck icon"></i>
+                    <ng-select [searchFn]="customSearchDelCateg" [items]="deliveryCatList" bindLabel="code"
+                        bindValue="id" formControlName="secDeliveryCat" placeholder="Delivery Category" (clear)="statusValid()" (change)="statusValid()">
+                        <ng-template ng-label-tmp let-item="item">
+                            <small> {{item.code}} | {{item.description}}</small>
+                        </ng-template>
+                        <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                            <small> {{item.code}} | {{item.description}}</small>
+                        </ng-template>
+                    </ng-select>
+                </div>
+                <div *ngIf="f.secDeliveryCat.touched && f.secDeliveryCat.errors" class="text-danger">
+                    <div *ngIf="f.secDeliveryCat.errors.required">Delivery Category is required</div>
+                    <div *ngIf="f.secDeliveryCat.invalid && !f.secDeliveryCat.errors.required">Enter valid Delivery
+                        Category</div>
+                </div>
+            </div>
+
+            <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+                <label class="label">Box Weight</label>
+                <div class="input-container">
+                    <i class="fa fa-square icon"></i>
+                    <input class="form-control" formControlName="secLandedWtKGs" type="text" placeholder="Box Weight"
+                        appOnlyNum="true"
+                        [ngClass]="{ 'is-invalid': f.secLandedWtKGs.touched && f.secLandedWtKGs.errors }">
+                </div>
+                <div *ngIf="f.secLandedWtKGs.touched && f.secLandedWtKGs.errors" class="text-danger">
+                    <div *ngIf="f.secLandedWtKGs.errors.required">Box Weight is required</div>
+                    <div *ngIf="f.secLandedWtKGs.invalid && !f.secLandedWtKGs.errors.required">Enter valid Box Weight
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- 3rd Row Ends -->
+
+        <!-- 4th Row Starts -->
+        <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+
+            <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+                <label class="label">MF Date *</label>
+                <div class="input-container">
+                    <i class="fa fa-calendar-check-o icon"></i>
+                    <input type="text" class="form-control" [disableControl]="true" formControlName="mfDate1">
+                </div>
+            </div>
+
+            <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+                <label class="label">MF Time *</label>
+                <div class="input-container">
+                    <i class="fa fa-clock-o icon"></i>
+                    <input type="text" class="form-control" formControlName="mfTime1" [disableControl]="true">
+                </div>
+            </div>
+
+            <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100" *ngIf="dispSec">
+                <label class="label">Booking MF#</label>
+                <div class="input-container">
+                    <i class="fa fa-file-code-o icon"></i>
+                    <input class="form-control" type="text" formControlName="bookingMF" [disableControl]="true"
+                        placeholder="Auto Genearte"
+                        [ngClass]="{ 'is-invalid': f.bookingMF.touched && f.bookingMF.errors }">
+                </div>
+                <div *ngIf="f.bookingMF.touched && f.bookingMF.errors" class="text-danger">
+                    <div *ngIf="f.bookingMF.errors.required">Booking MF is required</div>
+                    <div *ngIf="f.bookingMF.invalid && !f.bookingMF.errors.required">Enter valid Booking MF</div>
+                </div>
+            </div>
+
+            <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100" *ngIf="!dispSec">
+                <label class="label">Domestic Ref#</label>
+                <div class="input-container">
+                        <i class="fa fa-file-code-o icon"></i>
+                    <input type="text" class="form-control" formControlName="domesticRef" (keyup)="statusValid()" placeholder="Domestic Reference">
+                </div>
+            </div>
+
+            <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+                <label class="label">Special Booking Manifest ID *</label>
+                <div class="input-container">
+                        <i class="fa fa-file-code-o icon"></i>
+                    <input type="text" class="form-control" (blur)="isCNNO()" formControlName="specialBookingMF" placeholder="Special Booking Manifest"
+                    [ngClass]="{ 'is-invalid': f.specialBookingMF.touched && cnnoExists }">
+                </div>
+                <div *ngIf="f.specialBookingMF.touched && cnnoExists" class="text-danger">
+                    <p> Special Booking MF is Already Exists. </p>
+                </div>
+                <div *ngIf="f.specialBookingMF.touched && f.specialBookingMF.errors" class="text-danger">
+                    <div *ngIf="f.specialBookingMF.errors.required">Special Booking MF is required</div>
+                    <div *ngIf="f.specialBookingMF.invalid && !f.specialBookingMF.errors.required">Enter valid Special Booking MF</div>
+                </div>
+            </div>
+
+        </div>
+        <!-- 4th Row Ends -->
+
+        <h6 style="color:red;">(*) Mandatory Fields</h6>
+        <!-- Action View -->
+        <div class="container-fluid">
+            <button mat-raised-button class="save-button" [disabled]="!specialCustForm.valid || cnnoExists || secondaryFlag"
+                (click)="save()">Save
+                <mat-icon>save</mat-icon>
+            </button>
+            <button (click)="back()" mat-raised-button class="cancel-button">Cancel
+                <mat-icon>clear</mat-icon>
+            </button>
+        </div>
+    </form>
+
+</div>

@@ -1,0 +1,56 @@
+<form class="form-group" [formGroup]="coloaderReport">
+    <div class="heading" fxLayout="row" fxFlexFill>
+        <div class="content">
+          <div class="col-xs-12 col-12 col-sm-6 col-md-4 form-group">
+            <input type="text" class="form-control mb-3" placeholder="Select Date" (onFocusChange)="getIt()" (click)="applyTheme(dp); getDate();"
+              bsDaterangepicker formControlName="range" style="width: 215px !important;"
+              [bsConfig]="{ containerClass: this.colorTheme , dateInputFormat : 'YYYY-MM-DD' }" />
+          </div>
+          <div fxFlex="20" fxFlex.sm="50" fxFlex.xs="100">
+            <button (click)="getData()" class="get-data" mat-raised-button>Get Data
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+        </div>
+    </div>
+
+    <div class="input-container">
+        <button type="button" (click)="exportXlsx()" mat-raised-button class="dashboard-buttons">
+            <mat-icon>grid_on</mat-icon>Export XLSX
+        </button>
+    </div>
+  
+<br>
+  <div class="scroll">
+    <table id="report">
+
+      <tr>
+        <th>S.No</th>
+        <th>Coloader</th>
+        <th>Destination</th>
+        <th>Number Of Consignments</th>
+        <th>Number Of Pieces</th>
+        <th>Total Weight(KG)</th>
+        <th>Rate / KG</th>
+        <th>Total Rate</th>
+        <th>Report</th>
+      </tr>
+
+      <tr *ngFor="let temps of Temp">
+        <td>{{temps.i}}</td>
+        <td>{{temps.Coloader}}</td>
+        <td>{{temps.destination}}</td>
+        <td>{{temps.noOfCnno}}</td>
+        <td>{{temps.noOfPcs}}</td>
+        <td>{{temps.totWeight}}</td>
+        <td>{{temps.ratePerKG}}</td> 
+        <td>{{temps.totalRate}}</td>
+        <td>
+          <button class="btnIn" (click)="getBreakUp(temps.refOutColoaderID)">
+            <i class="fa fa-print" style="color: white"></i>
+          </button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</form>

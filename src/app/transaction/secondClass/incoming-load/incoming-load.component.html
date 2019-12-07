@@ -1,0 +1,356 @@
+<div class="content">
+    <div class="heading" fxLayout="row" fxFlexFill>
+        <div fxFlex="20" fxLayoutAlign="start start" class="navbar-brand">{{globals.role}}</div>
+    </div>
+    <form class="form-group" [formGroup]="incomeForm">
+
+        <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+            <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+                <label class="label">Run NO*</label>
+                <div class="input-container">
+                    <i class="fa fa-file-code-o icon"></i>
+                    <input class="form-control" type="text" [disableControl]="true" formControlName="secRunno"
+                        [ngClass]="{ 'is-invalid': f.secRunno.touched && f.secRunno.errors }" />
+                </div>
+                <div *ngIf="runFlag" class="text-danger">
+                    <p> Run No exists already.</p>
+                </div>
+                <div *ngIf="f.secRunno.touched && f.secRunno.errors" class="text-danger">
+                    <div *ngIf="f.secRunno.errors.required">Run No is required</div>
+                    <div *ngIf="f.secRunno.invalid && !f.secRunno.errors.required">Enter valid Run No</div>
+                </div>
+            </div>
+
+            <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+                <label class="label">Departure Date*</label>
+                <div class="input-container">
+                    <i class="fa fa-calendar-check-o icon"></i>
+                    <input type="text" placeholder="Datepicker" formControlName="secDepartureDate" class="form-control" [bsConfig]="{ containerClass: this.colorTheme , dateInputFormat : 'DD-MM-YYYY' }" #secDepartureDate="bsDatepicker" bsDatepicker
+                    [ngClass]="{ 'is-invalid': f.secDepartureDate.touched && f.secDepartureDate.errors }" />
+                    <button class="btn btn-outline-secondary calendar" (click)="secDepartureDate.toggle()" (click)="applyTheme(dp)" [attr.aria-expanded]="secDepartureDate.isOpen"></button>
+                </div>
+                <div *ngIf="f.secDepartureDate.touched && f.secDepartureDate.errors" class="text-danger">
+                    <div *ngIf="f.secDepartureDate.errors.required">Departure date is required</div>
+                    <div *ngIf="f.secDepartureDate.invalid && !f.secDepartureDate.errors.required">Enter valid Departure date</div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 2nd Row -->
+        <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+            <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+                <label class="label">Master Airway Bill Number</label>
+                <div class="input-container">
+                    <i class="fa  fa-file-code-o icon"></i>
+                    <input class="form-control" type="text" appNumNotDot="true" formControlName="secMawbno" [ngClass]="{ 'is-invalid': f.secMawbno.touched && f.secMawbno.errors }" />
+                </div>
+                <div *ngIf="f.secMawbno.touched && f.secMawbno.errors" class="text-danger">
+                    <div *ngIf="f.secMawbno.errors.required">Master airway bill no is required</div>
+                    <div *ngIf="f.secMawbno.invalid && !f.secMawbno.errors.required">Enter valid Master airway bill no
+                    </div>
+                </div>
+            </div>
+
+            <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+                <label class="label">Delivery Category*</label>
+                <div class="input-container">
+                    <i class="fa  fa-truck icon"></i>
+                    <ng-select [searchFn]="customSearchDelCateg" [items]="deliveryCatList" bindLabel="code" dropdownPosition="bottom" bindValue="id" 
+                    formControlName="secDeliveryCat" (remove)="onRemoved($event)" (clear)="onCleared()" [multiple]="true" [ngClass]="{ 'is-invalid': f.secDeliveryCat.touched && f.secDeliveryCat.errors }">
+                        <ng-template ng-label-tmp let-item="item">
+                            <small> {{item.code}} | {{item.description}}</small>
+                        </ng-template>
+                        <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                            <small> {{item.code}} | {{item.description}}</small>
+                        </ng-template>
+                    </ng-select>
+                </div>
+                <div *ngIf="f.secDeliveryCat.touched && f.secDeliveryCat.errors" class="text-danger">
+                    <div *ngIf="f.secDeliveryCat.errors.required">Delivery Category is required</div>
+                    <div *ngIf="f.secDeliveryCat.invalid && !f.secDeliveryCat.errors.required">Enter valid Delivery Category</div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 3rd Row -->
+        <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+            <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+                <label class="label">Manifest Date</label>
+                <div class="input-container">
+                    <i class="fa fa-calendar-check-o icon"></i>
+                    <input type="text" placeholder="Datepicker" (onHidden)="setArrivDate($event)" formControlName="secManifestDate" class="form-control" [bsConfig]="{ containerClass: this.colorTheme , dateInputFormat : 'DD-MM-YYYY' }" #secManifestDate="bsDatepicker" bsDatepicker
+                    [ngClass]="{ 'is-invalid': f.secManifestDate.touched && f.secManifestDate.errors }" />
+                    <button class="btn btn-outline-secondary calendar" (click)="secManifestDate.toggle()" (click)="applyTheme(dp)" [attr.aria-expanded]="secManifestDate.isOpen"></button>
+                </div>
+                <div *ngIf="f.secManifestDate.touched && f.secManifestDate.errors" class="text-danger">
+                    <div *ngIf="f.secManifestDate.errors.required">Manifest Date is required</div>
+                    <div *ngIf="f.secManifestDate.invalid && !f.secManifestDate.errors.required">Enter valid Manifest Date</div>
+                </div>
+            </div>
+
+            <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+                <label class="label">Manifest Arrival Date*</label>
+                <div class="input-container">
+                    <i class="fa fa-calendar-check-o icon"></i>
+                    <input type="text" placeholder="Datepicker" [minDate]="arrMinDate" formControlName="secManifestArrDt" class="form-control" [bsConfig]="{ containerClass: this.colorTheme , dateInputFormat : 'DD-MM-YYYY' }" #secManifestArrDt="bsDatepicker" bsDatepicker
+                    [ngClass]="{ 'is-invalid': f.secManifestArrDt.touched && f.secManifestArrDt.errors }" />
+                    <button class="btn btn-outline-secondary calendar" (click)="secManifestArrDt.toggle()" (click)="applyTheme(dp)" [attr.aria-expanded]="secManifestArrDt.isOpen"></button>
+                </div>
+                <div *ngIf="f.secManifestArrDt.touched && f.secManifestArrDt.errors" class="text-danger">
+                    <div *ngIf="f.secManifestArrDt.errors.required">Manifest arrival is required</div>
+                    <div *ngIf="f.secManifestArrDt.invalid && !f.secManifestArrDt.errors.required">Enter valid manifest arrival</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4t row -->
+        <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+            <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100" >
+                <label class="label">Booking Branch</label>
+                <div class="input-container">
+                    <i class="fa fa-map-marker icon"></i>
+                    <ng-select [searchFn]="customSearchBranch" [items]="officeBranchList" bindLabel="id"  dropdownPosition="bottom" bindValue="id"
+                    formControlName="secBranch" [ngClass]="{ 'is-invalid': f.secBranch.touched && f.secBranch.errors }" *ngIf="isRoleHO == true">
+                        <ng-template ng-label-tmp let-item="item">
+                            <small> {{item.code}} | {{item.name}}</small>
+                        </ng-template>
+                        <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                            <small> {{item.code}} | {{item.name}}</small>
+                        </ng-template>
+                    </ng-select>
+                    <input type="text" class="form-control" formControlName="branchName" *ngIf="isRoleHO == false" disabled/>
+                </div>
+                <div *ngIf="f.secBranch.touched && f.secBranch.errors" class="text-danger">
+                    <div *ngIf="f.secBranch.errors.required">Branch is required</div>
+                    <div *ngIf="f.secBranch.invalid && !f.secBranch.errors.required">Enter valid Branch</div>
+                </div>
+            </div>
+            
+        </div>
+        <hr>
+
+        <div>
+            <form class="form-group" [formGroup]="listForm">
+                <div class="heading" fxLayout="row" fxFlexFill>
+                    <div fxFlex="20" fxLayoutAlign="start start" class="navbar-brand">Manifest Incoming Load Details
+                    </div>
+                </div>
+                <div class="row">
+                    <div class=" col-md col-lg-3">
+                        <label class="label">House Airway Bill Number</label>
+                        <div class="input-container">
+                            <i class="fa fa-file-code-o icon"></i>
+                            <input type="text" class="form-control" appNumNotDot="true" formControlName="secHAWB" (keyup)="isHouseAirwayBillNO_duplicate()" 
+                            [ngClass]="{ 'is-invalid': hawbFlag }" />
+                        </div>
+                        <div *ngIf="hawbFlag" class="text-danger">
+                            <p> HAWB No is Already Exists. </p>
+                        </div>
+                        <div *ngIf="h.secHAWB.touched && h.secHAWB.errors" class="text-danger">
+                            <div *ngIf="h.secHAWB.errors.required">HAWB No is required</div>
+                            <div *ngIf="h.secHAWB.invalid && !h.secHAWB.errors.required">Enter valid HAWB No</div>
+                        </div>
+                    </div>
+                    <!-- </div> -->
+                    <div class=" col-md col-lg-3">
+                        <label class="label">Shipper</label>
+                        <div class="input-container">
+                            <i class="fa fa-ship icon"></i>
+                            <ng-select [items]="shipperList" [searchFn]="customSearchShipper" bindLabel="shipperCode" bindValue="id" formControlName="secShipper" dropdownPosition="bottom">
+                                <ng-template ng-label-tmp let-item="item">
+                                    <small> {{item.shipperCode}} | {{item.shipperName}}</small>
+                                </ng-template>
+                                <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                                    <small> {{item.shipperCode}} | {{item.shipperName}}</small>
+                                </ng-template>
+                            </ng-select>
+                        </div>
+                        <div *ngIf="h.secShipper.touched && h.secShipper.errors" class="text-danger">
+                            <div *ngIf="h.secShipper.errors.required">Shipper is required</div>
+                            <div *ngIf="h.secShipper.invalid && !h.secShipper.errors.required">Enter valid Shipper</div>
+                        </div>
+                    </div>
+                    <!-- </div> -->
+                    <div class=" col-md col-lg-3">
+                        <label class="label">Boxes</label>
+                        <div class="input-container">
+                            <i class="fa fa-square icon"></i>
+                            <input class="form-control" type="text" appNumNotDot="true" formControlName="secPieces" />
+                        </div>
+                        <div *ngIf="h.secPieces.touched && h.secPieces.errors" class="text-danger">
+                            <div *ngIf="h.secPieces.errors.required">Pieces is required</div>
+                            <div *ngIf="h.secPieces.invalid && !h.secPieces.errors.required">Enter valid Pieces</div>
+                        </div>
+                    </div>
+                    <!-- </div> -->
+                    <div class=" col-md col-lg-3">
+                        <label class="label">Weight in Lubes</label>
+                        <div class="input-container">
+                            <i class="fa fa-cart-plus icon"></i>
+                            <input class="form-control" type="text" appOnlyNum="true" formControlName="secWeight" (blur)="lbs2Kgs()" />
+                        </div>
+                        <div *ngIf="h.secWeight.touched && h.secWeight.errors" class="text-danger">
+                            <div *ngIf="h.secWeight.errors.required">Weight-LBs is required</div>
+                            <div *ngIf="h.secWeight.invalid && !h.secWeight.errors.required">Enter valid Weight in LBs</div>
+                        </div>
+                    </div>
+                    <!-- </div> -->
+                </div>
+                <div class="row">
+                    <div class=" col-md col-lg-3">
+                        <label class="label">Weight in Kgs</label>
+                        <div class="input-container">
+                            <i class="fa fa-cart-plus icon"></i>
+                            <input class="form-control" type="text" appOnlyNum="true" formControlName="secWeightKG" (blur)="kgs2Lbs()" />
+                        </div>
+                        <div *ngIf="h.secWeightKG.touched && h.secWeightKG.errors" class="text-danger">
+                            <div *ngIf="h.secWeightKG.errors.required">Weight-Kgs is required</div>
+                            <div *ngIf="h.secWeightKG.invalid && !h.secWeightKG.errors.required">Enter valid Weight-Kgs</div>
+                        </div>
+                    </div>
+                    <!-- </div> -->
+                    <div class=" col-md col-lg-3">
+                        <label class="label">Pickup Date</label>
+                        <div class="input-container">
+                            <i class="fa  fa-calendar-check-o icon"></i>
+                            <input type="text" placeholder="Datepicker" formControlName="secPickup" class="form-control" [bsConfig]="{ containerClass: this.colorTheme , dateInputFormat : 'DD-MM-YYYY' }" #secPickup="bsDatepicker" bsDatepicker
+                            [ngClass]="{ 'is-invalid': h.secPickup.touched && h.secPickup.errors }">
+                            <button class="btn btn-outline-secondary calendar" (click)="secPickup.toggle()" (click)="applyTheme(dp)" [attr.aria-expanded]="secPickup.isOpen"></button>
+                        </div>
+                        <div *ngIf="h.secPickup.touched && h.secPickup.errors" class="text-danger">
+                            <div *ngIf="h.secPickup.errors.required">Pickup is required</div>
+                            <div *ngIf="h.secPickup.invalid && !h.secPickup.errors.required">Enter valid Pickup
+                            </div>
+                        </div>
+                    </div>  
+
+                    <div class=" col-md col-lg-3">
+                        <label class="label">Delivery Category</label>
+                        <div class="input-container">
+                            <i class="fa fa-truck icon"></i>
+                            <ng-select [searchFn]="customSearchDelCateg" [items]="deliveryCatOfHAWB" bindLabel="code" bindValue="id" formControlName="secDeliveryCat"
+                            (change)="statusValid()" (clear)="statusValid()" placeholder="Delivery Category">
+                                <ng-template ng-label-tmp let-item="item">
+                                    <small> {{item.code}} | {{item.description}}</small>
+                                </ng-template>
+                                <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                                    <small> {{item.code}} | {{item.description}}</small>
+                                </ng-template>
+                            </ng-select>
+                        </div>
+                        <!-- <div *ngIf="f.secDeliveryCat.touched && f.secDeliveryCat.errors" class="text-danger">
+                            <div *ngIf="f.secDeliveryCat.errors.required">Delivery Category is required</div>
+                            <div *ngIf="f.secDeliveryCat.invalid && !f.secDeliveryCat.errors.required">Enter valid Delivery Category</div>
+                        </div> -->
+                    </div>
+
+                    <div class="col-md col-lg-3">
+                        <button mat-raised-button class="save-button" [disabled]="!listForm.valid || hawbFlag"
+                            (click)="addLoadInfo()" style="margin-top:33px;">Save
+                            <mat-icon>save</mat-icon>
+                        </button>
+                        <button mat-raised-button class="cancel-button" (click)="back();"
+                            style="margin-top:33px;">Cancel
+                            <mat-icon>cancel</mat-icon>
+                        </button>
+                    </div>
+                    <br>
+                    <div class="col-md col-lg-3">
+                        <button class="navBtn" (click)="leftNav()" [disabled]="ltnavBtn">
+                            <i class="fa fa-angle-left" aria-hidden="true" style="color:blue"> Prev</i>
+                        </button>&nbsp;
+                        <button class="navBtn" (click)="rightNav()" [disabled]="rtNavBtn">Next 
+                            <i class="fa fa-angle-right" aria-hidden="true" style="color:blue"></i>
+                        </button>&nbsp;
+                    </div>
+                </div>
+            </form>
+            <div class="heading">
+                    <button class="btn" (click)="refreshTable()" id="refreshBtn" #refreshBtn>
+                        <i class="fa fa-refresh" aria-hidden="true" style="color:white"> Refresh</i>
+                    </button>
+                    <input type='text' class="filter" placeholder='Filter Name Column' (keyup)='updateFilter($event)' />
+                </div>
+            <!-- NGX - Data Table  -->
+            <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+                <div fxFlex="100" fxFlex.sm="100" fxFlex.xs="100">
+                    
+                    <div class="border">
+                        <ngx-datatable class="material striped" 
+                        [sortType]="'multi'" [limit]="10" [headerHeight]="50"
+                        [trackByProp]="'id'" [selected]="selectedRow"  
+                        [footerHeight]="50"  [scrollbarV]="false" [scrollbarH]="true"
+                        [rowHeight]="45" [rows]="loadList">
+
+                            <ngx-datatable-column name="Action" prop="" [frozenLeft]="true">
+                                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>&nbsp;&nbsp;
+                                    <button class="btnIn" (click)=deleteList(row.id)><i class="fa fa-trash" aria-hidden="true"
+                                            style="color:white"></i></button>&nbsp;
+                                    <button class="btnIn" (click)="cloneToFields(row.id)"><i class="fa fa-clone" aria-hidden="true"
+                                            style="color:white"></i></button>&nbsp;
+                                    <button class="btnIn" (click)="editView(row.id)"><i class="fa fa-pencil" aria-hidden="true"
+                                            style="color:white"></i></button>
+                                </ng-template>
+                            </ngx-datatable-column>
+
+                            <ngx-datatable-column name="HAWN No" prop="secHAWB" width="100">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Shipper" prop="shipperName" width="150">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Boxes" prop="secPieces" width="80">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Weight(Kgs)" prop="secWeightKG" width="100">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Weight(Lbs)" prop="secWeight" width="100">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Landed Boxes" prop="secLandedPcs" width="160">
+                                <ng-template let-value="value" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                                    <input type="text" [value]="value" appNumNotDot="true" style="width:120px" (blur)="updateValue($event, 'secLandedPcs', rowIndex)">
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Landed Weight Kgs" prop="secLandedWtKGs" width="160">
+                                <ng-template let-value="value" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                                    <input type="text" [value]="value" appOnlyNum="true" style="width:120px" (blur)="updateValue($event, 'secLandedWtKGs', rowIndex)">
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <!-- <ngx-datatable-column name="Landed Weight Lbs" prop="secLandedWtLBs" width="160">
+                                <ng-template let-value="value" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                                    <input type="text" [value]="value" appOnlyNum="true" style="width:120px" (blur)="updateValue($event, 'secLandedWtLBs', rowIndex)">
+                                </ng-template>
+                            </ngx-datatable-column> -->
+                            <ngx-datatable-column name="Update Landed" prop="secHAWB" width="180">
+                                <ng-template let-row="row" let-value="value" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                                    <button class="btnIn" (click)="updateLanded(rowIndex)">
+                                        <i class="fa fa-floppy-o" aria-hidden="true" style="color: white"></i> 
+                                    </button>
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Pickup Date" prop="secPickup">
+                                <ng-template let-value="value" ngx-datatable-cell-template>
+                                    {{value | date:'dd/MM/yyyy'}}
+                                </ng-template>
+                            </ngx-datatable-column>
+                        </ngx-datatable>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <h6 style="color:red;">(*) Mandatory Fields</h6>
+        <!-- Action View -->
+        <div class="container-fluid">
+            <button mat-raised-button class="save-button" [disabled]="!incomeForm.valid || listForm.valid" (click)="updateIncomeMfst()">Save
+                <mat-icon>save</mat-icon>
+            </button>
+            <button (click)="back()" mat-raised-button class="cancel-button">Cancel
+                <mat-icon>clear</mat-icon>
+            </button>
+        </div>
+
+    </form>
+
+</div>

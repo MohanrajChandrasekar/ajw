@@ -1,0 +1,90 @@
+<div class="content">
+
+  <div class="heading" fxlayout="row" fxFlexFill>
+    <div fxFlex="20" fxLayoutAlign="start start" class="navbar-brand">{{globals.role}}</div>
+ </div>
+
+ <form class="form-group" [formGroup]="specialConsigneeForm">
+
+   <div fxLayout="row" fxlayout.sm="column" fxLayout.xs="column" fxFlexFill>
+     <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+       <label class="label">consigneeName *</label>
+       <div class="input-container">
+         <i class="fa fa-keyboard-o icon"></i>
+         <input class="form-control" type="text" formControlName="consigneeName">
+      </div>
+      <div *ngIf="f.consigneeName.touched && f.consigneeName.errors" class="text-danger">
+        <div *ngIf="f.consigneeName.errors.required">ConsigneeName is required</div>
+      </div>     
+    </div>
+    
+    <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+      <label class="label">ConsigneeAddress *</label>
+      <div class="input-container">
+        <i class="fa fa-file-code-o icon"></i>
+        <input class="form-control" type="text" formControlName="consigneeAddress" >
+    </div>
+    <div *ngIf="f.consigneeAddress.touched && f.consigneeAddress.errors" class="text-danger">
+      <div *ngIf="f.consigneeAddress.errors.required"> ConsigneeAddress is required</div>
+    </div>
+  </div>
+  
+  <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+    <label class="label">Pincode</label>
+    <div class="input-container">
+      <i class="fa fa-map-pin icon"></i>
+      <input type="text" class="form-control" formControlName="pincode" appNumNotDot="true" >
+    </div>
+    <div *ngIf="f.pincode.touched && f.pincode.errors" class="text-danger">
+      <div *ngIf="f.pincode.errors.required">Pincode is required</div>
+      <div *ngIf="f.pincode.invalid && !f.pincode.errors.required">Enter valid Pincode</div>  
+    </div>
+  </div>
+</div>   
+
+<h6 style="color:red;">(*) Mandatory Fields</h6>
+<div class="content">
+  <button mat-raised-button class="save-button" (click)="onFormSubmit();" [disabled]="!specialConsigneeForm.valid">Save
+    <mat-icon>save</mat-icon>
+  </button>
+  <button (click)="reset()" type="reset" mat-raised-button class="reset-button">Reset
+    <mat-icon>refresh</mat-icon>
+  </button>
+  <button (click)="back()" mat-raised-button class="cancel-button">Cancel
+    <mat-icon>clear</mat-icon>
+  </button>
+</div>
+
+  <div class="heading" fxLayout="row" fxFlexFill>
+    <div fxFlex="20" fxLayoutAlign="start start" class="navbar-brand"></div>
+    <div fxFlex="80">
+      <button type="button" (click)="exportXlsx()" mat-raised-button class="heading-buttons">
+        <mat-icon>grid_on</mat-icon>Export XLSX
+        </button>
+        <input type='text' class="filter" placeholder='Filter' (keyup)='updateFilter($event)' />
+    </div>
+  </div>
+
+  <ngx-datatable [rows]="specialConsigneeInfo" style="height:500px" class='material striped' [headerHeight]="50" [footerHeight]="50" [rowHeight]="40" [scrollbarV]="true">
+    <ngx-datatable-column name="Action" [frozenLeft]="true" width="100">
+      <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
+        <button class="btnIn" (click)="edit(row['id'])">
+          <i class="fa fa-pencil" style="color:white"></i>
+        </button>&nbsp;
+        <button class="btnIn" (click)="delete(row['id'])">
+          <i class="fa fa-trash" aria-hidden="true" style="color:white"></i>
+        </button>&nbsp;
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Consignee Name" prop="consigneeName"></ngx-datatable-column>
+  <ngx-datatable-column name="Consignee Address" prop="consigneeAddress"></ngx-datatable-column>
+  <ngx-datatable-column name="Pincode" prop="pincode"></ngx-datatable-column>
+  </ngx-datatable>
+
+</form>
+</div> 
+
+
+
+
+    

@@ -1,0 +1,86 @@
+<div class="content">
+
+  <div class="heading" fxLayout="row" fxFlexFill>
+    <div fxFlex="20" fxLayoutAlign="start start" class="navbar-brand">{{globals.role}}</div>
+  </div>
+
+ 
+  <form [formGroup]="emailForm" (ngSubmit)="onFormSubmit(emailForm)">
+   
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+        <label class="label">Branch Code *</label>
+        <div class="input-container">
+          <i class="fa fa-file-code-o icon"></i>
+          <input class="form-control" type="text" formControlName="branchCode" [ngClass]="{ 'is-invalid': f.branchCode.touched && f.branchCode.errors }"
+           >
+        </div>
+        <div *ngIf="f.branchCode.touched && f.branchCode.errors" class="text-danger">
+          <div *ngIf="f.branchCode.errors.required">Branch Code is required</div>
+          <div *ngIf="f.branchCode.invalid && !f.branchCode.errors.required">Enter valid Branch Code</div>
+        </div>
+      </div>
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+        <label class="label">Branch Name *</label>
+        <div class="input-container">
+          <i class="fa fa-user icon"></i>
+          <input class="form-control" type="text" formControlName="branchName" [ngClass]="{ 'is-invalid': f.branchName.touched && f.branchName.errors }"
+           >
+        </div>
+        <div *ngIf="f.branchName.touched && f.branchName.errors" class="text-danger">
+          <div *ngIf="f.branchName.errors.required">Branch Name is required</div>
+          <div *ngIf="f.branchName.invalid && !f.branchName.errors.required">Enter valid Branch Name</div>
+        </div>
+      </div>
+    </div>
+
+    
+
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+        <label class="label">Email Id *</label>
+        <div class="input-container">
+          <i class="fa fa-envelope icon"></i>
+          <input class="form-control" formControlName="branchEmail" [ngClass]="{ 'is-invalid': f.branchEmail.touched && f.branchEmail.errors }">
+        </div>
+        <div *ngIf="f.branchEmail.touched && f.branchEmail.errors" class="text-danger">
+          <div *ngIf="f.branchEmail.invalid && !f.branchEmail.errors.required">Enter valid Email Id</div>
+        </div>
+      </div>
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+        <label class="label">Email Cc *</label>
+        <div class="input-container">
+          <i class="fa fa-envelope icon"></i>
+          <input class="form-control"  formControlName="branchEmailCC" [ngClass]="{ 'is-invalid': f.branchEmailCC.touched && f.branchEmailCC.errors }">
+        </div>
+        <div *ngIf="f.branchEmailCC.touched && f.branchEmailCC.errors" class="text-danger">
+          <div *ngIf="f.branchEmailCC.invalid && !f.branchEmailCC.errors.required">Enter valid Email Cc</div>
+        </div>
+      </div>
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+        <label class="label">Email Bcc *</label>
+        <div class="input-container">
+          <i class="fa fa-envelope icon"></i>
+          <input class="form-control"  formControlName="branchEmailBCC" [ngClass]="{ 'is-invalid': f.branchEmailBCC.touched && f.branchEmailBCC.errors }">
+        </div>
+        <div *ngIf="f.branchEmailBCC.touched && f.branchEmailBCC.errors" class="text-danger">
+          <div *ngIf="f.branchEmailBCC.invalid && !f.branchEmailBCC.errors.required">Enter valid Email Bcc</div>
+        </div>
+      </div>
+    </div>
+
+    <h6 style="color:red;">(*) Mandatory Fields</h6>
+    <div class="content">
+      <button mat-raised-button class="save-button" [disabled]="!emailForm.valid">Save
+        <mat-icon>save</mat-icon>
+      </button>
+      <button (click)="reset()" type="reset" mat-raised-button class="reset-button">Reset
+        <mat-icon>refresh</mat-icon>
+      </button>
+      <button (click)="back()" mat-raised-button class="cancel-button">Cancel
+        <mat-icon>clear</mat-icon>
+      </button>
+    </div>
+
+  </form>
+</div>

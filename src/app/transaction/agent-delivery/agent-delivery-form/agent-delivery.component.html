@@ -1,0 +1,182 @@
+<div class="content">
+
+    <div class="heading" fxLayout="row" fxFlexFill>
+        <div fxFlex="20" fxLayoutAlign="start start" class="navbar-brand">{{globals.role}}</div>
+    </div>
+    <!-- Form Starts -->
+    <form class="form-group" [formGroup]="agentForm" (keydown.enter)="preventSubmit($event)">
+        <!-- 1st Row Starts -->
+        <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+
+            <!-- <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+                <label class="label">Outgoing Manifest *</label>
+                    <div class="input-container">
+                        <input type="text" class="form-control" formControlName="refOutMFID1" disabled/>
+                    </div>
+            </div> -->
+
+            <!-- <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+                <label class="label">Vendors Name *</label>
+                <div class="input-container">
+                    <input type="text" class="form-control" formControlName="postalCode1" disabled/>
+                </div>
+            </div> -->
+
+            <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+                <label class="label">MF Date *</label>
+                <div class="input-container">
+                    <i class="fa fa-calendar icon"></i>
+                    <input type="text" class="form-control" formControlName="mfDate1" [disableControl]="true">
+                </div>
+            </div>
+    
+            <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+                <label class="label">MF Time *</label>
+                <div class="input-container">
+                    <i class="fa fa-calendar icon"></i>
+                    <input type="text" class="form-control" formControlName="mfTime1" [disableControl]="true">
+                </div>
+            </div>
+
+            <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+                <label class="label">Delivery MF#</label>
+                <div class="input-container">
+                    <!-- <i *ngIf="editForm == false" class="fa fa-user icon"></i> -->
+                    <!-- <input *ngIf="editForm == false" type="text" class="form-control" appNumNotDot="true" formControlName="refAgntDelvMFID" placeholder="Manifest Number"> -->
+                    <input type="text" class="form-control" formControlName="refAgntDelvMFID1" appNumNotDot="true"  disabled/>
+                </div>
+            </div>
+
+        </div>
+        <!-- 1st Row Ends -->
+        <!-- 2nd Row Starts -->
+        <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+
+            <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+                <label class="label">Vendors List</label>
+                <div class="input-container">
+                    <ng-select [searchFn]="" (change)="getScannables()" [items]="vendorsList" bindLabel="postalCode"
+                    bindValue="postalCode" dropdownPosition="bottom" formControlName="postalCode"
+                        [ngClass]="{ 'is-invalid': f.postalCode.touched && f.postalCode.errors }">
+                        <ng-template ng-label-tmp let-item="item">
+                            <small> {{item.postalCode}} </small>
+                        </ng-template>
+                        <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                            <small> {{item.postalCode}} </small>
+                        </ng-template>
+                    </ng-select>
+                </div>
+            </div>
+
+            <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+                <label class="label">Remarks</label>
+                <div class="input-container">
+                    <i class="fa fa-calendar icon"></i>
+                    <input type="text" class="form-control" formControlName="refAgntRemarks" placeholder="Remarks"
+                    [ngClass]="{'is-invalid': f.refAgntRemarks.touched && f.refAgntRemarks.errors}">
+                </div>
+                <div *ngIf="f.refAgntRemarks.touched && f.refAgntRemarks.errors" class="text-danger">
+                    <div *ngIf="f.refAgntRemarks.invalid && !f.refAgntRemarks.errors.required">Enter valid Franchise
+                        Code</div>
+                </div>
+            </div>
+
+            <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+                <label class="label">CNNO</label>
+                <div class="input-container">
+                    <i class="fa fa-calendar icon"></i>
+                    <input type="text" class="form-control" formControlName="cnNO" appNumNotDot="true" placeholder="Consignment Numner" (keyup)="scanning()">
+                </div>
+            </div>
+
+        </div>
+        <!-- 2nd Row Ends -->
+    </form>
+</div>
+<!-- 3rd Row ends -->
+<div class="content">
+
+    <div class="heading" fxLayout="row" fxFlexFill>
+        <div fxFlex="20" fxLayoutAlign="start start" class="navbar-brand">List of Deliverables</div>
+        <div fxFlex="80">
+            <button type="button" (click)="getReport()" mat-raised-button class="heading-buttons">
+                <mat-icon>grid_on</mat-icon>Export PDF
+            </button>
+            <button type="button" (click)="openTrackDialog()" mat-raised-button class="heading-buttons" style=" background-color: cadetblue;">
+                <mat-icon>360</mat-icon>Track Consignment
+            </button>
+        </div>
+    </div>
+    
+    <!-- Data Table Starts -->
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+
+
+        <!-- Scannable Consginments -->
+        <ngx-datatable style="height:500px; width:30% !important;" class='material striped' 
+        [rows]="consignmentsList"
+        [headerHeight]="50"
+        [footerHeight]="40" 
+        [rowHeight]="40" 
+        [scrollbarV]="true" >
+
+            <ngx-datatable-column name="Consignment Number" [frozenLeft]="true" prop="cnNO" width="170"></ngx-datatable-column>
+            <ngx-datatable-footer>
+                <ng-template ngx-datatable-footer-template let-rowCount="rowCount" let-pageSize="pageSize"
+                    let-selectedCount="selectedCount" let-curPage="curPage" let-offset="offset">
+                    <div style="padding: 5px 10px">
+                        <div>
+                            {{rowCount}} total
+                        </div>
+                    </div>
+                </ng-template>
+            </ngx-datatable-footer>
+        </ngx-datatable>
+        <!-- Scannable Consginments End  -->
+
+        <ngx-datatable style="height:500px" class='material striped' 
+        [rows]="bookedList"
+        [headerHeight]="50"
+        [footerHeight]="40" 
+        [rowHeight]="40" 
+        [scrollbarV]="true">
+
+            <ngx-datatable-column name="Consignment Number" prop="cnNO" width="170"></ngx-datatable-column>
+            <!-- <ngx-datatable-column name="Sended Out" [frozenLeft]="true" prop="refOutForDelivery" width="103">
+                <ng-template ngx-datatable-cell-template let-value="value">
+                    <i *ngIf="value==1" class="fa fa-check fa-lg" aria-hidden="true" style="color:green"></i>
+                    <i *ngIf="value==0" class="fa fa-times fa-lg" aria-hidden="true" style="color:red"></i>
+                </ng-template>
+            </ngx-datatable-column> -->
+            <ngx-datatable-column name="OutscanMFID" prop="refOutMfID" width="100"></ngx-datatable-column>
+            <ngx-datatable-column name="Pieces" prop="noOfPcs" width="100"></ngx-datatable-column>
+            <ngx-datatable-column name="Weight(Kgs)" prop="pcsWtKgs" width="110"></ngx-datatable-column>
+            <ngx-datatable-column name="Amount" prop="estimatedAmount" width="100"></ngx-datatable-column>
+            <ngx-datatable-column name="Consignee Name" prop="consigneeName" width="150"></ngx-datatable-column>
+            <ngx-datatable-column name="Consignee Address" prop="consigneeAddress" width="300"></ngx-datatable-column>
+            <ngx-datatable-footer>
+                <ng-template ngx-datatable-footer-template let-rowCount="rowCount" let-pageSize="pageSize"
+                    let-selectedCount="selectedCount" let-curPage="curPage" let-offset="offset">
+                    <div style="padding: 5px 10px">
+                        <div>
+                            {{rowCount}} total
+                        </div>
+                    </div>
+                </ng-template>
+            </ngx-datatable-footer>
+        </ngx-datatable>
+    </div>
+    <!-- Data Table Ends -->
+
+    <!-- Action Controls Starts -->
+    <h6 style="color:red;" *ngIf="editForm == false">(*) Mandatory Fields</h6>
+    <div class="container-fluid" *ngIf="editForm == false">
+        <button mat-raised-button class="save-button" [disabled]="!agentForm.valid" (click)="save()">Save
+            <mat-icon>save</mat-icon>
+        </button>
+        <button (click)="back()" mat-raised-button class="cancel-button">Cancel
+            <mat-icon>clear</mat-icon>
+        </button>
+    </div>
+    <!-- Action Controls Ends -->
+</div>

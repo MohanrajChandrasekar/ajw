@@ -1,0 +1,70 @@
+<div class="content">
+
+  <form [formGroup]="specialListForm">
+    <div class="heading" fxLayout="row" fxFlexFill>
+      <div fxFlex="15" fxLayoutAlign="start start" class="navbar-brand">{{globals.role}}</div>
+
+      <div fxFlex="20">
+        <div class="input-container">
+          <i class="fa fa-file-code-o icon"></i>
+          <input type="text" class="form-control" formControlName="frmDate" placeholder="From Date" ngbDatepicker
+            #frmDate="ngbDatepicker" (dateSelect)="dateRange1()" dateFormat="dd-MM-yyyy">
+          <button class="btn btn-outline-secondary calendar" (click)="frmDate.toggle()" type="button"></button>
+        </div>
+      </div>
+      <div fxFlex="20">
+        <div class="input-container">
+          <i class="fa fa-file-code-o icon"></i>
+          <input type="text" class="form-control" formControlName="toDate" placeholder="TO Date" ngbDatepicker
+            #toDate="ngbDatepicker" (dateSelect)="dateRange()" dateFormat="dd-MM-yyyy">
+          <button class="btn btn-outline-secondary calendar" (click)="toDate.toggle()" type="button"></button>
+        </div>
+      </div>
+
+      <div fxFlex="60">
+        <button type="button" (click)="btnClick()" mat-raised-button class="heading-buttons">
+          <mat-icon>add</mat-icon>Add
+        </button>
+        <button type="button" (click)="exportXlsx()" mat-raised-button class="heading-buttons">
+          <mat-icon>grid_on</mat-icon>Export XLSX
+        </button>
+        <input type='text' class="filter" placeholder='Filter' (keyup)='updateFilter($event)' />
+      </div>
+    </div>
+  </form>
+
+  <ngx-datatable [rows]="bookingList" style="height:500px" class='material striped' [headerHeight]="50"
+    [footerHeight]="50" [rowHeight]="40" [scrollbarV]="true">
+
+    <ngx-datatable-column name="Action" [frozenLeft]="true" width="130">
+      <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
+        <button class="btnIn" (click)="edit(row['id'])" title="Edit Booking">
+          <i class="fa fa-pencil" style="color:white"></i>
+        </button>&nbsp;
+        <button class="btnIn" (click)="editDetails(row['id'])" title="Edit Booked Consignment">
+          <i class="fa fa-pencil-square-o" style="color:white"></i>
+        </button>&nbsp;
+        <button class="btnIn" (click)="delete(row['id'])" title="Delete">
+          <i class="fa fa-trash" aria-hidden="true" style="color:white"></i>
+        </button>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Booking ID" prop="id"></ngx-datatable-column>
+    <ngx-datatable-column name="Customer Name" prop="custName"></ngx-datatable-column>
+    <ngx-datatable-column name="Delivery Category" prop="secDelDesc"></ngx-datatable-column>
+    <ngx-datatable-column name="Booking Type" prop="bookingType"></ngx-datatable-column>
+    <ngx-datatable-column name="Reference MF" prop="refMF"></ngx-datatable-column>
+    <ngx-datatable-column name="MF Date" prop="mfDate" width="100">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{value | date:'dd/MM/yyyy'}}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="MF Time" prop="mfTime" width="100">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{value | date:'HH:MM:SS'}}
+      </ng-template>
+    </ngx-datatable-column>
+
+  </ngx-datatable>
+</div>

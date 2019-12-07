@@ -1,0 +1,51 @@
+<div class="content">
+
+  <div class="heading" fxLayout="row" fxFlexFill>
+    <div fxFlex="20" fxLayoutAlign="start start" class="navbar-brand">{{globals.role}}</div>
+  </div>
+
+
+  <form class="form-group" [formGroup]="documentForm">
+
+   
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+        <label class="label">Code *</label>
+        <div class="input-container">
+          <i class="fa fa-file-code-o icon"></i>
+          <input class="form-control" type="text" formControlName="code" [ngClass]="{ 'is-invalid': f.code.touched && f.code.errors }"
+           >
+        </div>
+        <div *ngIf="f.code.touched && f.code.errors" class="text-danger">
+          <div *ngIf="f.code.errors.required">Code is required</div>
+          <div *ngIf="f.code.invalid && !f.code.errors.required">Enter valid Code</div>
+        </div>
+      </div>
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+        <label class="label">Description *</label>
+        <div class="input-container">
+          <i class="fa fa-pencil-square-o icon"></i>
+          <input class="form-control" type="text" formControlName="description" [ngClass]="{ 'is-invalid': f.description.touched && f.description.errors }"
+           >
+        </div>
+        <div *ngIf="f.description.touched && f.description.errors" class="text-danger">
+          <div *ngIf="f.description.errors.required">Description is required</div>
+          <div *ngIf="f.description.invalid && !f.description.errors.required">Enter valid Description</div>
+        </div>
+      </div>
+
+    </div>
+    <h6 style="color:red;">(*) Mandatory Fields</h6>
+    <div class="content">
+      <button mat-raised-button class="save-button" (click)="onFormSubmit();" [disabled]="!documentForm.valid">Save
+        <mat-icon>save</mat-icon>
+      </button>
+      <button (click)="reset()" type="reset" mat-raised-button class="reset-button">Reset
+        <mat-icon>refresh</mat-icon>
+      </button>
+      <button (click)="back()" mat-raised-button class="cancel-button">Cancel
+        <mat-icon>clear</mat-icon>
+      </button>
+    </div>
+  </form>
+</div>

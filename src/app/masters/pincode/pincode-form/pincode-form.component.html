@@ -1,0 +1,94 @@
+<div class="content">
+
+  <div class="heading" fxLayout="row" fxFlexFill>
+    <div fxFlex="20" fxLayoutAlign="start start" class="navbar-brand">{{globals.role}}</div>
+  </div>
+
+  <form class="form-group" [formGroup]="pincodeForm">
+
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+        <label class="label">Type *</label>
+        <div class="input-container">
+          <i class="fa fa-keyboard-o icon"></i>
+          <input type="text" class="form-control"  formControlName="ajwType" [ngClass]="{ 'is-invalid': f.ajwType.touched && f.ajwType.errors }">
+        </div>
+        <div *ngIf="f.ajwType.touched && f.ajwType.errors" class="text-danger">
+          <div *ngIf="f.ajwType.errors.required">Type is required</div>
+        </div>
+      </div>
+
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+        <label class="label">Code *</label>
+        <div class="input-container">
+          <i class="fa fa-file-code-o icon"></i>
+          <input type="text" class="form-control"  formControlName="ajwCode" [ngClass]="{ 'is-invalid': f.ajwCode.touched && f.ajwCode.errors }">
+        </div>
+        <div *ngIf="f.ajwCode.touched && f.ajwCode.errors" class="text-danger">
+          <div *ngIf="f.ajwCode.errors.required">Code is required</div>
+          <div *ngIf="f.ajwCode.invalid && !f.ajwCode.errors.required">Enter valid Code</div>
+
+        </div>
+      </div>
+
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+        <label class="label">Postal Type *</label>
+        <div class="input-container">
+          <i class="fa fa-file-code-o icon"></i>
+          <input type="text" class="form-control"  formControlName="ajwRateType" >
+        </div>
+      </div>
+
+    </div>
+
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+        <label class="label">Pincode *</label>
+        <div class="input-container">
+          <i class="fa fa-map-pin icon"></i>
+          <input type="text" class="form-control" appNumNotDot="true" formControlName="ajwPin" [ngClass]="{ 'is-invalid': f.ajwPin.touched && f.ajwPin.errors }">
+        </div>
+        <div *ngIf="f.ajwPin.touched && f.ajwPin.errors" class="text-danger">
+          <div *ngIf="f.ajwPin.errors.required">Pincode is required</div>
+          <div *ngIf="f.ajwPin.invalid && !f.ajwPin.errors.required">Enter valid Pincode</div>
+        </div>
+      </div>
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+        <label class="label">City *</label>
+        <div class="input-container">
+          <i class="fa fa-map-marker icon"></i>
+          <input class="form-control"  formControlName="ajwCity" [ngClass]="{ 'is-invalid': f.ajwCity.touched && f.ajwCity.errors }">
+        </div>
+        <div *ngIf="f.ajwCity.touched && f.ajwCity.errors" class="text-danger">
+          <div *ngIf="f.ajwCity.errors.required">City is required</div>
+          <div *ngIf="f.ajwCity.invalid && !f.ajwCity.errors.required">Enter valid City</div>
+        </div>
+      </div>
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+        <label class="label">Area *</label>
+        <div class="input-container">
+          <i class="fa fa-map-marker icon"></i>
+          <input class="form-control"  formControlName="ajwArea" [ngClass]="{ 'is-invalid': f.ajwArea.touched && f.ajwArea.errors }">
+        </div>
+        <div *ngIf="f.ajwArea.touched && f.ajwArea.errors" class="text-danger">
+          <div *ngIf="f.ajwArea.errors.required">Area is required</div>
+          <div *ngIf="f.ajwArea.invalid && !f.ajwArea.errors.required">Enter valid Area</div>
+        </div>
+      </div>
+    </div>
+
+    <h6 style="color:red;">(*) Mandatory Fields</h6>
+
+    <div class="content">
+      <button class="save-button" mat-raised-button (click)="save()" [disabled]="!pincodeForm.valid ">Save
+        <mat-icon>save</mat-icon>
+      </button>
+      <button (click)="reset()" type="reset" mat-raised-button class="reset-button">Reset
+        <mat-icon>refresh</mat-icon>
+      </button>
+      <button (click)="back()" mat-raised-button class="cancel-button">Cancel
+        <mat-icon>clear</mat-icon>
+      </button>
+    </div>
+  </form>
+</div>

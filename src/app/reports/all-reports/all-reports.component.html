@@ -1,0 +1,152 @@
+<div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+  <div fxFlex="80" fxFlex.sm="50" fxFlex.xs="100">
+    <form [formGroup]="reportForm">
+      <div class="content">
+        <div class="col-xs-12 col-12 col-sm-6 col-md-4 form-group">
+          <input type="text" class="form-control mb-3" placeholder="Select Date" (onFocusChange)="getIt()" (click)="applyTheme(dp); getDate();"
+            bsDaterangepicker formControlName="range"
+            [bsConfig]="{ containerClass: this.colorTheme , dateInputFormat : 'YYYY-MM-DD' }" />
+        </div>
+        <div fxFlex="20" fxFlex.sm="50" fxFlex.xs="100">
+          <button (click)="getDate()" class="get-data" mat-raised-button>Get Data
+            <mat-icon>refresh</mat-icon>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<mat-grid-list cols="2" rowHeight="450px">
+
+  <mat-grid-tile colspan="2">
+    <mat-card class="dashboard-card">
+      <mat-card-header>
+        <mat-card-title>
+          <b>Delivery Vendorwise Distribution</b>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="dashboard-card-content">
+        <app-vendor-wise></app-vendor-wise>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile colspan="2">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+          <b>Opening closing report</b>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="dashboard-card-content">
+        <app-opening-closing-report></app-opening-closing-report>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile colspan="2">
+    <mat-card class="dashboard-card">
+      <mat-card-header>
+        <mat-card-title>
+        <b>Delivery breakup report</b>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="dashboard-card-content">
+        <app-delivery-breakup></app-delivery-breakup>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile colspan="2">
+    <mat-card class="dashboard-card">
+      <mat-card-header>
+        <mat-card-title>
+          <b>Misrouted Shipments</b>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="dashboard-card-content">
+        <app-misrouted-report></app-misrouted-report>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile colspan="2">
+    <mat-card class="dashboard-card">
+      <mat-card-header>
+        <mat-card-title>
+          <b>Station Arrival</b>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="dashboard-card-content">
+        <app-station-report></app-station-report>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile colspan="2">
+    <mat-card class="dashboard-card">
+      <mat-card-header>
+        <mat-card-title>
+          <b>User Production Report</b>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="dashboard-card-content">
+        <app-production-report></app-production-report>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile colspan="2">
+    <mat-card class="dashboard-card">
+      <mat-card-header>
+        <mat-card-title>
+          <b>Coloader Report</b>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="dashboard-card-content">
+        <app-coloader-report></app-coloader-report>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile colspan="2">
+    <mat-card class="dashboard-card">
+      <mat-card-header>
+        <mat-card-title>
+          <b>Postal Tariff Report</b>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="dashboard-card-content">
+        <app-tariff-report></app-tariff-report>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile colspan="2">
+    <mat-card class="dashboard-card">
+      <mat-card-header>
+        <mat-card-title>
+          <b>Outpacked Manifest Report</b>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="dashboard-card-content">
+        <app-out-packed-manifest-report></app-out-packed-manifest-report>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile colspan="2">
+    <mat-card class="dashboard-card">
+      <mat-card-header>
+        <mat-card-title>
+          <b>Delivery Vendor Report</b>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="dashboard-card-content">
+        <app-delivery-vendor-report></app-delivery-vendor-report>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+
+</mat-grid-list>

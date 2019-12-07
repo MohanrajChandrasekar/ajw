@@ -1,0 +1,82 @@
+<div class="content">
+
+  <div class="heading" fxLayout="row" fxFlexFill>
+    <div fxFlex="20" fxLayoutAlign="start start" class="navbar-brand">{{globals.role}}</div>
+    <div fxFlex="80">
+
+      <button type="button" (click)="btnClick()" mat-raised-button class="heading-buttons">
+        <mat-icon>add</mat-icon>Add
+      </button>
+
+
+      <button type="button" (click)="exportXlsx()" mat-raised-button class="heading-buttons">
+        <mat-icon>grid_on</mat-icon>Export XLSX
+      </button>
+
+      <input type='text' class="filter" placeholder='Filter' (keyup)='updateFilter($event)' />
+
+    </div>
+  </div>
+
+  <ngx-datatable [rows]="employeeInfo" style="height:500px" class='material striped' [headerHeight]="50" [footerHeight]="50"
+    [rowHeight]="40" [scrollbarV]="true">
+
+    <ngx-datatable-column name="Edit" [frozenLeft]="true" width="50">
+      <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
+        <a style="color:blue!important; cursor:pointer; " (click)="edit(row['id'])">
+          <mat-icon>create</mat-icon>
+        </a>
+      </ng-template>
+    </ngx-datatable-column>>
+
+    <ngx-datatable-column [frozenLeft]="true" name="Delete" width="60">
+      <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+        <a style="color:red!important ; cursor:pointer;">
+          <mat-icon (click)="delete(row['id'])">delete_sweep</mat-icon>
+        </a>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Detail" [frozenLeft]="true" width="60">
+      <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
+        <a style="color:green!important; cursor:pointer; " (click)="openCardDetails(row['id'])">
+          <mat-icon>assignment_ind</mat-icon>
+        </a>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Employee Code" prop="empCode"></ngx-datatable-column>
+    <ngx-datatable-column name="Employee Name" prop="empName"></ngx-datatable-column>
+    <ngx-datatable-column name="Address 1" prop="empAddress1"></ngx-datatable-column>
+    <ngx-datatable-column name="Address 2" prop="empAddress2"></ngx-datatable-column>
+    <ngx-datatable-column name="Phone Number" prop="empPhone"></ngx-datatable-column>
+    <ngx-datatable-column name="Email Id" prop="empEmail"></ngx-datatable-column>
+    <ngx-datatable-column name="Gender" prop="empGender"></ngx-datatable-column>
+    <ngx-datatable-column name="Blood Group" prop="empBloodGrp"></ngx-datatable-column>
+
+    <ngx-datatable-column name="Date of Birth" prop="empDOB">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{value | date:'dd/MM/yyyy'}}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Date of Joining" prop="empDOJ">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{value | date:'dd/MM/yyyy'}}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Department" prop="empDEPT"></ngx-datatable-column>
+    <ngx-datatable-column name="Designation" prop="empDSG"></ngx-datatable-column>
+    <ngx-datatable-column name="Status" prop="empStatus"></ngx-datatable-column>
+
+    <ngx-datatable-column name="Date of Resigning" prop="empDOR">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{value | date:'dd/MM/yyyy'}}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Reporting Office Type" prop="empRepOfficeType"></ngx-datatable-column>
+    <ngx-datatable-column name="Reporting Office" prop="empRepOffice"></ngx-datatable-column>
+  </ngx-datatable>
+</div>

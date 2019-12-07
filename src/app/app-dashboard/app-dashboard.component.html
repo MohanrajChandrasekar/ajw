@@ -1,0 +1,114 @@
+<div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+  <div fxFlex="80" fxFlex.sm="50" fxFlex.xs="100">
+    <form [formGroup]="dashboardForm">
+      <div class="content">
+        <div class="col-xs-12 col-12 col-sm-6 col-md-4 form-group">
+          <input type="text" class="form-control mb-3" placeholder="Select Date" (click)="applyTheme(dp);"
+            bsDaterangepicker formControlName="range"
+            [bsConfig]="{ containerClass: this.colorTheme , dateInputFormat : 'YYYY-MM-DD' }" />
+        </div>
+        <div fxFlex="20" fxFlex.sm="50" fxFlex.xs="100">
+          <button (click)="getDate()" class="get-data" mat-raised-button>Get Data
+            <mat-icon>refresh</mat-icon>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<mat-grid-list cols="2" rowHeight="350px">
+
+  <mat-grid-tile colspan=2>
+    <mat-card class="dashboard-card">
+      <mat-card-header>
+        <mat-card-title>
+          <b>Datewise Delivery Category Distribution</b>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="dashboard-card-content">
+        <app-datewise></app-datewise>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile colspan=1>
+    <mat-card class="dashboard-card">
+      <mat-card-header>
+        <mat-card-title>
+          <b>Delivery Category Distribution</b>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="dashboard-card-content">
+        <app-chart3></app-chart3>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+
+
+  <mat-grid-tile rowspan=2>
+    <mat-card class="dashboard-card">
+      <mat-card-header>
+        <mat-card-title>
+          <b>Booking Detail MAWB & RUNNO Amount Distribution</b>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="dashboard-card-content">
+        <app-booking-details></app-booking-details>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile colspan=1>
+    <mat-card class="dashboard-card">
+      <mat-card-header>
+        <mat-card-title>
+          <b>Branchwise Distribution</b>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="dashboard-card-content">
+        <app-branchwise></app-branchwise>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+
+ <!-- <mat-grid-tile colspan="2">
+    <mat-card class="dashboard-card">
+      <mat-card-header>
+        <mat-card-title>
+          <b>Delivery Vendorwise Distribution</b>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="dashboard-card-content">
+        <app-vendor-wise></app-vendor-wise>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+
+   <mat-grid-tile colspan="2">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+          <b>Opening closing report</b>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="dashboard-card-content">
+        <app-opening-closing-report></app-opening-closing-report>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile colspan="2">
+    <mat-card class="dashboard-card">
+      <mat-card-header>
+        <mat-card-title>
+        <b>Delivery breakup report</b>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="dashboard-card-content">
+        <app-delivery-breakup></app-delivery-breakup>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile> -->
+
+</mat-grid-list>

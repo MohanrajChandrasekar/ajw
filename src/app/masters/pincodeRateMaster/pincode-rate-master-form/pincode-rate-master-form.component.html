@@ -1,0 +1,198 @@
+<div class="content">
+
+  <div class="heading" fxLayout="row" fxFlexFill>
+    <div fxFlex="20" fxLayoutAlign="start start" class="navbar-brand">{{globals.role}}</div>
+  </div>
+
+  <form class="form-group" [formGroup]="pincodeRateMasterForm">
+
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+      <div fxFlex="34" fxFlex.sm="34" fxFlex.xs="34">
+        <label class="label">Vendor Name *</label>
+        <div class="input-container">
+          <i class="fa fa-user icon"></i>
+          <input class="form-control" type="text" formControlName="vendorName" [ngClass]="{ 'is-invalid': f.vendorName.touched && f.vendorName.errors }">
+        </div>
+        <div *ngIf="f.vendorName.touched && f.vendorName.errors" class="text-danger">
+          <div *ngIf="f.vendorName.errors.required">Vendor Name is required</div>
+          <div *ngIf="f.vendorName.invalid && !f.vendorName.errors.required">Enter valid Vendor Name</div>
+        </div>
+      </div>
+
+      <div fxFlex="33" fxFlex.sm="33" fxFlex.xs="33">
+        <label class="label">City *</label>
+        <div class="input-container">
+          <i class="fa fa-map-marker icon"></i>
+          <ng-select [searchFn]="citySearch" [items]="cityInfo" bindLabel="cityCode" bindValue="cityName" class="ng-select" dropdownPosition="bottom" formControlName="city"
+            [ngClass]="{ 'is-invalid': f.city.touched && f.city.errors }">
+            <ng-template ng-label-tmp let-item="item">
+              <small> {{item.cityCode}} |  {{item.cityName}}</small>
+            </ng-template>
+            <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+              <small> {{item.cityCode}} |  {{item.cityName}}</small>
+            </ng-template>
+          </ng-select>
+        </div>
+        <div *ngIf="f.city.touched && f.city.errors" class="text-danger">
+          <div *ngIf="f.city.errors.required">City is required</div>
+          <div *ngIf="f.city.invalid && !f.city.errors.required">Enter valid Customer City</div>
+        </div>
+      </div>
+
+      <div fxFlex="33" fxFlex.sm="33" fxFlex.xs="33">
+        <label class="label">Pincode *</label>
+        <div class="input-container">
+          <i class="fa fa-map-pin icon"></i>
+          <input type="text" class="form-control" formControlName="postalCode" appNumNotDot="true" [ngClass]="{ 'is-invalid': f.postalCode.touched && f.postalCode.errors }">
+        </div>
+        <div *ngIf="f.postalCode.touched && f.postalCode.errors" class="text-danger">
+          <div *ngIf="f.postalCode.errors.required">Pincode is required</div>
+          <div *ngIf="f.postalCode.invalid && !f.postalCode.errors.required">Enter valid Pincode</div>
+        </div>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+      <div fxFlex="34" fxFlex.sm="34" fxFlex.xs="34">
+        <label class="label">State *</label>
+        <div class="input-container">
+          <i class="fa fa-map-marker icon"></i>
+          <ng-select [searchFn]="stateSearch" [items]="stateInfo" bindLabel="stateCode" bindValue="stateName" class="ng-select" dropdownPosition="bottom" formControlName="state"
+            [ngClass]="{ 'is-invalid': f.state.touched && f.state.errors }">
+            <ng-template ng-label-tmp let-item="item">
+              <small> {{item.stateCode}} | {{item.stateName}}</small>
+            </ng-template>
+            <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+              <small> {{item.stateCode}} | {{item.stateName}}</small>
+            </ng-template>
+          </ng-select>
+        </div>
+        <div *ngIf="f.state.touched && f.state.errors" class="text-danger">
+          <div *ngIf="f.state.errors.required">State is required</div>
+          <div *ngIf="f.state.invalid && !f.state.errors.required">Enter valid State</div>
+        </div>
+      </div>
+
+      <div fxFlex="33" fxFlex.sm="33" fxFlex.xs="33">
+        <label class="label"> Delivery Category *</label>
+        <div class="input-container">
+          <i class="fa fa-truck icon"></i>
+          <ng-select [searchFn]="categorySearch" [items]="deliveryCategoryInfo" bindLabel="description" bindValue="code" class="ng-select" dropdownPosition="bottom" formControlName="category"
+            [ngClass]="{ 'is-invalid': f.category.touched && f.category.errors }">
+            <ng-template ng-label-tmp let-item="item">
+              <small> {{item.code}} | {{item.description}}</small>
+            </ng-template>
+            <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+              <small> {{item.code}} | {{item.description}}</small>
+            </ng-template>
+          </ng-select>
+        </div>
+        <div *ngIf="f.category.touched && f.category.errors" class="text-danger">
+          <div *ngIf="f.category.errors.required">Delivery Category is required</div>
+          <div *ngIf="f.category.invalid && !f.category.errors.required">Enter valid Delivery Category</div>
+        </div>
+      </div>
+
+      <div fxFlex="33" fxFlex.sm="33" fxFlex.xs="33">
+          <label class="label"> Booking Type *</label>
+          <div class="input-container">
+            <i class="fa fa-truck icon"></i>
+            <ng-select [items]="bookingTypes" bindLabel="type" bindValue="type" class="ng-select" dropdownPosition="bottom" formControlName="customerType"
+              [ngClass]="{ 'is-invalid': f.customerType.touched && f.customerType.errors }">
+              <ng-template ng-label-tmp let-item="item">
+                <small> {{item.type}}</small>
+              </ng-template>
+              <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                <small> {{item.type}}</small>
+              </ng-template>
+            </ng-select>
+          </div>
+          <div *ngIf="f.customerType.touched && f.customerType.errors" class="text-danger">
+            <div *ngIf="f.customerType.errors.required">Customer Type is required</div>
+            <div *ngIf="f.customerType.invalid && !f.customerType.errors.required">Enter valid Customer Type</div>
+          </div>
+        </div>
+
+      <div fxFlex="33" fxFlex.sm="33" fxFlex.xs="33">
+        <label class="label">Mode *</label>
+        <div class="input-container">
+          <i class="fa fa-truck icon"></i>
+          <ng-select [searchFn]="modeSearch" [items]="modeInfo" bindLabel="modeCode" bindValue="modeName" class="ng-select" dropdownPosition="bottom" formControlName="mode"
+            [ngClass]="{ 'is-invalid': f.mode.touched && f.mode.errors }">
+            <ng-template ng-label-tmp let-item="item">
+              <small> {{item.modeCode}} | {{item.modeName}}</small>
+            </ng-template>
+            <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+              <small> {{item.modeCode}} |  {{item.modeName}}</small>
+            </ng-template>
+          </ng-select>
+        </div>
+        <div *ngIf="f.mode.touched && f.mode.errors" class="text-danger">
+          <div *ngIf="f.mode.errors.required">Mode is required</div>
+          <div *ngIf="f.mode.invalid && !f.mode.errors.required">Enter valid Mode</div>
+        </div>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+      <div fxFlex="25" fxFlex.sm="25" fxFlex.xs="25">
+        <label class="label">Wt From *</label>
+        <div class="input-container">
+          <i class="fa fa-anchor icon"></i>
+          <input type="text" class="form-control" appOnlyNum="true" formControlName="wtFrom" [ngClass]="{ 'is-invalid': f.wtFrom.touched && f.wtFrom.errors }">
+        </div>
+        <div *ngIf="f.wtFrom.touched && f.wtFrom.errors" class="text-danger">
+          <div *ngIf="f.wtFrom.errors.required">Wt From is required</div>
+          <div *ngIf="f.wtFrom.invalid && !f.wtFrom.errors.required">Enter valid Wt From</div>
+        </div>
+      </div>
+
+      <div fxFlex="25" fxFlex.sm="25" fxFlex.xs="25">
+        <label class="label">Wt To *</label>
+        <div class="input-container">
+          <i class="fa fa-anchor icon"></i>
+          <input type="text" class="form-control" appOnlyNum="true" formControlName="wtTo" [ngClass]="{ 'is-invalid': f.wtTo.touched && f.wtTo.errors }">
+        </div>
+        <div *ngIf="f.wtTo.touched && f.wtTo.errors" class="text-danger">
+          <div *ngIf="f.wtTo.errors.required">Wt To is required</div>
+          <div *ngIf="f.wtTo.invalid && !f.wtTo.errors.required">Enter valid Wt To</div>
+        </div>
+      </div>
+      <div fxFlex="25" fxFlex.sm="25" fxFlex.xs="25">
+        <label class="label">Rate *</label>
+        <div class="input-container">
+          <i class="fa fa-money icon"></i>
+          <input type="text" class="form-control" appOnlyNum="true" formControlName="rate" [ngClass]="{ 'is-invalid': f.rate.touched && f.rate.errors }">
+        </div>
+        <div *ngIf="f.rate.touched && f.rate.errors" class="text-danger">
+          <div *ngIf="f.rate.errors.required">Rate is required</div>
+          <div *ngIf="f.rate.invalid && !f.rate.errors.required">Enter valid Rate</div>
+        </div>
+      </div>
+
+      <div fxFlex="25" fxFlex.sm="25" fxFlex.xs="25">
+        <label class="label">Return Charge</label>
+        <div class="input-container">
+          <i class="fa fa-money icon"></i>
+          <input type="text" class="form-control" appOnlyNum="true" formControlName="returnCharge" [ngClass]="{ 'is-invalid': f.returnCharge.touched && f.returnCharge.errors }">
+        </div>
+        <div *ngIf="f.returnCharge.touched && f.returnCharge.errors" class="text-danger">
+          <div *ngIf="f.returnCharge.invalid && !f.returnCharge.errors.required">Enter valid Return Charge</div>
+        </div>
+      </div>
+    </div>
+
+    <h6 style="color:red;">(*) Mandatory Fields</h6>
+    <div class="content">
+      <button class="save-button" mat-raised-button (click)="save();" [disabled]="!pincodeRateMasterForm.valid ">Save
+        <mat-icon>save</mat-icon>
+      </button>
+      <button (click)="reset()" type="reset" mat-raised-button class="reset-button">Reset
+        <mat-icon>refresh</mat-icon>
+      </button>
+      <button (click)="back()" mat-raised-button class="cancel-button">Cancel
+        <mat-icon>clear</mat-icon>
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,87 @@
+<div class="content">
+
+  <div class="heading" fxLayout="row" fxFlexFill>
+    <div fxFlex="30" fxLayoutAlign="start start" class="navbar-brand">{{globals.role}}</div>
+  </div>
+
+  <form class="form-group" [formGroup]="bookIssueForm">
+
+    <!-- 1st Row -->
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+      <div fxFlex="33" fxFlex.sm="33" fxFlex.xs="33">
+        <label>Code *</label>
+        <div class="input-container">
+          <i class="fa fa-keyboard-o icon"></i>
+          <input class="form-control" formControlName="issCode"
+            [ngClass]="{ 'is-invalid': f.issCode.touched && f.issCode.errors }">
+        </div>
+        <div *ngIf="f.issCode.touched && f.issCode.errors" class="text-danger">
+          <div *ngIf="f.issCode.errors.required">Code is required</div>
+          <div *ngIf="f.issCode.invalid && !f.issCode.errors.required">Enter valid Code</div>
+        </div>
+      </div>
+
+      <div fxFlex="33" fxFlex.sm="33" fxFlex.xs="33">
+        <label>Type *</label>
+        <div class="input-container">
+          <i class="fa fa-keyboard-o icon"></i>
+          <input class="form-control" formControlName="issType"
+            [ngClass]="{ 'is-invalid': f.issType.touched && f.issType.errors }">
+        </div>
+        <div *ngIf="f.issType.touched && f.issType.errors" class="text-danger">
+          <div *ngIf="f.issType.errors.required">Code is required</div>
+          <div *ngIf="f.issType.invalid && !f.issType.errors.required">Enter valid Code</div>
+        </div>
+      </div>
+
+      <div fxFlex="34" fxFlex.sm="34" fxFlex.xs="34">
+        <label>Issue Date *</label>
+        <div class="input-container">
+          <i class="fa fa-calendar icon"></i>
+          <input type="text" class="form-control" formControlName="issDate" ngbDatepicker #issueDate="ngbDatepicker"
+            [ngClass]="{ 'is-invalid': f.issDate.touched && f.issDate.errors }">
+          <button class="btn btn-outline-secondary calendar" (click)="issueDate.toggle()" type="button"></button>
+        </div>
+        <div *ngIf="f.issDate.touched && f.issDate.errors" class="text-danger">
+          <div *ngIf="f.issDate.errors.required">Issue Date is required</div>
+          <div *ngIf="f.issDate.invalid && !f.issDate.errors.required">Enter valid Issue Date</div>
+        </div>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+          <label>Magazine *</label>
+        <div class="input-container">
+          <i class="fa fa-keyboard-o icon"></i>
+          <ng-select [items]="magazineList" bindLabel="magazineName" dropdownPosition="bottom" bindValue="id" class="ng-select"
+            formControlName="magazine">
+            <ng-template ng-label-tmp let-item="item">
+              <small> {{item.magazineName}}</small>
+            </ng-template>
+            <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+              <small> {{item.magazineName}}</small>
+            </ng-template>
+          </ng-select>
+        </div>
+      </div>
+    </div>
+
+
+    <h6 style="color:red;">(*) Mandatory Fields</h6>
+
+    <div class="content">
+      <button class="save-button" mat-raised-button (click)="save()" [disabled]="!bookIssueForm.valid ">Save
+        <mat-icon>save</mat-icon>
+      </button>
+      <button (click)="reset()" class="reset-button" type="reset" mat-raised-button>Reset
+        <mat-icon>refresh</mat-icon>
+      </button>
+      <button (click)="back()" class="cancel-button" mat-raised-button>Cancel
+        <mat-icon>clear</mat-icon>
+      </button>
+    </div>
+
+  </form>
+
+</div>

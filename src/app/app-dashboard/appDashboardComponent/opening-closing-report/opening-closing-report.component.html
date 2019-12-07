@@ -1,0 +1,63 @@
+<div class="input-container">
+  <button type="button" (click)="exportXlsx()" mat-raised-button class="dashboard-buttons">
+    <mat-icon>grid_on</mat-icon>Export XLSX
+  </button>
+</div>
+<br>
+<div class="scroll">
+  <table id="report">
+    <tr>
+      <th colspan="4"></th>
+      <th colspan="2">Opening Balance</th>
+      <th colspan="4">Closing Balance</th>
+      <th colspan="4">Boxes / HAWB</th>
+      <!-- <td>{{temps.runNumber}}</td> -->
+    </tr>
+
+    <tr>
+      <th>Run Number</th>
+      <th>Master Airway Bill Number</th>
+      <th>HAWB Number</th>
+      <th>Landed Weight</th>
+
+      <th>Booked pieces</th>
+      <th>Booked Weight(Kgs)</th>
+
+      <th>Closed Pieces</th>
+      <th>Closed Weight(Kgs)</th>
+      <th>Remaining pieces to close</th>
+      <th>Remaining weight to close</th>
+
+      <th>Total Boxes</th>
+      <th>Opened Boxes</th>
+      <th>Closed Boxes</th>
+      <th>Box Report</th>
+    </tr>
+
+    <tr *ngFor="let temps of Temp">
+      <td>{{temps.runNumber}}</td>
+      <td>{{temps.MawbNO}}</td>
+      <td>{{temps.HawbNo}}</td>
+      <td>{{temps.landedWeight}}</td>
+
+      <td>{{temps.noOfPieces}}</td>
+      <td>{{temps.bookedWeight}}</td>
+
+      <td>{{temps.outgoingPieces}}</td>
+      <td>{{temps.outgoingWeight}}</td>
+
+      <td>{{temps.remainingPieces}}</td>
+      <td>{{temps.remainingWeight}}</td>
+
+      <td>{{temps.totalBoxes}}</td>
+      <td>{{temps.openedBoxes}}</td>
+      <td>{{temps.closedBoxes}}</td>
+      <td>
+        <button class="btnIn" (click)="boxReport(temps)" title="Edit Booking">
+          <i class="fa fa-print" style="color: white"></i>
+        </button>
+      </td>
+
+    </tr>
+  </table>
+</div>

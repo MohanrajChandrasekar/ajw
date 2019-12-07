@@ -1,0 +1,58 @@
+<div class="content">
+
+  <div class="heading" fxLayout="row" fxFlexFill>
+    <div fxFlex="20" fxLayoutAlign="start start" class="navbar-brand">{{globals.role}}</div>
+  </div>
+
+
+  <form class="form-group" [formGroup]="agentForm">
+
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+        <label class="label">Code *</label>
+        <div class="input-container">
+          <i class="fa fa-file-code-o icon"></i>
+          <input class="form-control" type="text" formControlName="agentCode" [ngClass]="{ 'is-invalid': f.agentCode.touched && f.agentCode.errors }"
+          >
+        </div>
+        <div *ngIf="f.agentCode.touched && f.agentCode.errors" class="text-danger">
+          <div *ngIf="f.agentCode.errors.required">Code is required</div>
+          <div *ngIf="f.agentCode.invalid && !f.agentCode.errors.required">Enter valid Code</div>
+        </div>
+      </div>
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+        <label class="label">Name *</label>
+        <div class="input-container">
+          <i class="fa fa-address-book icon"></i>
+          <input class="form-control" type="text" formControlName="agentName" [ngClass]="{ 'is-invalid': f.agentName.touched && f.agentName.errors }"
+           >
+        </div>
+        <div *ngIf="f.agentName.touched && f.agentName.errors" class="text-danger">
+          <div *ngIf="f.agentName.errors.required">Name is required</div>
+          <div *ngIf="f.agentName.invalid && !f.agentName.errors.required">Enter valid Name</div>
+        </div>
+      </div>
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+        <label class="label">Website</label>
+        <div class="input-container">
+          <i class="fa fa-desktop icon"></i>
+          <input class="form-control" type="text" formControlName="agentWebsite" [ngClass]="{ 'is-invalid': f.agentWebsite.touched && f.agentWebsite.errors }"
+           >
+        </div>
+         </div>
+
+    </div>
+    <h6 style="color:red;">(*) Mandatory Fields</h6>
+    <div class="content">
+      <button mat-raised-button class="save-button" (click)="onFormSubmit();" [disabled]="!agentForm.valid">Save
+        <mat-icon>save</mat-icon>
+      </button>
+      <button (click)="reset()" type="reset" mat-raised-button class="reset-button">Reset
+        <mat-icon>refresh</mat-icon>
+      </button>
+      <button (click)="back()" mat-raised-button class="cancel-button">Cancel
+        <mat-icon>clear</mat-icon>
+      </button>
+    </div>
+  </form>
+</div>

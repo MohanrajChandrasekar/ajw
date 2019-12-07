@@ -1,0 +1,243 @@
+<div class="content">
+  <div class="heading" fxLayout="row" fxFlexFill>
+    <div fxFlex="20" fxLayoutAlign="start start" class="navbar-brand">{{globals.role}}</div>
+  </div>
+
+  <form class="form-group" [formGroup]="customerForm">
+
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+        <label class="label">Customer Type *</label>
+        <div class="input-container">
+          <i class="fa fa-keyboard-o icon"></i>
+          <input class="form-control" type="text" formControlName="type"
+            [ngClass]="{ 'is-invalid': f.type.touched && f.type.errors }">
+        </div>
+        <div *ngIf="f.type.touched && f.type.errors" class="text-danger">
+          <div *ngIf="f.type.errors.required">Customer Type is required</div>
+          <div *ngIf="f.type.invalid && !f.type.errors.required">Enter valid Customer Type</div>
+        </div>
+      </div>
+
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+        <label class="label">Customer Code *</label>
+        <div class="input-container">
+          <i class="fa fa-file-code-o icon"></i>
+          <input class="form-control" type="text" formControlName="code"
+            [ngClass]="{ 'is-invalid': f.code.touched && f.code.errors }">
+        </div>
+        <div *ngIf="f.code.touched && f.code.errors" class="text-danger">
+          <div *ngIf="f.code.errors.required">Customer Code is required</div>
+          <div *ngIf="f.code.invalid && !f.code.errors.required">Enter valid Customer Code</div>
+        </div>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+        <label class="label">Customer Name *</label>
+        <div class="input-container">
+          <i class="fa fa-user icon"></i>
+          <input class="form-control" type="text" formControlName="name"
+            [ngClass]="{ 'is-invalid': f.name.touched && f.name.errors }">
+        </div>
+        <div *ngIf="f.name.touched && f.name.errors" class="text-danger">
+          <div *ngIf="f.name.errors.required">Customer Name is required</div>
+          <div *ngIf="f.name.invalid && !f.name.errors.required">Enter valid Customer Name</div>
+        </div>
+      </div>
+
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+        <label class="label">Enterprise Name *</label>
+        <div class="input-container">
+          <i class="fa fa-address-card icon"></i>
+          <input type="text" class="form-control" formControlName="ent"
+            [ngClass]="{ 'is-invalid': f.ent.touched && f.ent.errors }">
+        </div>
+        <div *ngIf="f.ent.touched && f.ent.errors" class="text-danger">
+          <div *ngIf="f.ent.errors.required">Enterprise Name is required</div>
+          <div *ngIf="f.ent.invalid && !f.ent.errors.required">Enter valid Enterprise Name</div>
+        </div>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+        <label class="label">Address 1 *</label>
+        <div class="input-container">
+          <i class="fa fa-address-card-o icon"></i>
+          <textarea class="form-control" formControlName="address1"
+            [ngClass]="{ 'is-invalid': f.address1.touched && f.address1.errors }"></textarea>
+        </div>
+        <div *ngIf="f.address1.touched && f.address1.errors" class="text-danger">
+          <div *ngIf="f.address1.errors.required">Address is required</div>
+          <div *ngIf="f.address1.invalid && !f.address1.errors.required">Enter valid Address</div>
+        </div>
+      </div>
+
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+        <label class="label">Address 2</label>
+        <div class="input-container">
+          <i class="fa fa-address-card-o icon"></i>
+          <textarea class="form-control" formControlName="address2"
+            [ngClass]="{ 'is-invalid': f.address2.touched && f.address2.errors }"></textarea>
+        </div>
+        <div *ngIf="f.address2.touched && f.address2.errors" class="text-danger">
+          <div *ngIf="f.address2.invalid && !f.address2.errors.required">Enter valid Address</div>
+        </div>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+        <label>City *</label>
+        <div class="input-container">
+          <i class="fa fa-keyboard-o icon"></i>
+          <ng-select [items]="city" bindLabel="cityCode" bindValue="cityCode" class="ng-select" formControlName="city"
+            dropdownPosition="bottom" [ngClass]="{ 'is-invalid': f.city.touched && f.city.errors }">
+            <ng-template ng-label-tmp let-item="item">
+              <small> {{item.cityCode}} | {{item.cityName}}</small>
+            </ng-template>
+            <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+              <small> {{item.cityCode}} | {{item.cityName}}</small>
+            </ng-template>
+          </ng-select>
+        </div>
+        <div *ngIf="f.city.touched && f.city.errors" class="text-danger">
+          <div *ngIf="f.city.errors.required">City is required</div>
+        </div>
+      </div>
+
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+        <label class="label">Pincode *</label>
+        <div class="input-container">
+          <i class="fa fa-map-pin icon"></i>
+          <input class="form-control" type="text" id="textbox" formControlName="pin" appNumNotDot="true"
+            [ngClass]="{ 'is-invalid': f.pin.touched && f.pin.errors }">
+        </div>
+        <div *ngIf="f.pin.touched && f.pin.errors" class="text-danger">
+          <div *ngIf="f.pin.errors.required">Pincode is required</div>
+          <div *ngIf="f.pin.invalid && !f.pin.errors.required">Enter valid Pincode</div>
+        </div>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+        <label class="label">Phone Number *</label>
+        <div class="input-container">
+          <i class="fa fa-phone icon"></i>
+          <input class="form-control" id="textbox" formControlName="phone"
+            [ngClass]="{ 'is-invalid': f.phone.touched && f.phone.errors }">
+        </div>
+        <div *ngIf="f.phone.touched && f.phone.errors" class="text-danger">
+          <div *ngIf="f.phone.errors.required">Phone Number is required</div>
+          <div *ngIf="f.phone.invalid && !f.phone.errors.required">Enter valid Phone Number</div>
+        </div>
+      </div>
+
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+        <label class="label">Fax Number</label>
+        <div class="input-container">
+          <i class="fa fa-fax icon"></i>
+          <input class="form-control" formControlName="fax" [ngClass]="{ 'is-invalid': f.fax.touched && f.fax.errors }">
+        </div>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+        <label class="label">Email Id</label>
+        <div class="input-container">
+          <i class="fa fa-envelope icon"></i>
+          <input class="form-control" formControlName="email"
+            [ngClass]="{ 'is-invalid': f.email.touched && f.email.errors }">
+        </div>
+        <div *ngIf="f.email.touched && f.email.errors" class="text-danger">
+          <div *ngIf="f.email.invalid && !f.email.errors.required">Enter valid Email Id</div>
+        </div>
+      </div>
+
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+        <label class="label">Contact Person</label>
+        <div class="input-container">
+          <i class="fa fa-user icon"></i>
+          <input class="form-control" id="textbox" formControlName="contact"
+            [ngClass]="{ 'is-invalid': f.contact.touched && f.contact.errors }">
+        </div>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+        <label class="label">Contract Number *</label>
+        <div class="input-container">
+          <i class="fa fa-keyboard-o icon"></i>
+          <input type="text" class="form-control" formControlName="contractNo"
+            [ngClass]="{ 'is-invalid': f.contractNo.touched && f.contractNo.errors }">
+        </div>
+        <div *ngIf="f.contractNo.touched && f.contractNo.errors" class="text-danger">
+          <div *ngIf="f.contractNo.errors.required">Contract Number is required</div>
+          <div *ngIf="f.contractNo.invalid && !f.contractNo.errors.required">Enter valid Contract Number</div>
+        </div>
+      </div>
+
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+        <label class="label">Contract Date *</label>
+        <div class="input-container">
+          <i class="fa fa-calendar icon"></i>
+          <input type="text" class="form-control" formControlName="contractDate" ngbDatepicker #c2="ngbDatepicker"
+            [ngClass]="{ 'is-invalid': f.contractDate.touched && f.contractDate.errors }">
+          <button class="btn btn-outline-secondary calendar" (click)="c2.toggle()" type="button"></button>
+        </div>
+        <div *ngIf="f.contractDate.touched && f.contractDate.errors" class="text-danger">
+          <div *ngIf="f.contractDate.errors.required">Contract Date is required</div>
+          <div *ngIf="f.contractDate.invalid && !f.contractDate.errors.required">Enter valid Contract Date</div>
+        </div>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+        <label class="label">Last Renewal Date *</label>
+        <div class="input-container">
+          <i class="fa fa-calendar icon"></i>
+          <input type="text" class="form-control" formControlName="renewalDate" ngbDatepicker #c6="ngbDatepicker"
+            [ngClass]="{ 'is-invalid': f.renewalDate.touched && f.renewalDate.errors }">
+          <button class="btn btn-outline-secondary calendar" (click)="c6.toggle()" type="button"></button>
+        </div>
+        <div *ngIf="f.renewalDate.touched && f.renewalDate.errors" class="text-danger">
+          <div *ngIf="f.renewalDate.errors.required">Last Renewal Date is required</div>
+          <div *ngIf="f.renewalDate.invalid && !f.renewalDate.errors.required">Enter valid Last Renewal Date</div>
+        </div>
+      </div>
+
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+        <label class="label">Expiry Date *</label>
+        <div class="input-container">
+          <i class="fa fa-calendar icon"></i>
+          <input type="text" class="form-control" formControlName="expiryDate" ngbDatepicker #c5="ngbDatepicker"
+            [ngClass]="{ 'is-invalid': f.expiryDate.touched && f.expiryDate.errors }">
+          <button class="btn btn-outline-secondary calendar" (click)="c5.toggle()" type="button"></button>
+        </div>
+        <div *ngIf="f.expiryDate.touched && f.expiryDate.errors" class="text-danger">
+          <div *ngIf="f.expiryDate.errors.required">Expiry Date is required</div>
+          <div *ngIf="f.expiryDate.invalid && !f.expiryDate.errors.required">Enter valid Expiry Date</div>
+        </div>
+      </div>
+    </div>
+
+    <h6 style="color:red;">(*) Mandatory Fields</h6>
+    <div class="content">
+      <button class="save-button" mat-raised-button (click)="save();" [disabled]="!customerForm.valid ">Save
+        <mat-icon>save</mat-icon>
+      </button>
+      <button (click)="reset()" type="reset" mat-raised-button class="reset-button">Reset
+        <mat-icon>refresh</mat-icon>
+      </button>
+      <button (click)="back()" mat-raised-button class="cancel-button">Cancel
+        <mat-icon>clear</mat-icon>
+      </button>
+    </div>
+  </form>
+</div>

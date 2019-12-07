@@ -1,0 +1,105 @@
+<div class="content">
+
+  <form [formGroup]="handlingForm" style="margin-bottom: 5px">
+    <div class="heading" fxLayout="row" fxFlexFill>
+      <div fxFlex="15" fxLayoutAlign="start start" class="navbar-brand">{{globals.role}}</div>
+
+      <div fxFlex="20">
+        <div class="input-container">
+          <i class="fa fa-file-code-o icon"></i>
+          <input type="text" class="form-control" formControlName="fromDate" placeholder="From Date"
+            (dateSelect)="getFilteredData();" ngbDatepicker #fromDate="ngbDatepicker" dateFormat="dd-MM-yyyy">
+          <button class="btn btn-outline-secondary calendar" (click)="fromDate.toggle()" type="button"></button>
+        </div>
+      </div>
+      <div fxFlex="20">
+        <div class="input-container">
+          <i class="fa fa-file-code-o icon"></i>
+          <input type="text" class="form-control" formControlName="toDate" placeholder="To Date"
+            (dateSelect)="getFilteredData();" ngbDatepicker #toDate="ngbDatepicker" dateFormat="dd-MM-yyyy">
+          <button class="btn btn-outline-secondary calendar" (click)="toDate.toggle()" type="button"></button>
+        </div>
+      </div>
+      <!-- <div fxFlex="20">
+        <div class="input-container">
+          <i class="fa fa-file-code-o icon"></i>
+          <ng-select formControlName="consignorName" [items]="consignorList" bindValue="id"
+            (change)="getFilteredData();" dropdownPosition="bottom" placeholder="Consignor Name">
+            <ng-template ng-label-tmp let-item="item">
+              <small> {{item.name}}</small>
+            </ng-template>
+            <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+              <small> {{item.name}}</small>
+            </ng-template>
+          </ng-select>
+        </div>
+      </div>
+      <div fxFlex="20">
+        <div class="input-container">
+          <i class="fa fa-file-code-o icon"></i>
+          <ng-select formControlName="consigneeName" [items]="consigneeList" bindValue="id"
+            (change)="getFilteredData();" dropdownPosition="bottom" placeholder="Consignee Name">
+            <ng-template ng-label-tmp let-item="item">
+              <small> {{item.name}}</small>
+            </ng-template>
+            <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+              <small> {{item.name}}</small>
+            </ng-template>
+          </ng-select>
+        </div>
+      </div> -->
+      <div fxFlex="20"></div>
+      <div fxFlex="20">
+          <div class="input-container">
+              <input type='text' class="filter" placeholder='Filter By MF#' (keyup)='updateFilter($event)' />
+          </div>
+      </div>
+
+    </div>
+  </form>
+  <ngx-datatable [rows]="handlingList" style="height:500px" class='material striped' [headerHeight]="50"
+    [footerHeight]="50" 
+    [rowHeight]="40" 
+    [scrollbarV]="true"
+    [selected]="selected"
+    [selectionType]="'checkbox'"
+    [selectAllRowsOnPage]="false"
+    [displayCheck]="displayCheck"
+    (select)='onSelect($event)'>
+
+    <ngx-datatable-column
+            name="Allow Rebooking"
+            [width]="30"
+            [sortable]="false"
+            [canAutoResize]="false"
+            [draggable]="false"
+            [resizeable]="false"
+            [headerCheckboxable]="true"
+            [checkboxable]="true">
+    </ngx-datatable-column>
+    
+    <ngx-datatable-column name="Consignment" prop="cnNO" width="150" [frozenLeft]="true"></ngx-datatable-column>
+    <ngx-datatable-column name="Reason" prop="reason" width="180"></ngx-datatable-column>
+    <ngx-datatable-column name="Consignor Name" prop="consignorName" width="150"></ngx-datatable-column>
+    <ngx-datatable-column name="Consignee Name" prop="consigneeName" width="150"></ngx-datatable-column>
+    <ngx-datatable-column name="Delivery Date" prop="delDate" width="180"></ngx-datatable-column>
+    <ngx-datatable-column name="Consignee Address" prop="" width="180">
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        <button (click)="changeAddress(row['consigneeID'],row['cnNO'])">Change Address <i class="fa fa-pencil"
+            aria-hidden="true" style="color:darkblue"></i>
+          </button>
+      </ng-template>
+    </ngx-datatable-column>
+    
+  </ngx-datatable>
+
+  <!-- Action View -->
+  <div class="container-fluid">
+      <button mat-raised-button class="save-button" (click)="updateValue()">Save
+          <mat-icon>save</mat-icon>
+      </button>
+      <button (click)="back()" mat-raised-button class="cancel-button">Cancel
+          <mat-icon>clear</mat-icon>
+      </button>
+  </div>
+</div>

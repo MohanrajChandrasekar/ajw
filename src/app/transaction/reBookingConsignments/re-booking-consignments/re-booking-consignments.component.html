@@ -1,0 +1,59 @@
+<div class="content">
+
+  <form  style="margin-bottom: 5px">
+      <div class="heading" fxLayout="row" fxFlexFill>
+        <div fxFlex="15" fxLayoutAlign="start start" class="navbar-brand">{{globals.role}}</div>
+        <div fxFlex="50"></div>
+        <div fxFlex="20">
+          <div class="input-container">
+              <input type='text' class="filter" placeholder='Filter By Consignment#' (keyup)='updateFilter($event)' />
+          </div>
+      </div>
+      </div>
+      
+  </form>
+  <ngx-datatable [rows]="rebookingList" style="height:500px" class='material striped' [headerHeight]="50"
+    [footerHeight]="50" 
+    [rowHeight]="40" 
+    [scrollbarV]="true">
+
+    <ngx-datatable-column name="Action" [frozenLeft]="true" width="70">
+      <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
+        <button class="btnIn" (click)="edit(row['id'])">
+            <i class="fa fa-send" style="color: white"></i>
+        </button>&nbsp;
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Consignment No" prop="cnNO" width="150" [frozenLeft]="true"></ngx-datatable-column>
+    <ngx-datatable-column name="Sended Out" prop="resendStatus" [frozenLeft]="true" width="100">
+        <ng-template ngx-datatable-cell-template let-value="value">
+            <i *ngIf="value==1" class="fa fa-check fa-lg" aria-hidden="true" style="color:green"></i>
+            <i *ngIf="value==0" class="fa fa-times fa-lg" aria-hidden="true" style="color:red"></i>
+        </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Delivery Status" prop="resendPOD_Status" [frozenLeft]="true" width="150">
+        <ng-template ngx-datatable-cell-template let-value="value">
+            <i *ngIf="value==1" class="fa fa-check fa-lg" aria-hidden="true" style="color:green"></i>
+            <i *ngIf="value==0" class="fa fa-times fa-lg" aria-hidden="true" style="color:red"></i>
+            <i *ngIf="value==-1" class="fa fa-share fa-lg" aria-hidden="true" style="color:orangered"></i>
+        </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Booked Vendor" prop="failedVendorName" width="180"></ngx-datatable-column>
+    <ngx-datatable-column name="Agent Delivery MF" prop="agentDelvId" width="150"></ngx-datatable-column>
+    <ngx-datatable-column name="New Vendor" prop="takenVendorName" width="150"></ngx-datatable-column>
+    <ngx-datatable-column name="New Delivery MF" prop="newAgentDelvId" width="150"></ngx-datatable-column>
+    <ngx-datatable-column name="Pincode" prop="pincode" width="100"></ngx-datatable-column>
+    <ngx-datatable-column name="Postal Rate" prop="postalRate" width="100"></ngx-datatable-column>
+    
+  </ngx-datatable>
+
+  <!-- Action View -->
+  <div class="container-fluid">
+      <button mat-raised-button class="save-button" (click)="updateValue()">Save
+          <mat-icon>save</mat-icon>
+      </button>
+      <button (click)="back()" mat-raised-button class="cancel-button">Cancel
+          <mat-icon>clear</mat-icon>
+      </button>
+  </div>
+</div>

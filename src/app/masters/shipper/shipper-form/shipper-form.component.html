@@ -1,0 +1,51 @@
+<div class="content">
+
+  <div class="heading" fxLayout="row" fxFlexFill>
+    <div fxFlex="20" fxLayoutAlign="start start" class="navbar-brand">{{globals.role}}</div>
+  </div>
+
+  <form class="form-group" [formGroup]="shipperForm">
+
+    <h6 style="color:red;">(*) Mandatory Fields</h6>
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+        <label class="label">Shipper Code *</label>
+        <div class="input-container">
+          <i class="fa fa-file-code-o icon"></i>
+          <input class="form-control" type="text" formControlName="shipperCode" [ngClass]="{ 'is-invalid': f.shipperCode.touched && f.shipperCode.errors }"
+            >
+        </div>
+        <div *ngIf="f.shipperCode.touched && f.shipperCode.errors" class="text-danger">
+          <div *ngIf="f.shipperCode.errors.required">Shipper Code is required</div>
+          <div *ngIf="f.shipperCode.invalid && !f.shipperCode.errors.required">Enter valid Shipper Code</div>
+        </div>
+      </div>
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+        <label class="label">Shipper Name *</label>
+        <div class="input-container">
+          <i class="fa fa-truck icon"></i>
+          <input class="form-control" type="text" formControlName="shipperName" [ngClass]="{ 'is-invalid': f.shipperName.touched && f.shipperName.errors }"
+            >
+        </div>
+        <div *ngIf="f.shipperName.touched && f.shipperName.errors" class="text-danger">
+          <div *ngIf="f.shipperName.errors.required">Shipper Name is required</div>
+          <div *ngIf="f.shipperName.invalid && !f.shipperName.errors.required">Enter valid Shipper Name</div>
+        </div>
+      </div>
+    </div>
+
+   
+    <div class="content">
+      <button mat-raised-button class="save-button" (click)="onFormSubmit();" [disabled]="!shipperForm.valid">Save
+        <mat-icon>save</mat-icon>
+      </button>
+      <button (click)="reset()" type="reset" mat-raised-button class="reset-button">Reset
+        <mat-icon>refresh</mat-icon>
+      </button>
+      <button (click)="back()" mat-raised-button class="cancel-button">Cancel
+        <mat-icon>clear</mat-icon>
+      </button>
+    </div>
+
+  </form>
+</div>

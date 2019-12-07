@@ -1,0 +1,157 @@
+<div class="content">
+
+  <div class="heading" fxLayout="row" fxFlexFill>
+    <div fxFlex="20" fxLayoutAlign="start start" class="navbar-brand">{{globals.role}}</div>
+  </div>
+
+  <form class="form-group" [formGroup]="companyForm">
+
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+      <div fxFlex="34" fxFlex.sm="34" fxFlex.xs="34">
+        <label class="label">Company Name *</label>
+        <div class="input-container">
+          <i class="fa fa-building icon"></i>
+          <input class="form-control" type="text" formControlName="companyName"
+            [ngClass]="{ 'is-invalid': f.companyName.touched && f.companyName.errors }">
+        </div>
+        <div *ngIf="f.companyName.touched && f.companyName.errors" class="text-danger">
+          <div *ngIf="f.companyName.errors.required">Company Name is required</div>
+          <div *ngIf="f.companyName.invalid && !f.companyName.errors.required">Enter valid Company Name</div>
+        </div>
+      </div>
+      <div fxFlex="33" fxFlex.sm="33" fxFlex.xs="33">
+        <label class="label">City *</label>
+        <div class="input-container">
+          <i class="fa fa-map-marker icon"></i>
+          <ng-select [items]="city" bindLabel="cityName" bindValue="cityName" class="ng-select"
+            formControlName="companyCity" [ngClass]="{ 'is-invalid': f.companyCity.touched && f.companyCity.errors }">
+            <ng-template ng-label-tmp let-item="item">
+              <small> {{item.cityCode}} |  {{item.cityName}}</small>
+            </ng-template>
+            <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+              <small> {{item.cityCode}} |  {{item.cityName}}</small>
+            </ng-template>
+          </ng-select>
+        </div>
+        <div *ngIf="f.companyCity.touched && f.companyCity.errors" class="text-danger">
+          <div *ngIf="f.companyCity.errors.required">City is required</div>
+        </div>
+      </div>
+
+      <div fxFlex="33" fxFlex.sm="33" fxFlex.xs="33">
+        <label class="label">Phone Number *</label>
+        <div class="input-container">
+          <i class="fa fa-phone icon"></i>
+          <input class="form-control" formControlName="companyPhone"
+            [ngClass]="{ 'is-invalid': f.companyPhone.touched && f.companyPhone.errors }">
+        </div>
+        <div *ngIf="f.companyPhone.touched && f.companyPhone.errors" class="text-danger">
+          <div *ngIf="f.companyPhone.errors.required">Phone Number is required</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+        <label class="label">Address 1 *</label>
+        <div class="input-container">
+          <i class="fa fa-address-card-o icon"></i>
+          <textarea class="form-control" type="text" formControlName="companyAddress1"
+            [ngClass]="{ 'is-invalid': f.companyAddress1.touched && f.companyAddress1.errors }"></textarea>
+        </div>
+        <div *ngIf="f.companyAddress1.touched && f.companyAddress1.errors" class="text-danger">
+          <div *ngIf="f.companyAddress1.errors.required">Address is required</div>
+          <div *ngIf="f.companyAddress1.invalid && !f.companyAddress1.errors.required">Enter valid Address</div>
+        </div>
+      </div>
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+        <label class="label">Address 2</label>
+        <div class="input-container">
+          <i class="fa fa-address-card-o icon"></i>
+          <textarea type="text" class="form-control" formControlName="companyAddress2"
+            [ngClass]="{ 'is-invalid': f.companyAddress2.touched && f.companyAddress2.errors }"></textarea>
+        </div>
+        <div *ngIf="f.companyAddress2.touched && f.companyAddress2.errors" class="text-danger">
+          <div *ngIf="f.companyAddress2.invalid && !f.companyAddress2.errors.required">Enter valid Address</div>
+        </div>
+      </div>
+    </div>
+
+
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+        <label class="label">Email Id</label>
+        <div class="input-container">
+          <i class="fa fa-envelope icon"></i>
+          <input class="form-control" formControlName="companyEmail"
+            [ngClass]="{ 'is-invalid': f.companyEmail.touched && f.companyEmail.errors }">
+        </div>
+        <div *ngIf="f.companyEmail.touched && f.companyEmail.errors" class="text-danger">
+          <div *ngIf="f.companyEmail.invalid && !f.companyEmail.errors.required">Enter valid Email Id</div>
+        </div>
+      </div>
+      <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="100">
+        <label class="label">Website</label>
+        <div class="input-container">
+          <i class="fa fa-globe icon"></i>
+          <input class="form-control" formControlName="companyWeb"
+            [ngClass]="{ 'is-invalid': f.companyWeb.touched && f.companyWeb.errors }">
+        </div>
+        <div *ngIf="f.companyWeb.touched && f.companyWeb.errors" class="text-danger">
+          <div *ngIf="f.companyWeb.invalid && !f.companyWeb.errors.required">Enter valid Website</div>
+        </div>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+
+      <div fxFlex="34" fxFlex.sm="34" fxFlex.xs="34">
+        <label class="label">Fax Number</label>
+        <div class="input-container">
+          <i class="fa fa-fax icon"></i>
+          <input class="form-control" formControlName="companyFax"
+            [ngClass]="{ 'is-invalid': f.companyFax.touched && f.companyFax.errors }">
+        </div>
+        <div *ngIf="f.companyFax.touched && f.companyFax.errors" class="text-danger">
+          <div *ngIf="f.companyFax.invalid && !f.companyFax.errors.required">Enter valid Fax Number</div>
+        </div>
+      </div>
+
+      <div fxFlex="33" fxFlex.sm="33" fxFlex.xs="33">
+        <label class="label">Pan Number</label>
+        <div class="input-container">
+          <i class="fa fa-id-card icon"></i>
+          <input class="form-control" formControlName="companyPan"
+            [ngClass]="{ 'is-invalid': f.companyPan.touched && f.companyPan.errors }">
+        </div>
+        <div *ngIf="f.companyPan.touched && f.companyPan.errors" class="text-danger">
+          <div *ngIf="f.companyPan.invalid && !f.companyPan.errors.required">Enter valid Pan Number</div>
+        </div>
+      </div>
+      <div fxFlex="33" fxFlex.sm="33" fxFlex.xs="33">
+        <label class="label">Service Tax Numbar</label>
+        <div class="input-container">
+          <i class="fa fa-credit-card-alt icon"></i>
+          <input class="form-control" formControlName="companyStNo"
+            [ngClass]="{ 'is-invalid': f.companyStNo.touched && f.companyStNo.errors }">
+        </div>
+        <div *ngIf="f.companyStNo.touched && f.companyStNo.errors" class="text-danger">
+          <div *ngIf="f.companyStNo.invalid && !f.companyStNo.errors.required">Enter valid Service Tax Number</div>
+        </div>
+      </div>
+    </div>
+    <h6 style="color:red;">(*) Mandatory Fields</h6>
+    <div class="content">
+      <button class="save-button" mat-raised-button (click)="save()" [disabled]="!companyForm.valid ">Save
+        <mat-icon>save</mat-icon>
+      </button>
+      <button (click)="reset()" type="reset" mat-raised-button class="reset-button">Reset
+        <mat-icon>refresh</mat-icon>
+      </button>
+      <button (click)="back()" mat-raised-button class="cancel-button">Cancel
+        <mat-icon>clear</mat-icon>
+      </button>
+    </div>
+  </form>
+</div>

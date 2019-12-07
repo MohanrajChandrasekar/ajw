@@ -1,0 +1,78 @@
+<div class="heading">
+  <mat-card-title class="navbar-brand">Customer Detail</mat-card-title>
+  <mat-card-content>
+    <table class="table table-bordered ">
+      <tr>
+        <td class="tdKey">Customer Type</td>
+        <td>{{customer.type}}</td>
+      </tr>
+      <tr>
+        <td class="tdKey">Customer Code</td>
+        <td>{{customer.code}}</td>
+      </tr>
+      <tr>
+        <td class="tdKey">Customer Name</td>
+        <td>{{customer.name}}</td>
+      </tr>
+      <tr>
+        <td class="tdKey">Enterprise Name</td>
+        <td>{{customer.ent}}</td>
+      </tr>
+      <tr>
+        <td class="tdKey">Address 1</td>
+        <td>{{customer.address1}}</td>
+      </tr>
+      <tr>
+        <td class="tdKey">Address 2</td>
+        <td>{{customer.address2}}</td>
+      </tr>
+      <tr>
+        <td class="tdKey">City</td>
+        <td>{{customer.city}}</td>
+      </tr>
+      <tr>
+        <td class="tdKey">Pincode</td>
+        <td>{{customer.pin}}</td>
+      </tr>
+      <tr>
+        <td class="tdKey">Phone Number</td>
+        <td>{{customer.phone}}</td>
+      </tr>
+      <tr>
+        <td class="tdKey">Fax Number</td>
+        <td>{{customer.fax}}</td>
+      </tr>
+      <tr>
+        <td class="tdKey">Email Id</td>
+        <td>{{customer.email}}</td>
+      </tr>
+      <tr>
+        <td class="tdKey">Contact Person</td>
+        <td>{{customer.contact}}</td>
+      </tr>
+      <tr>
+        <td class="tdKey">Contract Number</td>
+        <td>{{customer.contractNo}}</td>
+      </tr>
+      <tr>
+        <td class="tdKey">Contract Date</td>
+        <td>{{customer.contractDate | date:'dd/MM/yyyy'}}</td>
+      </tr>
+      <tr>
+        <td class="tdKey">Last Renewal Date</td>
+        <td>{{customer.renewalDate | date:'dd/MM/yyyy'}}</td>
+      </tr>
+      <tr>
+        <td class="tdKey">Expiry Date</td>
+        <td>{{customer.expiryDate | date:'dd/MM/yyyy'}}</td>
+      </tr>
+    </table>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button class="background-red" [mat-dialog-close]="true" style="margin-left: 4.75px;">
+      <mat-icon>
+        close
+      </mat-icon> Close
+    </button>
+  </mat-card-actions>
+</div>

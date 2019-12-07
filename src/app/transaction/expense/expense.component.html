@@ -1,0 +1,598 @@
+<div class="content">
+
+  <div class="heading" fxLayout="row" fxFlexFill>
+    <div fxFlex="20" fxLayoutAlign="start start" class="navbar-brand">{{globals.role}}</div>
+  </div>
+
+  <form [formGroup]="expenseMngrForm">
+
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+
+      <div fxFlex="30" fxFlex.sm="30" fxFlex.xs="100">
+        <label class="label">Master Airway Bill No / Run No *</label>
+        <div class="input-container">
+          <ng-select [searchFn]="airwayBillNoSearch" [items]="airwayBillList" bindValue="secMawbno" bindLabel="secMawbno"
+            dropdownPosition="bottom" formControlName="mawbNo" (change)="checksecMawbno();">
+            <ng-template ng-label-tmp let-item="item">
+              <small> {{item.secMawbno}} | {{item.secRunno}} </small>
+            </ng-template>
+            <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+              <small> {{item.secMawbno}} | {{item.secRunno}} </small>
+            </ng-template>
+          </ng-select>
+        </div>
+        <div *ngIf="f.mawbNo.touched && f.mawbNo.errors" class="text-danger">
+          <div *ngIf="f.mawbNo.errors.required">Master Airway Bill No is required</div>
+          <div *ngIf="f.mawbNo.invalid && !f.mawbNo.errors.required">Enter valid Master Airway Bill No</div>
+        </div>
+      </div>
+
+      <div fxFlex="30" fxFlex.sm="30" fxFlex.xs="100">
+          <label class="label">Customs Duty Applicable (Y/N) </label>
+          <div class="input-container">
+            <ng-select  [items]="options" bindValue="value" (change)="changeFilter(1)" dropdownPosition="bottom" formControlName="customsDA" >
+              <ng-template ng-label-tmp let-item="item">
+                <small> {{item.options}}  </small>
+              </ng-template>
+              <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                  <small> {{item.options}}  </small>
+              </ng-template>
+            </ng-select>
+          </div>
+          <!-- <div *ngIf="f.mawbNo.touched && f.mawbNo.errors" class="text-danger">
+            <div *ngIf="f.mawbNo.errors.required">Master Airway Bill No is required</div>
+            <div *ngIf="f.mawbNo.invalid && !f.mawbNo.errors.required">Enter valid Master Airway Bill No</div>
+          </div> -->
+        </div>
+
+        <div fxFlex="30" fxFlex.sm="30" fxFlex.xs="100">
+            <label class="label">AO Charges Applicable (Y/N) </label>
+            <div class="input-container">
+              <ng-select  [items]="options" bindValue="value" (change)="changeFilter(2)" dropdownPosition="bottom" formControlName="ifChargesAO" >
+                <ng-template ng-label-tmp let-item="item">
+                    <small> {{item.options}}  </small>
+                </ng-template>
+                <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                    <small> {{item.options}}  </small>
+                </ng-template>
+              </ng-select>
+            </div>
+            <!-- <div *ngIf="f.ifChargesAO.touched && f.ifChargesAO.errors" class="text-danger">
+              <div *ngIf="f.ifChargesAO.errors.required">Master Airway Bill No is required</div>
+              <div *ngIf="f.ifChargesAO.invalid && !f.ifChargesAO.errors.required">Enter valid Master Airway Bill No</div>
+            </div> -->
+          </div>
+
+
+    </div>
+    <br>
+    <br>
+
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+
+      <div fxFlex="30" fxFlex.sm="30" fxFlex.xs="100">
+        <label class="label">Manifest Weight (Kgs) </label>
+          <div class="input-container">
+            
+            <input class="form-control" type="text" formControlName="mfWeight" appOnlyNum="true">
+          </div>
+          <div *ngIf="f.mfWeight.touched && f.mfWeight.errors" class="text-danger">
+            <div *ngIf="f.mfWeight.errors.required">Manifest Weight is required</div>
+            <div *ngIf="f.mfWeight.invalid && !f.mfWeight.errors.required">Enter valid Manifest Weight</div>
+          </div>
+      </div>
+
+      <div fxFlex="30" fxFlex.sm="30" fxFlex.xs="100">
+          <label class="label">AAI Charges </label>
+            <div class="input-container">
+              
+              <input class="form-control" type="text" formControlName="chargesAAI" appOnlyNum="true">
+            </div>
+            <div *ngIf="f.chargesAAI.touched && f.chargesAAI.errors" class="text-danger">
+              <div *ngIf="f.chargesAAI.errors.required">AAI Charges is required</div>
+              <div *ngIf="f.chargesAAI.invalid && !f.chargesAAI.errors.required">Enter valid AAI Charges</div>
+            </div>
+      </div>
+
+      <div fxFlex="30" fxFlex.sm="30" fxFlex.xs="100" *ngIf="isAOCharges">
+          <label class="label">AO Charges</label>
+            <div class="input-container">
+              
+              <input class="form-control" type="text" formControlName="chargesAO" appOnlyNum="true">
+            </div>
+            <div *ngIf="f.chargesAO.touched && f.chargesAO.errors" class="text-danger">
+              <div *ngIf="f.chargesAO.errors.required">AO Charges is required</div>
+              <div *ngIf="f.chargesAO.invalid && !f.chargesAO.errors.required">Enter valid AO Charges</div>
+            </div>
+      </div>
+
+      <div fxFlex="30" fxFlex.sm="30" fxFlex.xs="100" *ngIf="isCustomDuty">
+          <label class="label">Customs Duty </label>
+            <div class="input-container">
+              
+              <input class="form-control" type="text" formControlName="customsDuty" appOnlyNum="true">
+            </div>
+            <div *ngIf="f.customsDuty.touched && f.customsDuty.errors" class="text-danger">
+              <div *ngIf="f.customsDuty.errors.required">Customs Duty is required</div>
+              <div *ngIf="f.customsDuty.invalid && !f.customsDuty.errors.required">Enter valid Customs Duty</div>
+            </div>
+      </div>
+
+    </div>
+
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+
+        <div fxFlex="30" fxFlex.sm="30" fxFlex.xs="100">
+          <label class="label">DD Commision </label>
+            <div class="input-container">
+              
+              <input class="form-control" type="text" formControlName="commisionDD" appOnlyNum="true">
+            </div>
+            <div *ngIf="f.commisionDD.touched && f.commisionDD.errors" class="text-danger">
+              <div *ngIf="f.commisionDD.errors.required">DD Commision is required</div>
+              <div *ngIf="f.commisionDD.invalid && !f.commisionDD.errors.required">Enter valid DD Commision</div>
+            </div>
+        </div>
+  
+        <div fxFlex="30" fxFlex.sm="30" fxFlex.xs="100">
+            <label class="label">Unitech CHA Charges </label>
+              <div class="input-container">
+                
+                <input class="form-control" type="text" formControlName="chargesUnitechCHA" appOnlyNum="true">
+              </div>
+              <div *ngIf="f.chargesUnitechCHA.touched && f.chargesUnitechCHA.errors" class="text-danger">
+                <div *ngIf="f.chargesUnitechCHA.errors.required">AAI Charges is required</div>
+                <div *ngIf="f.chargesUnitechCHA.invalid && !f.chargesUnitechCHA.errors.required">Enter valid AAI Charges</div>
+              </div>
+        </div>
+  
+        <div fxFlex="30" fxFlex.sm="30" fxFlex.xs="100">
+            <label class="label"> Received as Paletes</label>
+              <div class="input-container">
+                  <ng-select  [items]="options" bindValue="value" (change)="changeFilter(3)" dropdownPosition="bottom" formControlName="paletesReceived" >
+                    <ng-template ng-label-tmp let-item="item">
+                        <small> {{item.options}}  </small>
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                        <small> {{item.options}}  </small>
+                    </ng-template>
+                  </ng-select>
+                </div>
+              <div *ngIf="f.paletesReceived.touched && f.paletesReceived.errors" class="text-danger">
+                <div *ngIf="f.paletesReceived.errors.required">Paletes Received is required</div>
+                <div *ngIf="f.paletesReceived.invalid && !f.paletesReceived.errors.required">Enter valid Paletes Received</div>
+              </div>
+        </div>
+  
+        <div fxFlex="30" fxFlex.sm="30" fxFlex.xs="100" *ngIf="isPaletes">
+            <label class="label">Number Of Paletes </label>
+              <div class="input-container">
+                
+                <input class="form-control" type="text" formControlName="noOfPaletes" appOnlyNum="true">
+              </div>
+              <div *ngIf="f.noOfPaletes.touched && f.noOfPaletes.errors" class="text-danger">
+                <div *ngIf="f.noOfPaletes.errors.required">Number of Paletes is required</div>
+                <div *ngIf="f.noOfPaletes.invalid && !f.noOfPaletes.errors.required">Enter valid Number of Paletes</div>
+              </div>
+        </div>
+  
+      </div>
+
+      <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+
+          <div fxFlex="30" fxFlex.sm="30" fxFlex.xs="100">
+            <label class="label">Packing Charges </label>
+              <div class="input-container">
+                
+                <input class="form-control" type="text" formControlName="chargesPacking" appOnlyNum="true">
+              </div>
+              <div *ngIf="f.chargesPacking.touched && f.chargesPacking.errors" class="text-danger">
+                <div *ngIf="f.chargesPacking.errors.required">Packing Charges is required</div>
+                <div *ngIf="f.chargesPacking.invalid && !f.chargesPacking.errors.required">Enter valid Packing Charges</div>
+              </div>
+          </div>
+    
+          <div fxFlex="30" fxFlex.sm="30" fxFlex.xs="100">
+              <label class="label">Delivery Charges </label>
+                <div class="input-container">
+                  
+                  <input class="form-control" type="text" formControlName="chargesDelivery" appOnlyNum="true">
+                </div>
+                <div *ngIf="f.chargesDelivery.touched && f.chargesDelivery.errors" class="text-danger">
+                  <div *ngIf="f.chargesDelivery.errors.required">Delivery Charges is required</div>
+                  <div *ngIf="f.chargesDelivery.invalid && !f.chargesDelivery.errors.required">Enter valid Delivery Charges</div>
+                </div>
+          </div>
+    
+          <div fxFlex="30" fxFlex.sm="30" fxFlex.xs="100">
+              <label class="label">Add1 Service Charges</label>
+                <div class="input-container">
+                  
+                  <input class="form-control" type="text" formControlName="chargesAddedService" appOnlyNum="true">
+                </div>
+                <div *ngIf="f.chargesAddedService.touched && f.chargesAddedService.errors" class="text-danger">
+                  <div *ngIf="f.chargesAddedService.errors.required">Added Service Charges is required</div>
+                  <div *ngIf="f.chargesAddedService.invalid && !f.chargesAddedService.errors.required">Enter valid Added Service Charges</div>
+                </div>
+          </div>
+    
+          <div fxFlex="30" fxFlex.sm="30" fxFlex.xs="100">
+              <label class="label">Other Charges </label>
+                <div class="input-container">
+                  
+                  <input class="form-control" type="text" formControlName="chargesOthers" appOnlyNum="true">
+                </div>
+                <div *ngIf="f.chargesOthers.touched && f.chargesOthers.errors" class="text-danger">
+                  <div *ngIf="f.chargesOthers.errors.required">Other Charges is required</div>
+                  <div *ngIf="f.chargesOthers.invalid && !f.chargesOthers.errors.required">Enter valid Other Charges</div>
+                </div>
+          </div>
+    
+        </div>
+      
+        <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+
+            <div fxFlex="30" fxFlex.sm="30" fxFlex.xs="100">
+              <label class="label">Service Charges @12.36</label>
+                <div class="input-container">
+                  
+                  <input class="form-control" type="text" formControlName="chargesOthers1236" appOnlyNum="true">
+                </div>
+                <div *ngIf="f.chargesOthers1236.touched && f.chargesOthers1236.errors" class="text-danger">
+                  <div *ngIf="f.chargesOthers1236.errors.required">Service Charges @12.36 is required</div>
+                  <div *ngIf="f.chargesOthers1236.invalid && !f.chargesOthers1236.errors.required">Enter valid Service Charges @12.36</div>
+                </div>
+            </div>
+      
+            <div fxFlex="30" fxFlex.sm="30" fxFlex.xs="100">
+                <label class="label">Freight Charges </label>
+                  <div class="input-container">
+                    
+                    <input class="form-control" type="text" formControlName="chargesFreight" appOnlyNum="true">
+                  </div>
+                  <div *ngIf="f.chargesFreight.touched && f.chargesFreight.errors" class="text-danger">
+                    <div *ngIf="f.chargesFreight.errors.required">Freight Charges is required</div>
+                    <div *ngIf="f.chargesFreight.invalid && !f.chargesFreight.errors.required">Enter valid Freight Charges</div>
+                  </div>
+            </div>
+      
+            <div fxFlex="30" fxFlex.sm="30" fxFlex.xs="100">
+                <label class="label">Total Charges</label>
+                  <div class="input-container">
+                    
+                    <input class="form-control" type="text" formControlName="chargesTotal" appOnlyNum="true">
+                  </div>
+                  <div *ngIf="f.chargesTotal.touched && f.chargesTotal.errors" class="text-danger">
+                    <div *ngIf="f.chargesTotal.errors.required">Total Charges is required</div>
+                    <div *ngIf="f.chargesTotal.invalid && !f.chargesTotal.errors.required">Enter valid Total Charges</div>
+                  </div>
+            </div>
+      
+            <div fxFlex="30" fxFlex.sm="30" fxFlex.xs="100">
+                <label class="label">Currency </label>
+                  <div class="input-container">
+                    
+                    <input class="form-control" type="text" formControlName="currency" appOnlyNum="true">
+                  </div>
+                  <div *ngIf="f.currency.touched && f.currency.errors" class="text-danger">
+                    <div *ngIf="f.currency.errors.required">Currency is required</div>
+                    <div *ngIf="f.currency.invalid && !f.currency.errors.required">Enter valid Currency</div>
+                  </div>
+            </div>
+      
+          </div>
+
+
+    <h6 style="color:red;">(*) Mandatory Fields</h6>
+    <div class="content">
+      <button mat-raised-button class="save-button" [disabled]="!expenseMngrForm.valid" (click)="save()">Save
+        <mat-icon>save</mat-icon>
+      </button>
+      <button (click)="reset()" type="reset" mat-raised-button class="reset-button">Reset
+        <mat-icon>refresh</mat-icon>
+      </button>
+      <button (click)="back()" mat-raised-button class="cancel-button">Cancel
+        <mat-icon>clear</mat-icon>
+      </button>
+    </div>
+
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+      <ngx-datatable [rows]="expenseManagerList" style="height:500px" class='material striped' [headerHeight]="50"
+        [footerHeight]="50" [rowHeight]="40" [scrollbarV]="true">
+
+        <ngx-datatable-column name="Action" [frozenLeft]="true" width="130">
+            <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
+              <button class="btnIn" (click)="edit(row['id'])" title="Edit">
+                  <i class="fa fa-pencil" style="color: white"></i>
+              </button>&nbsp;
+              <button class="btnIn" (click)="delete(row['id'])" title="Delete">
+                  <i class="fa fa-trash" style="color: white"></i>
+              </button>&nbsp;
+              <button class="btnIn" (click)="reportExpenseBill(row)" title="Report">
+                  <i class="fa fa-file-text" style="color: white"></i>
+              </button>
+            </ng-template>
+          </ngx-datatable-column>
+
+        <!-- <ngx-datatable-column name="Edit" [frozenLeft]="true" width="50">
+          <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
+            <a style="color:blue!important; cursor:pointer; " (click)="edit(row['id'])">
+              <mat-icon>create</mat-icon>
+            </a>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column [frozenLeft]="true" name="Delete" width="60">
+          <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+            <a style="color:red!important ; cursor:pointer;">
+              <mat-icon (click)="delete(row['id'])">delete_sweep</mat-icon>
+            </a>
+          </ng-template>
+        </ngx-datatable-column> -->
+
+        <ngx-datatable-column name="Master Airway Bill No" prop="mawbNo"></ngx-datatable-column>
+        <ngx-datatable-column name="Manifest Weight(Kgs)" prop="mfWeight"></ngx-datatable-column>
+        <ngx-datatable-column name="Number of Paletes" prop="noOfPaletes"></ngx-datatable-column>
+        <ngx-datatable-column name="Charges AAI" prop="chargesAAI"></ngx-datatable-column>
+        <ngx-datatable-column name="Charges AO" prop="chargesAO"></ngx-datatable-column>
+        <ngx-datatable-column name="Charges Freight" prop="chargesFreight"></ngx-datatable-column>
+        <ngx-datatable-column name="Charges Others" prop="chargesOthers"></ngx-datatable-column>
+        <ngx-datatable-column name="Charges Delivery" prop="chargesDelivery"></ngx-datatable-column>
+        <ngx-datatable-column name="Charges Others @12_36" prop="chargesOther1236"></ngx-datatable-column>
+        <ngx-datatable-column name="Charges Packing" prop="chargesPacking"></ngx-datatable-column>
+        <ngx-datatable-column name="Charges Service" prop="chargesService"></ngx-datatable-column>
+        <ngx-datatable-column name="Charges Unitech CHA" prop="chargesUnitechCHA"></ngx-datatable-column>
+        <ngx-datatable-column name="Charges Total" prop="chargesTotal"></ngx-datatable-column>
+        <ngx-datatable-column name="Commision DD" prop="commisionDD"></ngx-datatable-column>
+        
+      </ngx-datatable>
+    </div>
+    
+    <div class="container">
+        <table class="table" #table>
+          <thead>
+            <tr>
+              <th><h2>AJW EXPRESS SERVICE P LTD</h2><th>
+            </tr>
+          </thead>
+          <table>
+            <tr></tr>
+            <tr>
+              <th><h3>Category - First Class (A)</h3></th>
+            </tr>
+          </table>
+          <table>
+            <thead>
+              <tr>
+                <th>Shipper Name</th>
+                <th>HAWB NO</th>
+                <th>Weight (LBS)</th>
+                <th>Value Of Stamp</th>
+                <th>No Of Articles</th>
+                <th>Svrc Chrg $</th>
+                <th>Rate (LBS)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let fc of firstClass">
+                <td>{{fc.shipperName}}</td>
+                <td>{{fc.secHAWB}}</td>
+                <td>{{fc.wieghtLBS}}</td>
+                <td>{{fc.valueOfStamp}}</td>
+                <td>{{fc.noOfArticals}}</td>
+                <td>{{fc.serviceCharges}}</td>
+                <td>{{fc.rateLBS}}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <table>
+              <thead>
+                  <tr><th></th></tr>
+                  <tr>
+                    <th>Currency</th>
+                    <th>Value of Stamp</th>
+                    <th>Custom Duty</th>
+                    <th>AAI Charges</th>
+                    <th>AO Charges</th>
+                    <th>Unitech CHA Charges</th>
+                    <th>Delivery Charges</th>
+                    <th>Bangalore Transportation Charges</th>
+                    <th>Sticker Pasting Charges</th>
+                    <th>Other Expenses</th>
+                    <th>Freight Charges</th>
+                    <th>Service Charges</th>
+                    <th>Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let fc of firstClassDetails">
+                    <td>{{fc.valueOfMoney}}</td>
+                    <td>{{fc.valueOfStamp}}</td>
+                    <td>{{fc.customsDuty}}</td>
+                    <td>{{fc.chargesAAI}}</td>
+                    <td>{{fc.chargesAO}}</td>
+                    <td>{{fc.chargesUnitechCHA}}</td>
+                    <td>{{fc.chargesDelivery}}</td>
+                    <td>{{fc.bangaloreTransportation}}</td>
+                    <td>{{fc.stickerPastingCharges}}</td>
+                    <td>{{fc.chargesOthers}}</td>
+                    <td>{{fc.chargesFreight}}</td>
+                    <td>{{fc.chargesService}}</td>
+                    <td>{{fc.total}}</td>
+                  </tr>
+                </tbody>
+          </table>
+
+          <table>
+            <tr></tr>
+              <tr>
+                <th><h3>Category - Second Class (B)</h3></th>
+              </tr>
+          </table>
+
+          <table>
+              <thead>
+                <tr>
+                  <th>Shipper Name</th>
+                  <th>HAWB NO</th>
+                  <th>Weight (LBS)</th>
+                  <th>Value Of Stamp</th>
+                  <th>No Of Articles</th>
+                  <th>Svrc Chrg $</th>
+                  <th>Rate (LBS)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let fc of secondClass">
+                  <td>{{fc.shipperName}}</td>
+                  <td>{{fc.secHAWB}}</td>
+                  <td>{{fc.wieghtLBS}}</td>
+                  <td>{{fc.valueOfStamp}}</td>
+                  <td>{{fc.noOfArticals}}</td>
+                  <td>{{fc.serviceCharges}}</td>
+                  <td>{{fc.rateLBS}}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table>
+                <thead>
+                    <tr><th></th></tr>
+                    <tr>
+                      <th>Currency</th>
+                      <th>Value of Stamp</th>
+                      <th>Bangalore Transportation Charges</th>
+                      <th>Sticker Pasting Charges</th>
+                      <th>Service Charges</th>
+                      <th>Total</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let fc of secondClassDetails">
+                      <td>{{fc.valueOfMoney}}</td>
+                      <td>{{fc.valueOfStamp}}</td>
+                      <td>{{fc.bangaloreTransportation}}</td>
+                      <td>{{fc.stickerPastingCharges}}</td>
+                      <td>{{fc.chargesService}}</td>
+                      <td>{{fc.total}}</td>
+                    </tr>
+                  </tbody>
+            </table>
+
+            <table>
+              <tr></tr>
+                <tr>
+                  <th><h3>Category - Door to Door (D)</h3></th>
+                </tr>
+            </table>
+
+            <table>
+                <thead>
+                  <tr>
+                    <th>Shipper Name</th>
+                    <th>HAWB NO</th>
+                    <th>Weight (LBS)</th>
+                    <th>Value Of Stamp</th>
+                    <th>No Of Articles</th>
+                    <th>Svrc Chrg $</th>
+                    <th>Rate (LBS)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let fc of thirdClass">
+                    <td>{{fc.shipperName}}</td>
+                    <td>{{fc.secHAWB}}</td>
+                    <td>{{fc.wieghtLBS}}</td>
+                    <td>{{fc.valueOfStamp}}</td>
+                    <td>{{fc.noOfArticals}}</td>
+                    <td>{{fc.serviceCharges}}</td>
+                    <td>{{fc.rateLBS}}</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table>
+                  <thead>
+                      <tr><th></th></tr>
+                      <tr>
+                        <th>Currency</th>
+                        <th>Value of Stamp</th>
+                        <th>Bangalore Transportation Charges</th>
+                        <th>Sticker Pasting Charges</th>
+                        <th>Service Charges</th>
+                        <th>Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let fc of thirdClassDetails">
+                        <td>{{fc.valueOfMoney}}</td>
+                        <td>{{fc.valueOfStamp}}</td>
+                        <td>{{fc.bangaloreTransportation}}</td>
+                        <td>{{fc.stickerPastingCharges}}</td>
+                        <td>{{fc.chargesService}}</td>
+                        <td>{{fc.total}}</td>
+                      </tr>
+                    </tbody>
+              </table>
+
+              <table>
+                <tr></tr>
+                  <tr>
+                    <th><h3>Category - Express Class (E)</h3></th>
+                  </tr>
+              </table>
+
+              <table>
+                  <thead>
+                    <tr>
+                      <th>Shipper Name</th>
+                      <th>HAWB NO</th>
+                      <th>Weight (LBS)</th>
+                      <th>Value Of Stamp</th>
+                      <th>No Of Articles</th>
+                      <th>Svrc Chrg $</th>
+                      <th>Rate (LBS)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let fc of expressClass">
+                      <td>{{fc.shipperName}}</td>
+                      <td>{{fc.secHAWB}}</td>
+                      <td>{{fc.wieghtLBS}}</td>
+                      <td>{{fc.valueOfStamp}}</td>
+                      <td>{{fc.noOfArticals}}</td>
+                      <td>{{fc.serviceCharges}}</td>
+                      <td>{{fc.rateLBS}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <table>
+                    <thead>
+                        <tr><th></th></tr>
+                        <tr>
+                          <th>Currency</th>
+                          <th>Value of Stamp</th>
+                          <th>Bangalore Transportation Charges</th>
+                          <th>Sticker Pasting Charges</th>
+                          <th>Service Charges</th>
+                          <th>Total</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let fc of fourthClasssDetails">
+                          <td>{{fc.valueOfMoney}}</td>
+                          <td>{{fc.valueOfStamp}}</td>
+                          <td>{{fc.bangaloreTransportation}}</td>
+                          <td>{{fc.stickerPastingCharges}}</td>
+                          <td>{{fc.chargesService}}</td>
+                          <td>{{fc.total}}</td>
+                        </tr>
+                      </tbody>
+                </table>
+        </table>
+        <button type="button" (click)="fireEvent()">Export</button>
+    </div>
+
+  </form>
+</div>

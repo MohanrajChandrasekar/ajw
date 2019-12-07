@@ -1,0 +1,59 @@
+<div class="content">
+    <div class="heading" fxLayout="row" fxFlexFill>
+        <div fxFlex="20" fxLayoutAlign="start start" class="navbar-brand">Add {{consType}} Details</div>
+    </div>
+    <form class="form-group" [formGroup]="dialogForm">
+        <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+            <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+                <label class="label">Name *</label>
+                <div class="input-container">
+                    <input class="form-control" formControlName="name" type="text">
+                </div>
+            </div>
+            <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+                <label class="label">City *</label>
+                <div class="input-container">
+                    <input class="form-control" formControlName="city" type="text">
+                </div>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+            <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+                <label class="label">Address *</label>
+                <div class="input-container">
+                    <input class="form-control" formControlName="address" type="text">
+                </div>
+            </div>
+            <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+                <label class="label">Contact NO </label>
+                <div class="input-container">
+                    <input class="form-control" formControlName="contactNumber" appNumNotDot="true" type="text">
+                </div>
+            </div>
+            <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+                <label class="label">Zipcode *</label>
+                <div class="input-container">
+                    <input class="form-control" formControlName="zipCode" appNumNotDot="true" type="text">
+                </div>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexFill>
+            <div fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+                <label class="label">Is Special Customer </label>
+                <div class="input-container">
+                    <input type="checkbox" class="form-control" formControlName="isSpecialCustomer" value="true" style="width: 20px;">
+                </div>
+            </div>
+        </div>
+        <h6 style="color:red;">(*) Mandatory Fields</h6>
+        <!-- Action View -->
+        <div class="container-fluid">
+            <button mat-raised-button class="save-button" [disabled]="!dialogForm.valid" (click)="saveDetails()">Save
+                <mat-icon>save</mat-icon>
+            </button>
+            <button (click)="back()" mat-raised-button class="cancel-button">Cancel
+                <mat-icon>clear</mat-icon>
+            </button>
+        </div>
+    </form>
+</div>

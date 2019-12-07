@@ -1,0 +1,11 @@
+<!-- <div>
+    <button style="float: right;background-color: transparent" [mat-dialog-close]=false>x</button> -->
+<h2 mat-dialog-title>Confirmation</h2>
+
+<mat-dialog-content>{{title}}</mat-dialog-content>
+<br>
+<mat-dialog-actions>
+    <button mat-raised-button color="primary" [mat-dialog-close]="true">Yes</button>
+    <button mat-raised-button color="warn" [mat-dialog-close]=false>No</button>
+</mat-dialog-actions>
+<!-- </div> -->

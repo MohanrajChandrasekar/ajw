@@ -1,0 +1,40 @@
+<div style="min-height: 91vh;" class="backgroundBanner">
+    <div id="login">
+
+        <div class="container">
+            <div id="login-row" class="row justify-content-center align-items-center">
+
+                <div id="login-column" class="col-md-6">
+                    <div class="login-box col-md-12">
+                        <form id="login-form" class="form" action="" method="post">
+                            <h3 class="text-center text-info">Login</h3>
+                            <form [formGroup]="loginForm" (ngSubmit)="login()">
+                                <div class="form-group">
+                                    <label for="loginId">Username</label>
+                                        <input type="text" formControlName="loginId" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.loginId.errors }" />
+                                    <div *ngIf="submitted && f.loginId.errors" class="invalid-feedback">
+                                        <div *ngIf="f.loginId.errors.required">Username is required</div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <show-hide-password btnStyle="primary1" [btnOutline]="false">
+                                        <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                                    </show-hide-password>
+                                    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                                        <div *ngIf="f.password.errors.required">Password is required</div>
+                                    </div>
+                                </div>
+                                <div class="warning">{{errorMessage}}</div>
+                                <div class="form-group">
+                                    <button [disabled]="!loginForm.valid" class="btn btn-primary">Login</button>
+                                    <!-- <a [routerLink]="['/register']" class="btn btn-link">Register</a> -->
+                                </div>
+                            </form>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
