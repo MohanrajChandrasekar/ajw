@@ -18,7 +18,7 @@
     "@ng-select/ng-select": "^2.10.2",
     "@types/xlsx": "0.0.36",
     "barcode-generator": "^0.1.0",
-    "bcrypt": "^3.0.2",
+    "bcrypt": "^5.0.0",
     "bootstrap": "^4.1.1",
     "bwip-js": "^1.7.1",
     "canvas": "^2.2.0",
